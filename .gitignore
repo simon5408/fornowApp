@@ -6,3 +6,5 @@ release.properties
 .project
 .settings/
 *.log
+.classpath
+gen/
