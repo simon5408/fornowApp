@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/gridview_border" >
+
+    <ImageView
+        android:id="@+id/ImageItemId"
+        style="@style/item01_img"
+        android:layout_width="fill_parent"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY" >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/TextItemName"
+        style="@style/goods_name_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ImageItemId"
+        android:singleLine="true"
+        android:textColor="#333333" >
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextItemName"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/TextItemPrice"
+            style="@style/goods_unit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#eb7803" >
+        </TextView>
+
+        <TextView
+            style="@style/goods_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="@string/sell_unit"
+            android:textColor="#eb7803" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/TextItemOriginPrice"
+            style="@style/goods_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="#333333" >
+        </TextView>
+    </LinearLayout>
+
+</RelativeLayout>

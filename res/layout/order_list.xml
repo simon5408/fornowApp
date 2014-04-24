@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000000"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="57dip"
+            android:background="@drawable/app_background"
+            android:orientation="vertical"
+            android:padding="8dip" >
+
+            <com.fornow.app.ui.pull2refresh.PullToRefreshScrollView
+                xmlns:ptr="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/pull_refresh_scrollview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="5dip"
+                android:fadingEdge="none"
+                ptr:ptrAnimationStyle="flip"
+                ptr:ptrMode="both" >
+
+                <include layout="@layout/mylist02" />
+            </com.fornow.app.ui.pull2refresh.PullToRefreshScrollView>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dip"
+            android:layout_gravity="top"
+            android:background="@drawable/white_header_bg" >
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/top_back_white_btn"
+                android:clickable="true"
+                android:onClick="softBack"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/order_title"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:textColor="#333333"
+                android:textSize="25sp" />
+        </RelativeLayout>
+    </FrameLayout>
+
+</LinearLayout>

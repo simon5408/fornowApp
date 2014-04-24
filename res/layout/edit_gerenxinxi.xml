@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000000"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="57dip"
+            android:background="@drawable/app_background"
+            android:padding="8dip" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="50dip"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/block_bg"
+                android:orientation="horizontal"
+                android:padding="8dip" >
+
+                <EditText
+                    android:id="@+id/edit_grxx_text"
+                    style="@style/input_style"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="9" >
+
+                    <ImageButton
+                        style="@style/del_input_in_area"
+                        android:clickable="true"
+                        android:onClick="clearStr" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="50dip"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/button_green"
+                android:gravity="center_vertical|center_horizontal"
+                android:onClick="confirm"
+                android:text="@string/str_save"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dip"
+            android:layout_gravity="top"
+            android:background="@drawable/white_header_bg" >
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/top_back_white_btn"
+                android:clickable="true"
+                android:onClick="softBack"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/edit_grxx_title"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:textColor="#333333"
+                android:textSize="25sp" />
+        </RelativeLayout>
+    </FrameLayout>
+
+</LinearLayout>

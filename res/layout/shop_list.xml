@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/app_background"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_back" >
+
+        <TextView
+            style="@style/header_text_style"
+            android:text="@string/search_shop_title" />
+
+        <ImageView style="@style/header_logo_style" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <com.fornow.app.ui.pull2refresh.PullToRefreshScrollView
+            xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/pull_refresh_scrollview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fadingEdge="none"
+            ptr:ptrAnimationStyle="flip"
+            ptr:ptrMode="both" >
+
+            <include layout="@layout/mylist" />
+        </com.fornow.app.ui.pull2refresh.PullToRefreshScrollView>
+    </LinearLayout>
+
+</LinearLayout>
