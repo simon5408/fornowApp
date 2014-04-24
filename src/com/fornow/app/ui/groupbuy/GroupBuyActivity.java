@@ -20,37 +20,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import com.google.gson.reflect.TypeToken;
-import com.fornow.app.R;
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.model.GoodsDetailData;
-import com.fornow.app.model.GroupListData;
-import com.fornow.app.net.ViewListener;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.ui.LoadingAnim;
-import com.fornow.app.ui.MyListView;
-import com.fornow.app.ui.main.BaseMainActivity;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
-import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
-import com.fornow.app.ui.search.GoodDetailActivity;
-import com.fornow.app.util.GsonTool;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -64,6 +41,21 @@ import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.fornow.app.R;
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.model.GoodsDetailData;
+import com.fornow.app.model.GroupListData;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.ui.MyListView;
+import com.fornow.app.ui.main.BaseMainActivity;
+import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
+import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
+import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
+import com.fornow.app.ui.search.GoodDetailActivity;
+import com.fornow.app.util.GsonTool;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * @author Jiafa Lv
@@ -83,7 +75,7 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 	private Handler mHandler;
 	private Context mContext;
 	private MyListView listView;
-	private TextView fenleiText, sortText;
+	private TextView fenleiText;
 	private ListView fenleiList, sortList;
 	private GroupListAdapter mAdapter;
 	private PullToRefreshScrollView mPullRefreshScrollView;
@@ -100,7 +92,6 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.group_list);
 		mContext = this.getApplicationContext();
@@ -188,7 +179,7 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 		fenleiView = (LinearLayout) findViewById(R.id.fenlei_view);
 		sortView = (LinearLayout) findViewById(R.id.sort_view);
 		fenleiText = (TextView) findViewById(R.id.fenlei_text);
-		sortText = (TextView) findViewById(R.id.sort_text);
+		// sortText = (TextView) findViewById(R.id.sort_text);
 		fenleiArrow = (ImageView) findViewById(R.id.fenlei_arrow);
 		sortArrow = (ImageView) findViewById(R.id.sort_arrow);
 		clockwiseAnimation = AnimationUtils.loadAnimation(this,
@@ -203,10 +194,9 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
 				try {
-					String detailData = GsonTool.getGsonTool().toJson(
-							groupData.get(arg2), GroupListData.class);
+					// String detailData = GsonTool.getGsonTool().toJson(
+					// groupData.get(arg2), GroupListData.class);
 					GroupListData data = groupData.get(arg2);
 					GoodsDetailData detail = new GoodsDetailData();
 					if (data.getId() != null) {
@@ -264,7 +254,6 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ScrollView> refreshView) {
-						// TODO Auto-generated method stub
 						Date date = new Date();
 						SimpleDateFormat formatter = new SimpleDateFormat(
 								"yyyy/MM/dd HH:mm");
@@ -316,7 +305,6 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO Auto-generated method stub
 				switch (position) {
 				case 0:
 					category = "all";
@@ -360,7 +348,6 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO Auto-generated method stub
 				switch (position) {
 				case 0:// 时间
 					if (groupData != null && groupData.size() > 0) {
@@ -370,7 +357,6 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 									@Override
 									public int compare(GroupListData args0,
 											GroupListData args1) {
-										// TODO Auto-generated method stub
 										return Long
 												.valueOf(args0.getEnd_time())
 												.compareTo(
@@ -389,7 +375,6 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 									@Override
 									public int compare(GroupListData args0,
 											GroupListData args1) {
-										// TODO Auto-generated method stub
 										return args0
 												.getCurrent_price()
 												.compareTo(
@@ -409,14 +394,12 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 	}
 
@@ -536,7 +519,6 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 
 	@Override
 	public void updateView(ViewUpdateObj obj) {
-		// TODO Auto-generated method stub
 		if (obj.getCode() == 200) {
 			if (obj.getData() != null) {
 				Message updateViewMsg = mHandler.obtainMessage(LOADING_END);

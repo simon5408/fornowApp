@@ -18,23 +18,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import com.google.gson.reflect.TypeToken;
-import com.fornow.app.R;
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.model.GoodsDetailData;
-import com.fornow.app.model.GoodsListData;
-import com.fornow.app.net.ViewListener;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.ui.GridViewImgAdapter;
-import com.fornow.app.ui.LoadingAnim;
-import com.fornow.app.ui.MyGridView;
-import com.fornow.app.ui.NotifyId;
-import com.fornow.app.ui.groupbuy.GroupBuyActivity;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
-import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
-import com.fornow.app.util.GsonTool;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -49,10 +32,25 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ScrollView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.fornow.app.R;
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.model.GoodsDetailData;
+import com.fornow.app.model.GoodsListData;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.ui.GridViewImgAdapter;
+import com.fornow.app.ui.LoadingAnim;
+import com.fornow.app.ui.MyGridView;
+import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
+import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
+import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
+import com.fornow.app.util.GsonTool;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * @author Jiafa Lv
@@ -83,7 +81,6 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.goods_list);
 		category = getIntent().getExtras().getString("type");
@@ -98,7 +95,6 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ScrollView> refreshView) {
-						// TODO Auto-generated method stub
 						Date date = new Date();
 						SimpleDateFormat formatter = new SimpleDateFormat(
 								"yyyy/MM/dd HH:mm");
@@ -134,7 +130,6 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 	@SuppressLint("HandlerLeak")
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 		if (category.equals("fruit")) {
 			channel.setText(R.string.fruit_channel);
@@ -269,7 +264,6 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		// TODO Auto-generated method stub
 		String detailData = GsonTool.getGsonTool().toJson(
 				goodsData.get(position), GoodsListData.class);
 		if (detailData != null) {
@@ -354,7 +348,6 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 
 	@Override
 	public void updateView(ViewUpdateObj obj) {
-		// TODO Auto-generated method stub
 		if (obj.getCode() == 200) {
 			Message updateViewMsg = mHandler.obtainMessage(LOADING_END);
 			updateViewMsg.getData().putString("data", obj.getData());

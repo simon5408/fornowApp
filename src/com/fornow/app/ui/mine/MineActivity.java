@@ -12,42 +12,21 @@
  *****************************************************************************/
 package com.fornow.app.ui.mine;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import com.google.gson.reflect.TypeToken;
-import com.fornow.app.R;
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.datapool.ClientData;
-import com.fornow.app.model.OrderList;
-import com.fornow.app.model.UserInfo;
-import com.fornow.app.net.ViewListener;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.ui.AppClass;
-import com.fornow.app.ui.MyListView;
-import com.fornow.app.ui.main.BaseMainActivity;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
-import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
-import com.fornow.app.util.GsonTool;
-
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.fornow.app.R;
+import com.fornow.app.datapool.ClientData;
+import com.fornow.app.model.UserInfo;
+import com.fornow.app.ui.AppClass;
+import com.fornow.app.ui.main.BaseMainActivity;
+import com.fornow.app.util.GsonTool;
 
 /**
  * @author Jiafa Lv
@@ -60,7 +39,6 @@ public class MineActivity extends BaseMainActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mine);
 		mineNameView = (TextView) findViewById(R.id.mine_name);
@@ -79,13 +57,11 @@ public class MineActivity extends BaseMainActivity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 	}
 

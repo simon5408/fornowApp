@@ -12,15 +12,13 @@
  *****************************************************************************/
 package com.fornow.app.ui;
 
-import com.fornow.app.R;
-
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
+
+import com.fornow.app.R;
 
 /**
  * @author Jiafa Lv
@@ -60,7 +58,6 @@ public class LoadingAnim extends Dialog {
 
 	@Override
 	public void dismiss() {
-		// TODO Auto-generated method stub
 		super.dismiss();
 	}
 

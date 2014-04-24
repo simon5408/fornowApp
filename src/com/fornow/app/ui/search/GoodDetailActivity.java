@@ -19,34 +19,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import com.google.gson.reflect.TypeToken;
-import com.fornow.app.R;
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.datapool.ClientData;
-import com.fornow.app.model.DeliverAreaData;
-import com.fornow.app.model.GoodsDetailData;
-import com.fornow.app.model.ImgData;
-import com.fornow.app.model.ShipAddressData;
-import com.fornow.app.model.ShopCart;
-import com.fornow.app.net.ViewListener;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.ui.LoadingAnim;
-import com.fornow.app.ui.NotifyId;
-import com.fornow.app.ui.home.AutoPlayGallery;
-import com.fornow.app.ui.home.ImageAdapter;
-import com.fornow.app.ui.loadImg.AsyncImgLoader;
-import com.fornow.app.ui.loadImg.AsyncImgLoader.ImageCallback;
-import com.fornow.app.ui.mine.LoginActivity;
-import com.fornow.app.ui.preload.PreLoad;
-import com.fornow.app.ui.shopcart.CartDataHelper;
-import com.fornow.app.ui.shopcart.JieSuanActivity;
-import com.fornow.app.ui.shopcart.ShopCartActivity;
-import com.fornow.app.util.GsonTool;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.AlertDialog.Builder;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -54,12 +30,31 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.fornow.app.R;
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.datapool.ClientData;
+import com.fornow.app.model.GoodsDetailData;
+import com.fornow.app.model.ImgData;
+import com.fornow.app.model.ShipAddressData;
+import com.fornow.app.model.ShopCart;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.ui.LoadingAnim;
+import com.fornow.app.ui.home.AutoPlayGallery;
+import com.fornow.app.ui.home.ImageAdapter;
+import com.fornow.app.ui.loadImg.AsyncImgLoader;
+import com.fornow.app.ui.loadImg.AsyncImgLoader.ImageCallback;
+import com.fornow.app.ui.mine.LoginActivity;
+import com.fornow.app.ui.shopcart.CartDataHelper;
+import com.fornow.app.ui.shopcart.JieSuanActivity;
+import com.fornow.app.util.GsonTool;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * @author Jiafa Lv
@@ -85,7 +80,6 @@ public class GoodDetailActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.detail);
 		initHandler();
@@ -95,7 +89,6 @@ public class GoodDetailActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 	}
 
@@ -185,7 +178,6 @@ public class GoodDetailActivity extends Activity {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 	}
 
@@ -195,8 +187,6 @@ public class GoodDetailActivity extends Activity {
 
 			@Override
 			public void updateView(ViewUpdateObj obj) {
-				// TODO Auto-generated method stub
-
 			}
 		});
 		favoriteFlagView = (ImageButton) findViewById(R.id.favorite_flag);
@@ -226,8 +216,6 @@ public class GoodDetailActivity extends Activity {
 								public void imageLoaded(
 										final Drawable imageDrawable,
 										final String Tag) {
-									// TODO Auto-generated method stub
-
 									if (imageDrawable != null) {
 										drawables.add(imageDrawable);
 									} else {
@@ -342,7 +330,6 @@ public class GoodDetailActivity extends Activity {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {
-							// TODO Auto-generated method stub
 							if (obj.getCode() == 200) {
 								Message updateViewMsg = mHandler
 										.obtainMessage(ADD_FAVOR_SUCCESS);
@@ -364,7 +351,6 @@ public class GoodDetailActivity extends Activity {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {
-							// TODO Auto-generated method stub
 							if (obj.getCode() == 200) {
 								Message updateViewMsg = mHandler
 										.obtainMessage(DEL_FAVOR_SUCCESS);
@@ -418,7 +404,6 @@ public class GoodDetailActivity extends Activity {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
 						if (obj.getCode() == 200) {
 							Message updateViewMsg = mHandler
 									.obtainMessage(GET_DATA_SUCCESS);
@@ -438,7 +423,6 @@ public class GoodDetailActivity extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case RESULT_OK:

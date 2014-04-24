@@ -14,26 +14,25 @@ package com.fornow.app.ui.mine;
 
 import java.util.List;
 
-import com.fornow.app.R;
-import com.fornow.app.model.ShipAddressData;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.fornow.app.R;
+import com.fornow.app.model.ShipAddressData;
 
 /**
  * @author Jiafa Lv
@@ -67,25 +66,21 @@ public class ShdzListAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return addressData.size();
 	}
 
 	@Override
 	public ShipAddressData getItem(int position) {
-		// TODO Auto-generated method stub
 		return addressData.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
 		View rowView = convertView;
 		final ViewHolder holder;
 		if (rowView == null) {

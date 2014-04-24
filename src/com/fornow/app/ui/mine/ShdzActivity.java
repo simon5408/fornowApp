@@ -14,20 +14,6 @@ package com.fornow.app.ui.mine;
 
 import java.util.List;
 
-import com.google.gson.reflect.TypeToken;
-import com.haarman.listviewanimations.itemmanipulation.AnimateDismissAdapter;
-import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
-import com.fornow.app.R;
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.model.ShipAddressData;
-import com.fornow.app.net.ViewListener;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.ui.LoadingAnim;
-import com.fornow.app.ui.NotifyId;
-import com.fornow.app.ui.preload.PreLoad;
-import com.fornow.app.ui.shopcart.JieSuanActivity;
-import com.fornow.app.util.GsonTool;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -35,12 +21,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.fornow.app.R;
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.model.ShipAddressData;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.ui.LoadingAnim;
+import com.fornow.app.ui.shopcart.JieSuanActivity;
+import com.fornow.app.util.GsonTool;
+import com.google.gson.reflect.TypeToken;
+import com.haarman.listviewanimations.itemmanipulation.AnimateDismissAdapter;
+import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
 
 /**
  * @author Jiafa Lv
@@ -65,7 +62,6 @@ public class ShdzActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.shdz);
 		mContext = this.getApplicationContext();
@@ -148,7 +144,6 @@ public class ShdzActivity extends Activity {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
 						if (obj.getCode() == 200) {
 							Message updateViewMsg = mHandler
 									.obtainMessage(GET_DATA_SUCCESS);
@@ -173,7 +168,6 @@ public class ShdzActivity extends Activity {
 			
 			@Override
 			public void updateView(ViewUpdateObj obj) {
-				// TODO Auto-generated method stub
 				if(obj.getCode() == 200){
 					Message updateViewMsg = mHandler
 							.obtainMessage(DELETE_ADDRESS_SUCCESS);
@@ -190,7 +184,6 @@ public class ShdzActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 		getAddress();
 	}
@@ -216,16 +209,15 @@ public class ShdzActivity extends Activity {
 
 		@Override
 		public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-			for (int position : reverseSortedPositions) {
+//			for (int position : reverseSortedPositions) {
 //				addressData.remove(position);
 //				mAdapter.notifyDataSetChanged();
-			}
+//			}
 		}
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 	}
 
@@ -235,7 +227,6 @@ public class ShdzActivity extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case RESULT_OK:

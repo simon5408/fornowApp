@@ -18,28 +18,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import com.google.gson.reflect.TypeToken;
-import com.fornow.app.R;
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.datapool.ClientData;
-import com.fornow.app.model.GoodsDetailData;
-import com.fornow.app.model.GoodsListData;
-import com.fornow.app.model.ImVersion;
-import com.fornow.app.model.LimitPrice;
-import com.fornow.app.net.ViewListener;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.ui.GridViewImgAdapter;
-import com.fornow.app.ui.MyGridView;
-import com.fornow.app.ui.loadImg.AsyncImgLoader;
-import com.fornow.app.ui.loadImg.AsyncImgLoader.ImageCallback;
-import com.fornow.app.ui.main.BaseMainActivity;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
-import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
-import com.fornow.app.ui.search.GoodDetailActivity;
-import com.fornow.app.ui.search.GoodsListActivity;
-import com.fornow.app.util.GsonTool;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -57,6 +35,26 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.fornow.app.R;
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.datapool.ClientData;
+import com.fornow.app.model.GoodsDetailData;
+import com.fornow.app.model.GoodsListData;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.ui.GridViewImgAdapter;
+import com.fornow.app.ui.MyGridView;
+import com.fornow.app.ui.loadImg.AsyncImgLoader;
+import com.fornow.app.ui.loadImg.AsyncImgLoader.ImageCallback;
+import com.fornow.app.ui.main.BaseMainActivity;
+import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
+import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
+import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
+import com.fornow.app.ui.search.GoodDetailActivity;
+import com.fornow.app.ui.search.GoodsListActivity;
+import com.fornow.app.util.GsonTool;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * @author Jiafa Lv
@@ -90,7 +88,6 @@ public class HomeActivity extends BaseMainActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
 		mContext = this.getApplication();
@@ -108,7 +105,6 @@ public class HomeActivity extends BaseMainActivity implements
 	@SuppressLint("HandlerLeak")
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 	}
 
@@ -168,7 +164,6 @@ public class HomeActivity extends BaseMainActivity implements
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 	}
 
@@ -191,8 +186,6 @@ public class HomeActivity extends BaseMainActivity implements
 							public void imageLoaded(
 									final Drawable imageDrawable,
 									final String Tag) {
-								// TODO Auto-generated method stub
-
 								if (imageDrawable != null) {
 									drawables.add(imageDrawable);
 								} else {
@@ -213,14 +206,13 @@ public class HomeActivity extends BaseMainActivity implements
 
 			@Override
 			public void updateView(ViewUpdateObj obj) {
-				// TODO Auto-generated method stub
 				String pos = obj.getData();
 				if (bannerData != null) {
 					Log.v(TAG, "TODO login complete code is: " + pos);
 					try {
-						String detailData = GsonTool.getGsonTool().toJson(
-								bannerData.get(Integer.parseInt(pos)),
-								GoodsDetailData.class);
+//						String detailData = GsonTool.getGsonTool().toJson(
+//								bannerData.get(Integer.parseInt(pos)),
+//								GoodsDetailData.class);
 						GoodsDetailData data = bannerData.get(Integer
 								.parseInt(pos));
 						GoodsDetailData detail = new GoodsDetailData();
@@ -317,7 +309,6 @@ public class HomeActivity extends BaseMainActivity implements
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ScrollView> refreshView) {
-						// TODO Auto-generated method stub
 						Date date = new Date();
 						SimpleDateFormat formatter = new SimpleDateFormat(
 								"yyyy/MM/dd HH:mm");
@@ -349,7 +340,6 @@ public class HomeActivity extends BaseMainActivity implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		// TODO Auto-generated method stub
 		if (privilegeData != null) {
 			try {
 				String detailData = GsonTool.getGsonTool().toJson(
@@ -508,7 +498,6 @@ public class HomeActivity extends BaseMainActivity implements
 
 	@Override
 	public void updateView(ViewUpdateObj obj) {
-		// TODO Auto-generated method stub
 		if (obj.getCode() == 200) {
 			if (obj.getData() != null) {
 				Message updateViewMsg = null;

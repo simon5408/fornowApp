@@ -14,14 +14,6 @@ package com.fornow.app.ui.mine;
 
 import java.util.Calendar;
 
-import com.fornow.app.R;
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.datapool.ClientData;
-import com.fornow.app.model.UserInfo;
-import com.fornow.app.net.ViewListener;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.util.GsonTool;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -31,12 +23,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.fornow.app.R;
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.datapool.ClientData;
+import com.fornow.app.model.UserInfo;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.util.GsonTool;
 
 /**
  * @author Jiafa Lv
@@ -49,12 +48,12 @@ public class GrxxActivity extends Activity {
 	private TextView zhanghaoView, phoneView, emailView, nameView, sexView,
 			birthdayView;
 	private UserInfo user;
-	private static final int START_UPDATE = 0x00, NET_ERROR = 0x01;
+//	private static final int START_UPDATE = 0x00, NET_ERROR = 0x01;
+	private static final int NET_ERROR = 0x01;
 	private Handler mHandler;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gerenxinxi);
 		zhanghaoView = (TextView) findViewById(R.id.grxx_zhanghao);
@@ -91,13 +90,11 @@ public class GrxxActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 	}
 
@@ -135,7 +132,6 @@ public class GrxxActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode,
 			final Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case RESULT_OK:
@@ -151,13 +147,11 @@ public class GrxxActivity extends Activity {
 
 								@Override
 								public void updateView(ViewUpdateObj obj) {
-									// TODO Auto-generated method stub
 									if (obj.getCode() == 200) {
 										phoneView.post(new Runnable() {
 
 											@Override
 											public void run() {
-												// TODO Auto-generated method
 												// stub
 												phoneView
 														.setText(data
@@ -189,13 +183,11 @@ public class GrxxActivity extends Activity {
 
 								@Override
 								public void updateView(ViewUpdateObj obj) {
-									// TODO Auto-generated method stub
 									if (obj.getCode() == 200) {
 										emailView.post(new Runnable() {
 
 											@Override
 											public void run() {
-												// TODO Auto-generated method
 												// stub
 												emailView
 														.setText(data
@@ -227,12 +219,10 @@ public class GrxxActivity extends Activity {
 
 								@Override
 								public void updateView(ViewUpdateObj obj) {
-									// TODO Auto-generated method stub
 									if (obj.getCode() == 200) {
 										nameView.post(new Runnable() {
 											@Override
 											public void run() {
-												// TODO Auto-generated method
 												// stub
 												nameView.setText(data
 														.getExtras()
@@ -306,7 +296,6 @@ public class GrxxActivity extends Activity {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
-								// TODO Auto-generated method stub
 								final String sex = array[which];
 								user.setSex(sex);
 								ControllerManager.getInstance()
@@ -320,16 +309,12 @@ public class GrxxActivity extends Activity {
 													@Override
 													public void updateView(
 															ViewUpdateObj obj) {
-														// TODO Auto-generated
 														// method stub
 														if (obj.getCode() == 200) {
 															sexView.post(new Runnable() {
 
 																@Override
 																public void run() {
-																	// TODO
-																	// Auto-generated
-																	// method
 																	// stub
 																	sexView.setText(sex);
 																}
@@ -367,17 +352,11 @@ public class GrxxActivity extends Activity {
 
 									@Override
 									public void updateView(ViewUpdateObj obj) {
-										// TODO Auto-generated
-										// method stub
 										if (obj.getCode() == 200) {
 											birthdayView.post(new Runnable() {
 
 												@Override
 												public void run() {
-													// TODO
-													// Auto-generated
-													// method
-													// stub
 													birthdayView
 															.setText(birthday);
 												}

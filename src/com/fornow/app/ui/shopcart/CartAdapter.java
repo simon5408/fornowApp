@@ -15,19 +15,10 @@ package com.fornow.app.ui.shopcart;
 import java.math.BigDecimal;
 import java.util.List;
 
-import com.fornow.app.R;
-import com.fornow.app.model.ShopCart;
-import com.fornow.app.ui.loadImg.AsyncImgLoader;
-import com.fornow.app.ui.loadImg.AsyncImgLoader.ImageCallback;
-import com.fornow.app.ui.shopcart.ShopCartActivity.BoolShowDel;
-import com.fornow.app.ui.shopcart.ShopCartActivity.ListStatus;
-import com.fornow.app.util.GsonTool;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,6 +32,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.fornow.app.R;
+import com.fornow.app.model.ShopCart;
+import com.fornow.app.ui.loadImg.AsyncImgLoader;
+import com.fornow.app.ui.loadImg.AsyncImgLoader.ImageCallback;
+import com.fornow.app.ui.shopcart.ShopCartActivity.BoolShowDel;
+import com.fornow.app.ui.shopcart.ShopCartActivity.ListStatus;
+import com.fornow.app.util.GsonTool;
 
 /**
  * @author Jiafa Lv
@@ -81,25 +80,21 @@ public class CartAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return cart.size();
 	}
 
 	@Override
 	public ShopCart getItem(int position) {
-		// TODO Auto-generated method stub
 		return cart.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
 		View rowView = convertView;
 		final ViewHolder holder;
 		if (rowView == null) {
@@ -149,11 +144,9 @@ public class CartAdapter extends BaseAdapter {
 						@Override
 						public void imageLoaded(final Drawable imageDrawable,
 								final String Tag) {
-							// TODO Auto-generated method stub
 							imageView.post(new Runnable() {
 								@Override
 								public void run() {
-									// TODO Auto-generated method stub
 									ImageView imageViewByTag = (ImageView) mView
 											.findViewWithTag(Tag);
 									if (imageViewByTag != null
@@ -179,7 +172,6 @@ public class CartAdapter extends BaseAdapter {
 
 					@Override
 					public void onClick(View v) {
-						// TODO Auto-generated method stub
 						int currentCount = Integer.parseInt(holder
 								.getCartItemInput().getText().toString());
 						if (currentCount > 1) {
@@ -209,7 +201,6 @@ public class CartAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				int currentCount = Integer.parseInt(holder.getCartItemInput()
 						.getText().toString());
 				holder.getCartItemInput().setText(++currentCount + "");
@@ -233,7 +224,6 @@ public class CartAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				if (!listStatus.get(position).isChecked()) {
 					holder.getCartItemSelect().setBackgroundDrawable(
 							mContext.getResources().getDrawable(

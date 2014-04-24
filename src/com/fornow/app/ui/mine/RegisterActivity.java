@@ -12,6 +12,18 @@
  *****************************************************************************/
 package com.fornow.app.ui.mine;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.model.LoginData;
@@ -23,19 +35,6 @@ import com.fornow.app.ui.captcha.CheckGetUtil;
 import com.fornow.app.ui.captcha.CheckView;
 import com.fornow.app.ui.captcha.ConmentConfig;
 import com.fornow.app.util.MD5Utils;
-
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * @author Jiafa Lv
@@ -56,7 +55,6 @@ public class RegisterActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
 		userNameView = (EditText) findViewById(R.id.register_user_name);
@@ -111,13 +109,11 @@ public class RegisterActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		new Thread(new myThread()).start();
 		super.onResume();
 	}
@@ -168,7 +164,6 @@ public class RegisterActivity extends Activity {
 
 								@Override
 								public void updateView(ViewUpdateObj obj) {
-									// TODO Auto-generated method stub
 									if (obj.getCode() == 200) {
 										Message updateViewMsg = mHandler
 												.obtainMessage(REGISTER_COMPLETE);
@@ -197,7 +192,7 @@ public class RegisterActivity extends Activity {
 				}
 
 			} else {
-				// TODO 两次输入密码不一样
+				// 两次输入密码不一样
 				View view = getLayoutInflater()
 						.inflate(R.layout.my_toast, null);
 				TextView toastText = (TextView) view
@@ -211,7 +206,7 @@ public class RegisterActivity extends Activity {
 				toast.show();
 			}
 		} else {
-			// TODO 某一栏为空
+			// 某一栏为空
 			View view = getLayoutInflater().inflate(R.layout.my_toast, null);
 			TextView toastText = (TextView) view.findViewById(R.id.toast_text);
 			toastText.setText(getResources()

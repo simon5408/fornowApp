@@ -12,32 +12,27 @@
  *****************************************************************************/
 package com.fornow.app.ui.preload;
 
-import com.fornow.app.R;
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.datapool.CacheData;
-import com.fornow.app.datapool.ClientData;
-import com.fornow.app.model.ImVersion;
-import com.fornow.app.model.LimitPrice;
-import com.fornow.app.model.LoginData;
-import com.fornow.app.net.ViewListener;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.ui.home.HomeActivity.BoolLoadComplete;
-import com.fornow.app.ui.main.MainActivity;
-import com.fornow.app.util.GsonTool;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.fornow.app.R;
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.datapool.CacheData;
+import com.fornow.app.model.LoginData;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.ui.home.HomeActivity.BoolLoadComplete;
+import com.fornow.app.ui.main.MainActivity;
 
 /**
  * @author Jiafa Lv
@@ -46,7 +41,7 @@ import android.widget.Toast;
  * 
  */
 public class PreLoad extends Activity {
-	private static final String TAG = "PreLoad";
+//	private static final String TAG = "PreLoad";
 	private BoolLoadComplete boolLoadComplete;
 	private Handler mHandler;
 	private static final int LOADING_END = 0x00, NET_ERROR = 0x01;
@@ -97,7 +92,6 @@ public class PreLoad extends Activity {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
 						if (obj.getCode() == 200) {
 							switch (obj.getNotifyId()) {
 							case HOME_BANNER:
@@ -149,8 +143,6 @@ public class PreLoad extends Activity {
 
 									@Override
 									public void updateView(ViewUpdateObj obj) {
-										// TODO Auto-generated method stub
-
 									}
 								});
 						ControllerManager.getInstance().getLoginController()
@@ -163,7 +155,6 @@ public class PreLoad extends Activity {
 
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
-		// TODO Auto-generated method stub
 		super.onWindowFocusChanged(hasFocus);
 		ImageView imgLoading = (ImageView) findViewById(R.id.preload_img);
 		imgLoading.setBackgroundResource(R.anim.pre_load_anim);

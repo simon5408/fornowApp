@@ -16,26 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.google.gson.reflect.TypeToken;
-import com.haarman.listviewanimations.itemmanipulation.AnimateDismissAdapter;
-import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
-import com.fornow.app.R;
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.datapool.ClientData;
-import com.fornow.app.model.GoodsDetailData;
-import com.fornow.app.net.ViewListener;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.ui.LoadingAnim;
-import com.fornow.app.ui.MyListView;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
-import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
-import com.fornow.app.ui.search.GoodDetailActivity;
-import com.fornow.app.util.GsonTool;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -49,6 +31,22 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.fornow.app.R;
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.datapool.ClientData;
+import com.fornow.app.model.GoodsDetailData;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.ui.MyListView;
+import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
+import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
+import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
+import com.fornow.app.ui.search.GoodDetailActivity;
+import com.fornow.app.util.GsonTool;
+import com.google.gson.reflect.TypeToken;
+import com.haarman.listviewanimations.itemmanipulation.AnimateDismissAdapter;
+import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
 
 /**
  * @author Jiafa Lv
@@ -72,7 +70,6 @@ public class FavoriteActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		mContext = this.getApplicationContext();
 		setContentView(R.layout.favorite_list);
@@ -86,7 +83,6 @@ public class FavoriteActivity extends Activity {
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ScrollView> refreshView) {
-						// TODO Auto-generated method stub
 						Date date = new Date();
 						SimpleDateFormat formatter = new SimpleDateFormat(
 								"yyyy/MM/dd HH:mm");
@@ -219,7 +215,6 @@ public class FavoriteActivity extends Activity {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
 						if (obj.getCode() == 200) {
 							Message updateViewMsg = mHandler
 									.obtainMessage(FAV_DEL_SUCCESS);
@@ -248,7 +243,6 @@ public class FavoriteActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 		loadData();
 	}
@@ -260,7 +254,6 @@ public class FavoriteActivity extends Activity {
 				.registerNotification(new ViewListener() {
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
 						if (obj.getCode() == 200) {
 							Message updateViewMsg = mHandler
 									.obtainMessage(LOADING_END);
@@ -297,6 +290,7 @@ public class FavoriteActivity extends Activity {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private class GetMoreDataTask extends AsyncTask<Void, Void, String[]> {
 
 		@Override

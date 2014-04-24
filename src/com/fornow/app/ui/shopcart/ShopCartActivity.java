@@ -18,9 +18,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.google.gson.reflect.TypeToken;
-import com.haarman.listviewanimations.itemmanipulation.AnimateDismissAdapter;
-import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.datapool.ClientData;
@@ -33,25 +44,13 @@ import com.fornow.app.ui.MyListView;
 import com.fornow.app.ui.main.BaseMainActivity;
 import com.fornow.app.ui.mine.LoginActivity;
 import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
-import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
 import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
+import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
 import com.fornow.app.ui.search.GoodDetailActivity;
 import com.fornow.app.util.GsonTool;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
+import com.google.gson.reflect.TypeToken;
+import com.haarman.listviewanimations.itemmanipulation.AnimateDismissAdapter;
+import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
 
 /**
  * @author Jiafa Lv
@@ -77,12 +76,11 @@ public class ShopCartActivity extends BaseMainActivity {
 	private String jiesuanList;
 	private Float totalPrice = 0.0f;
 	private PullToRefreshScrollView mPullRefreshScrollView;
-	private ScrollView mScrollView;
+//	private ScrollView mScrollView;
 	AnimateDismissAdapter<String> animateDismissAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.shop_cart);
 		mContext = this.getApplicationContext();
@@ -96,7 +94,6 @@ public class ShopCartActivity extends BaseMainActivity {
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ScrollView> refreshView) {
-						// TODO Auto-generated method stub
 						Date date = new Date();
 						SimpleDateFormat formatter = new SimpleDateFormat(
 								"yyyy/MM/dd HH:mm");
@@ -110,7 +107,7 @@ public class ShopCartActivity extends BaseMainActivity {
 					}
 				});
 
-		mScrollView = mPullRefreshScrollView.getRefreshableView();
+//		mScrollView = mPullRefreshScrollView.getRefreshableView();
 		mHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -220,14 +217,12 @@ public class ShopCartActivity extends BaseMainActivity {
 	@SuppressLint("HandlerLeak")
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		Message updateViewMsg = mHandler.obtainMessage(LOADING_START);
 		mHandler.sendMessage(updateViewMsg);
@@ -237,7 +232,6 @@ public class ShopCartActivity extends BaseMainActivity {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
 						if (obj.getCode() == 200) {
 							Message updateViewMsg = mHandler
 									.obtainMessage(LOADING_END);
@@ -285,7 +279,6 @@ public class ShopCartActivity extends BaseMainActivity {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
 						if (obj.getCode() == 200) {
 							Message updateViewMsg = mHandler
 									.obtainMessage(LOADING_END);
@@ -517,7 +510,6 @@ public class ShopCartActivity extends BaseMainActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case RESULT_OK:
@@ -536,7 +528,6 @@ public class ShopCartActivity extends BaseMainActivity {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
 						if (obj.getCode() == 200) {
 							Message updateViewMsg = mHandler
 									.obtainMessage(GET_ADDRESS_SUCCESS);

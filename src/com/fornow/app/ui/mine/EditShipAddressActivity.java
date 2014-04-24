@@ -12,6 +12,18 @@
  *****************************************************************************/
 package com.fornow.app.ui.mine;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.model.ShipAddressData;
@@ -19,19 +31,6 @@ import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.util.CheckMobileAndEmail;
 import com.fornow.app.util.GsonTool;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * @author Jiafa Lv
@@ -49,7 +48,6 @@ public class EditShipAddressActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_address);
 		userNameView = (EditText) findViewById(R.id.editUserName);
@@ -121,13 +119,11 @@ public class EditShipAddressActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 	}
 
@@ -180,7 +176,6 @@ public class EditShipAddressActivity extends Activity {
 
 							@Override
 							public void updateView(ViewUpdateObj obj) {
-								// TODO Auto-generated method stub
 								if (obj.getCode() == 200) {
 									Intent intent = new Intent(
 											EditShipAddressActivity.this,

@@ -58,7 +58,7 @@ public class OrderListActivity extends Activity {
 	private Handler mHandler;
 	private MyListView orderListView;
 	private PullToRefreshScrollView mPullRefreshScrollView;
-	private ScrollView mScrollView;
+//	private ScrollView mScrollView;
 	private List<OrderList> orderList;
 	private Context context;
 	private TextView orderTitle;
@@ -74,7 +74,6 @@ public class OrderListActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.order_list);
 		dialog = new LoadingAnim(OrderListActivity.this, R.style.my_dialog);
@@ -89,7 +88,6 @@ public class OrderListActivity extends Activity {
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ScrollView> refreshView) {
-						// TODO Auto-generated method stub
 						Date date = new Date();
 						SimpleDateFormat formatter = new SimpleDateFormat(
 								"yyyy/MM/dd HH:mm");
@@ -111,7 +109,7 @@ public class OrderListActivity extends Activity {
 					}
 				});
 
-		mScrollView = mPullRefreshScrollView.getRefreshableView();
+//		mScrollView = mPullRefreshScrollView.getRefreshableView();
 		mHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -212,7 +210,6 @@ public class OrderListActivity extends Activity {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
 						if (obj.getCode() == 200) {
 							Message updateViewMsg = mHandler
 									.obtainMessage(LOADING_END);
@@ -244,14 +241,12 @@ public class OrderListActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 		orderListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO Auto-generated method stub
 				Log.d("TAG", "---------------position:" + position);
 			}
 		});
@@ -259,7 +254,6 @@ public class OrderListActivity extends Activity {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 	}
 
@@ -303,7 +297,6 @@ public class OrderListActivity extends Activity {
 
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 	}
 

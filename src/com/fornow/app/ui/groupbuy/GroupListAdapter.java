@@ -17,21 +17,20 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.fornow.app.R;
-import com.fornow.app.model.GroupListData;
-import com.fornow.app.ui.AppClass;
-import com.fornow.app.ui.loadImg.AsyncImgLoader;
-import com.fornow.app.ui.loadImg.AsyncImgLoader.ImageCallback;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.fornow.app.R;
+import com.fornow.app.model.GroupListData;
+import com.fornow.app.ui.AppClass;
+import com.fornow.app.ui.loadImg.AsyncImgLoader;
+import com.fornow.app.ui.loadImg.AsyncImgLoader.ImageCallback;
 
 /**
  * @author Jiafa Lv

@@ -14,10 +14,6 @@ package com.fornow.app.ui.home;
 
 import java.util.ArrayList;
 
-import com.fornow.app.R;
-import com.fornow.app.net.ViewListener;
-import com.fornow.app.net.ViewUpdateObj;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,7 +21,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -41,6 +36,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+
+import com.fornow.app.R;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
 
 /**
  * @author Jiafa Lv
@@ -63,19 +62,16 @@ public class AutoPlayGallery extends RelativeLayout implements
 
 	public AutoPlayGallery(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		// TODO Auto-generated constructor stub
 		setupContentView(context);
 	}
 
 	public AutoPlayGallery(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		// TODO Auto-generated constructor stub
 		setupContentView(context);
 	}
 
 	public AutoPlayGallery(Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
 		setupContentView(context);
 	}
 
@@ -133,14 +129,11 @@ public class AutoPlayGallery extends RelativeLayout implements
 				@Override
 				public void onItemSelected(AdapterView<?> arg0, View view,
 						int position, long arg3) {
-					// TODO Auto-generated method stub
 					indicatePoint(position);
 				}
 
 				@Override
 				public void onNothingSelected(AdapterView<?> arg0) {
-					// TODO Auto-generated method stub
-
 				}
 			});
 			flag = true;// make the switch true
@@ -256,7 +249,6 @@ public class AutoPlayGallery extends RelativeLayout implements
 		final Handler handler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-				// TODO Auto-generated method stub
 				if (mGallery.isTouched()) {
 					count = mGallery.getFirstVisiblePosition() + 1;
 					mGallery.setTouched(false);
@@ -281,7 +273,6 @@ public class AutoPlayGallery extends RelativeLayout implements
 					try {
 						Thread.sleep(duration);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 						break;
 					}
@@ -294,7 +285,6 @@ public class AutoPlayGallery extends RelativeLayout implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		// TODO
 		ViewUpdateObj viewObj = new ViewUpdateObj();
 		viewObj.setData(Integer.toString(position));
 		this.callBack.updateView(viewObj);
@@ -308,12 +298,10 @@ public class AutoPlayGallery extends RelativeLayout implements
 class MyGallery extends Gallery {
 	public MyGallery(Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MyGallery(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		// TODO Auto-generated constructor stub
 	}
 
 	public MyGallery(Context context, AttributeSet attrs, int defStyle) {

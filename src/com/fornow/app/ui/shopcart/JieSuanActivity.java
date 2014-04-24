@@ -16,9 +16,21 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.reflect.TypeToken;
-import com.haarman.listviewanimations.itemmanipulation.AnimateDismissAdapter;
-import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.datapool.ClientData;
@@ -32,22 +44,9 @@ import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.ui.mine.ShdzActivity;
 import com.fornow.app.ui.mine.ShdzActivity.CLICK_TYPE;
 import com.fornow.app.util.GsonTool;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import com.google.gson.reflect.TypeToken;
+import com.haarman.listviewanimations.itemmanipulation.AnimateDismissAdapter;
+import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
 
 /**
  * @author Jiafa Lv
@@ -74,7 +73,6 @@ public class JieSuanActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.jiesuan);
 		mContext = this.getApplicationContext();
@@ -161,13 +159,11 @@ public class JieSuanActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 	}
 
@@ -235,7 +231,6 @@ public class JieSuanActivity extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case RESULT_OK:
@@ -248,7 +243,6 @@ public class JieSuanActivity extends Activity {
 					initShdz.post(new Runnable() {
 						@Override
 						public void run() {
-							// TODO Auto-generated method stub
 							initShdz.setVisibility(View.VISIBLE);
 							addShdz.setVisibility(View.GONE);
 							shdzShr.setText(getResources().getString(
@@ -290,7 +284,6 @@ public class JieSuanActivity extends Activity {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {
-							// TODO Auto-generated method stub
 							if (obj.getCode() == 200) {
 								removeInCart(goodsList);
 								Message updateViewMsg = mHandler
