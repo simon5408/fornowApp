@@ -71,7 +71,6 @@ public class CartDataHelper {
 	}
 
 	public static void updateCacheCart(List<ShopCart> cartData) {
-		// TODO Auto-generated method stub
 		if (cartData != null) {
 			try {
 				String cart = GsonTool.getGsonTool().toJson(cartData);
@@ -92,7 +91,6 @@ public class CartDataHelper {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
 						if (obj.getCode() == 200) {
 							Message updateViewMsg = AppClass.globalHandler
 									.obtainMessage(AppClass.UPDATE_CART_COUNT);

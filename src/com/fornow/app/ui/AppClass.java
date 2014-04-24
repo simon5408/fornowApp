@@ -46,7 +46,6 @@ public class AppClass extends Application {
 
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
 		super.onCreate();
 		mContext = this.getApplicationContext();
 		ControllerManager.getInstance().init();

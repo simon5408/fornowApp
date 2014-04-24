@@ -66,6 +66,5 @@ public class GlobalData extends AbstractModel{
 	}
 	
 	public void saveData(){
-		//TODO
 	}
 }

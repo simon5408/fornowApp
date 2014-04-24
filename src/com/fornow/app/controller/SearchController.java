@@ -50,7 +50,6 @@ public class SearchController extends AbstractController<ViewListener, String> {
 				.getBanner(new ControllerListener() {
 					@Override
 					public void callback(NetResponse response) {
-						// TODO Auto-generated method stub
 						ViewUpdateObj viewObj = new ViewUpdateObj();
 						viewObj.setCode(response.code);
 						if (response.code == 200) {
@@ -68,7 +67,6 @@ public class SearchController extends AbstractController<ViewListener, String> {
 				.getPrivilege(offset, length, "All", new ControllerListener() {
 					@Override
 					public void callback(NetResponse response) {
-						// TODO Auto-generated method stub
 						ViewUpdateObj viewObj = new ViewUpdateObj();
 						viewObj.setCode(response.code);
 						if (response.code == 200) {
@@ -87,7 +85,6 @@ public class SearchController extends AbstractController<ViewListener, String> {
 				.getVersion(new ControllerListener() {
 					@Override
 					public void callback(NetResponse response) {
-						// TODO Auto-generated method stub
 						ViewUpdateObj viewObj = new ViewUpdateObj();
 						viewObj.setCode(response.code);
 						if (response.code == 200) {
@@ -113,7 +110,6 @@ public class SearchController extends AbstractController<ViewListener, String> {
 				.getLimitPrice(new ControllerListener() {
 					@Override
 					public void callback(NetResponse response) {
-						// TODO Auto-generated method stub
 						ViewUpdateObj viewObj = new ViewUpdateObj();
 						viewObj.setCode(response.code);
 						if (response.code == 200) {
@@ -141,7 +137,6 @@ public class SearchController extends AbstractController<ViewListener, String> {
 				.getGoods(offset, length, category, new ControllerListener() {
 					@Override
 					public void callback(NetResponse response) {
-						// TODO Auto-generated method stub
 						ViewUpdateObj viewObj = new ViewUpdateObj();
 						viewObj.setCode(response.code);
 						if (response.code == 200) {
@@ -162,7 +157,6 @@ public class SearchController extends AbstractController<ViewListener, String> {
 						new ControllerListener() {
 							@Override
 							public void callback(NetResponse response) {
-								// TODO Auto-generated method stub
 								ViewUpdateObj viewObj = new ViewUpdateObj();
 								viewObj.setCode(response.code);
 								if (response.code == 200) {

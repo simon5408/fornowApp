@@ -49,25 +49,21 @@ public class ImageAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return drawables.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return drawables.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup arg2) {
-		// TODO Auto-generated method stub
 		if (convertView == null) {
 			convertView = new ImageView(context);
 			Gallery.LayoutParams params = new Gallery.LayoutParams(

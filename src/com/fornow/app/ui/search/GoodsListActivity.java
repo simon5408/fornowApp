@@ -163,7 +163,7 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 							}
 
 							Log.v(TAG,
-									"TODO goodsData: "
+									"goodsData: "
 											+ GsonTool.getGsonTool().toJson(
 													goodsData.get(0),
 													GoodsListData.class));
@@ -300,7 +300,7 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 			detail.setSell_out(data.getSell_out());
 			detail.setMax_count(data.getMax_count());
 			String strDetail = GsonTool.getGsonTool().toJson(detail);
-			Log.v(TAG, "TODO jinrituijian detail: " + detailData);
+			Log.v(TAG, "jinrituijian detail: " + detailData);
 			Intent intent = new Intent(GoodsListActivity.this,
 					GoodDetailActivity.class);
 			intent.putExtra("data", strDetail);

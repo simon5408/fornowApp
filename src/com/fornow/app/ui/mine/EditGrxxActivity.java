@@ -41,7 +41,6 @@ public class EditGrxxActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.edit_gerenxinxi);
 		editText = (EditText) findViewById(R.id.edit_grxx_text);
@@ -91,13 +90,11 @@ public class EditGrxxActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 	}
 

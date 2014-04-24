@@ -89,7 +89,6 @@ public class AsyncImgLoader {
 						cacheImg2Sdcard(draw);
 						imageCallback.imageLoaded(draw, Tag);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						imageCallback.imageLoaded(null, Tag);
 						e.printStackTrace();
 					}
@@ -133,7 +132,6 @@ public class AsyncImgLoader {
 			try {
 				bitmapFile.createNewFile();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -143,10 +141,8 @@ public class AsyncImgLoader {
 			bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
 			fos.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

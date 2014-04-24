@@ -62,7 +62,6 @@ public class LoginController extends AbstractController<ViewListener, String> {
 
 			@Override
 			public void callback(NetResponse response) {
-				// TODO Auto-generated method stub
 				// cache the user data
 				ViewUpdateObj viewObj = new ViewUpdateObj();
 				viewObj.setCode(response.code);
@@ -104,7 +103,6 @@ public class LoginController extends AbstractController<ViewListener, String> {
 
 			@Override
 			public void callback(NetResponse response) {
-				// TODO Auto-generated method stub
 				ViewUpdateObj viewObj = new ViewUpdateObj();
 				viewObj.setCode(response.code);
 				if (response.code == 200) {
@@ -125,7 +123,6 @@ public class LoginController extends AbstractController<ViewListener, String> {
 
 				@Override
 				public void callback(NetResponse response) {
-					// TODO Auto-generated method stub
 					ViewUpdateObj viewObj = new ViewUpdateObj();
 					viewObj.setCode(response.code);
 					if (response.code == 200) {

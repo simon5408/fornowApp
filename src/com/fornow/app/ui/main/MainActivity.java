@@ -92,13 +92,11 @@ public class MainActivity extends TabActivity implements OnClickListener {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		Intent intent = getIntent();
 		if (intent.getExtras() != null
@@ -163,7 +161,6 @@ public class MainActivity extends TabActivity implements OnClickListener {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case RESULT_OK:
@@ -176,7 +173,7 @@ public class MainActivity extends TabActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		Log.v("1111", "TODO v.getId() is: " + v.getId());
+		Log.v("1111", "v.getId() is: " + v.getId());
 		int checkedId = v.getId();
 		if (mCurTabId == v.getId()) {
 			return;
@@ -278,7 +275,6 @@ public class MainActivity extends TabActivity implements OnClickListener {
 
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 		CartDataHelper.syncCart();
 		ClientData.getInstance().recycle();
@@ -286,13 +282,11 @@ public class MainActivity extends TabActivity implements OnClickListener {
 
 	@Override
 	public void finish() {
-		// TODO Auto-generated method stub
 		super.finish();
 	}
 
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
-		// TODO Auto-generated method stub
 		if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){  
             if (event.getAction() == KeyEvent.ACTION_DOWN && event.getRepeatCount() == 0) { 
             	AlertDialog.Builder builder = new Builder(MainActivity.this);

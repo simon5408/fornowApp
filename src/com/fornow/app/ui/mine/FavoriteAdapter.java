@@ -72,25 +72,21 @@ public class FavoriteAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return mDetailList.size();
 	}
 
 	@Override
 	public GoodsDetailData getItem(int position) {
-		// TODO Auto-generated method stub
 		return mDetailList.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
 		View rowView = convertView;
 		final ViewHolder holder;
 		if (rowView == null) {
@@ -118,11 +114,9 @@ public class FavoriteAdapter extends BaseAdapter {
 						@Override
 						public void imageLoaded(final Drawable imageDrawable,
 								final String Tag) {
-							// TODO Auto-generated method stub
 							imageView.post(new Runnable() {
 								@Override
 								public void run() {
-									// TODO Auto-generated method stub
 									ImageView imageViewByTag = (ImageView) mView
 											.findViewWithTag(Tag);
 									if (imageViewByTag != null

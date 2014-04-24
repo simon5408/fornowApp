@@ -173,7 +173,7 @@ public class HomeActivity extends BaseMainActivity implements
 					new TypeToken<List<GoodsDetailData>>() {
 					}.getType());
 			Log.v(TAG,
-					"TODO banner data: "
+					"banner data: "
 							+ GsonTool.getGsonTool().toJson(bannerData.get(0),
 									GoodsDetailData.class));
 			drawables = new ArrayList<Drawable>();
@@ -208,7 +208,7 @@ public class HomeActivity extends BaseMainActivity implements
 			public void updateView(ViewUpdateObj obj) {
 				String pos = obj.getData();
 				if (bannerData != null) {
-					Log.v(TAG, "TODO login complete code is: " + pos);
+					Log.v(TAG, "login complete code is: " + pos);
 					try {
 //						String detailData = GsonTool.getGsonTool().toJson(
 //								bannerData.get(Integer.parseInt(pos)),
@@ -266,7 +266,7 @@ public class HomeActivity extends BaseMainActivity implements
 					new TypeToken<List<GoodsListData>>() {
 					}.getType());
 			Log.v(TAG,
-					"TODO privilege data: "
+					"privilege data: "
 							+ GsonTool.getGsonTool().toJson(
 									privilegeData.get(0), GoodsListData.class));
 			ArrayList<HashMap<String, Object>> tuijianList = new ArrayList<HashMap<String, Object>>();
@@ -376,7 +376,7 @@ public class HomeActivity extends BaseMainActivity implements
 				detail.setSell_out(data.getSell_out());
 				detail.setMax_count(data.getMax_count());
 				String strDetail = GsonTool.getGsonTool().toJson(detail);
-				Log.v(TAG, "TODO jinrituijian detail: " + detailData);
+				Log.v(TAG, "jinrituijian detail: " + detailData);
 				Intent intent = new Intent(HomeActivity.this,
 						GoodDetailActivity.class);
 				intent.putExtra("data", strDetail);

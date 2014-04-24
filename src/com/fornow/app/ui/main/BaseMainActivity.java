@@ -24,13 +24,11 @@ public class BaseMainActivity extends Activity {
 
 	@Override
 	public void finish() {
-		// TODO Auto-generated method stub
 		super.finish();
 	}
 
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 	}
 
