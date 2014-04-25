@@ -14,8 +14,6 @@ package com.fornow.app.dao;
 
 import java.util.LinkedList;
 
-import android.util.Log;
-
 import com.fornow.app.datapool.CacheData;
 import com.fornow.app.net.HttpHeader;
 import com.fornow.app.net.NetRequest;
@@ -23,6 +21,7 @@ import com.fornow.app.net.NetResponse;
 import com.fornow.app.net.NetworkManager;
 import com.fornow.app.service.IControllerListener;
 import com.fornow.app.service.IDataCallback;
+import com.fornow.app.util.LogUtils;
 
 /**
  * @author Jiafa Lv
@@ -31,6 +30,7 @@ import com.fornow.app.service.IDataCallback;
  * 
  */
 public class OrderDao {
+	private static final String TAG = OrderDao.class.getName();
 	public void getOrder(String uuid, int offset, int length, String status,
 			final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/getOrder?offset="
@@ -45,7 +45,7 @@ public class OrderDao {
 		NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
-				Log.d("getOrder", "Code:" + netRes.code);
+				LogUtils.d(TAG, "[getOrder] Code:" + netRes.code);
 				// netRes.code = 200;
 				// netRes.res =
 				// "[{'order_id': '389398047495963','status': 1,'address': '江苏省 南京市 雨花台区','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]},{'order_id': '389398047495963','status': 2,'address': '江苏省 南京市 雨花台区 软件大道 江苏润和软件外包园 三楼 欧美外包事业部','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]},{'order_id': '389398047495963','status': 0,'address': '江苏省 南京市 雨花台区 软件大道 江苏润和软件外包园 三楼 欧美外包事业部','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]},{'order_id': '389398047495963','status': 3,'address': '江苏省 南京市 雨花台区 软件大道 江苏润和软件外包园 三楼 欧美外包事业部','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]}]";
@@ -73,7 +73,7 @@ public class OrderDao {
 		NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
-				Log.d("getOrder", "Code:" + netRes.code);
+				LogUtils.d(TAG, "[getOrder] Code:" + netRes.code);
 				// netRes.code = 200;
 				ctr.callback(netRes);
 			}

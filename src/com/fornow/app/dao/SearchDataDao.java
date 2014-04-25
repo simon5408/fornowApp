@@ -12,14 +12,13 @@
  *****************************************************************************/
 package com.fornow.app.dao;
 
-import android.util.Log;
-
 import com.fornow.app.datapool.CacheData;
 import com.fornow.app.net.NetRequest;
 import com.fornow.app.net.NetResponse;
 import com.fornow.app.net.NetworkManager;
 import com.fornow.app.service.IControllerListener;
 import com.fornow.app.service.IDataCallback;
+import com.fornow.app.util.LogUtils;
 
 /**
  * @author Jiafa Lv
@@ -28,7 +27,7 @@ import com.fornow.app.service.IDataCallback;
  * 
  */
 public class SearchDataDao {
-
+	private static final String TAG = SearchDataDao.class.getName();
 	public SearchDataDao() {
 
 	}
@@ -39,10 +38,11 @@ public class SearchDataDao {
 		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
-				Log.d("getBanner", "Code:" + netRes.code);
-				// netRes.code = 200;
-				// netRes.res =
-				// "[{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200}]";
+				LogUtils.d(TAG, "[getBanner] Code:" + netRes.code);
+				//TODO
+				 netRes.code = 200;
+				 netRes.res =
+				 "[{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200}]";
 				ctr.callback(netRes);
 			}
 		});
@@ -54,10 +54,11 @@ public class SearchDataDao {
 		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
-				Log.d("getVersion", "Code:" + netRes.code);
-				Log.d("getVersion", "res:" + netRes.res);
-				// netRes.code = 200;
-				// netRes.res = "{'url':'http://downloadurl','version':'0.1'}";
+				LogUtils.d(TAG, "[getVersion] Code:" + netRes.code);
+				LogUtils.d(TAG, "[getVersion] res:" + netRes.res);
+				//TODO
+				 netRes.code = 200;
+				 netRes.res = "{'url':'http://downloadurl','version':'0.1'}";
 				ctr.callback(netRes);
 			}
 		});
@@ -69,10 +70,11 @@ public class SearchDataDao {
 		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
-				Log.d("getLimitPrice", "Code:" + netRes.code);
-				Log.d("getLimitPrice", "res:" + netRes.res);
-				// netRes.code = 200;
-				// netRes.res = "{'sendPrice':15}";
+				LogUtils.d(TAG, "[getLimitPrice] Code:" + netRes.code);
+				LogUtils.d(TAG, "[getLimitPrice] res:" + netRes.res);
+				//TODO
+				 netRes.code = 200;
+				 netRes.res = "{'sendPrice':15}";
 				ctr.callback(netRes);
 			}
 		});
@@ -84,7 +86,7 @@ public class SearchDataDao {
 		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
-				Log.d("getDataByKey", "Code:" + netRes.code);
+				LogUtils.d(TAG, "[getDataByKey] Code:" + netRes.code);
 				ctr.callback(netRes);
 			}
 		});
@@ -99,10 +101,11 @@ public class SearchDataDao {
 		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
-				Log.d("getGoods", "Code:" + netRes.code);
-				// netRes.code = 200;
-				// netRes.res =
-				// "[{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200}]";
+				LogUtils.d(TAG, "[getGoods] Code:" + netRes.code);
+				//TODO
+				 netRes.code = 200;
+				 netRes.res =
+				 "[{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200}]";
 				ctr.callback(netRes);
 			}
 		});
@@ -117,10 +120,11 @@ public class SearchDataDao {
 		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
-				Log.d("getGroupShoping", "Code:" + netRes.code);
-				// netRes.code = 200;
-				// netRes.res =
-				// "[{'id': '1','name': '担担面1','category': 'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image': [{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price': '6.0','current_price': '5.5','introduction': '四川担担面','start_time': '1385561958634','end_time': '1385561958634','deliver_area': [{'area_id': '123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}],'max_count': 200},{'id': '1','name': '担担面2','category': 'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image': [{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price': '6.0','current_price': '6.5','introduction': '四川担担面','start_time': '1385561958634','end_time': '1385561958633','deliver_area': [{'area_id': '123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}],'max_count': 200},{'id': '1','name': '担担面3','category': 'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image': [{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price': '6.0','current_price': '7.5','introduction': '四川担担面','start_time': '1385561958634','end_time': '1385561958636','deliver_area': [{'area_id': '123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}],'max_count': 200},{'id': '1','name': '担担面4','category': 'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image': [{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price': '6.0','current_price': '4.5','introduction': '四川担担面','start_time': '1385561958634','end_time': '1385561958639','deliver_area': [{'area_id': '123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}],'max_count': 200},{'id': '1','name': '担担面5','category': 'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image': [{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price': '6.0','current_price': '1.5','introduction': '四川担担面','start_time': '1385561958634','end_time': '1385561958638','deliver_area': [{'area_id': '123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}],'max_count': 200},{'id': '1','name': '担担面6','category': 'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image': [{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price': '6.0','current_price': '3.5','introduction': '四川担担面','start_time': '1385561958634','end_time': '1385561958637','deliver_area': [{'area_id': '123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}],'max_count': 200},{'id': '1','name': '担担面7','category': 'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image': [{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price': '6.0','current_price': '2.5','introduction': '四川担担面','start_time': '1385561958634','end_time': '1385561958635','deliver_area': [{'area_id': '123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}],'max_count': 200}]";
+				LogUtils.d(TAG, "[getGroupShoping] Code:" + netRes.code);
+				//TODO
+				 netRes.code = 200;
+				 netRes.res =
+				 "[{'id': '1','name': '担担面1','category': 'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image': [{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price': '6.0','current_price': '5.5','introduction': '四川担担面','start_time': '1385561958634','end_time': '1385561958634','deliver_area': [{'area_id': '123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}],'max_count': 200},{'id': '1','name': '担担面2','category': 'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image': [{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price': '6.0','current_price': '6.5','introduction': '四川担担面','start_time': '1385561958634','end_time': '1385561958633','deliver_area': [{'area_id': '123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}],'max_count': 200},{'id': '1','name': '担担面3','category': 'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image': [{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price': '6.0','current_price': '7.5','introduction': '四川担担面','start_time': '1385561958634','end_time': '1385561958636','deliver_area': [{'area_id': '123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}],'max_count': 200},{'id': '1','name': '担担面4','category': 'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image': [{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price': '6.0','current_price': '4.5','introduction': '四川担担面','start_time': '1385561958634','end_time': '1385561958639','deliver_area': [{'area_id': '123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}],'max_count': 200},{'id': '1','name': '担担面5','category': 'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image': [{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price': '6.0','current_price': '1.5','introduction': '四川担担面','start_time': '1385561958634','end_time': '1385561958638','deliver_area': [{'area_id': '123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}],'max_count': 200},{'id': '1','name': '担担面6','category': 'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image': [{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price': '6.0','current_price': '3.5','introduction': '四川担担面','start_time': '1385561958634','end_time': '1385561958637','deliver_area': [{'area_id': '123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}],'max_count': 200},{'id': '1','name': '担担面7','category': 'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image': [{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price': '6.0','current_price': '2.5','introduction': '四川担担面','start_time': '1385561958634','end_time': '1385561958635','deliver_area': [{'area_id': '123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}],'max_count': 200}]";
 				ctr.callback(netRes);
 			}
 		});
@@ -134,10 +138,11 @@ public class SearchDataDao {
 		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
-				Log.d("getPrivilege", "Code:" + netRes.code);
-				// netRes.code = 200;
-				// netRes.res =
-				// "[{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200}]";
+				LogUtils.d(TAG, "[getPrivilege] Code:" + netRes.code);
+				//TODO
+				 netRes.code = 200;
+				 netRes.res =
+				 "[{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200},{'id': '1','name': '担担面','category':'wheaten','icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},'image':[{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'},{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}],'original_price':'6.0','current_price':'5.5','introduction': '四川担担面','deliver_area':[{'area_id':'123','area_name': '宿舍一区'},{'area_id': '124','area_name': '宿舍二区'}], 'sell_out': 50,'max_cout': 200}]";
 				ctr.callback(netRes);
 			}
 		});

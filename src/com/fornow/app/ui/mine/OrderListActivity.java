@@ -16,19 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.google.gson.reflect.TypeToken;
-import com.fornow.app.R;
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.model.OrderList;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.service.IViewListener;
-import com.fornow.app.ui.LoadingAnim;
-import com.fornow.app.ui.MyListView;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
-import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
-import com.fornow.app.util.GsonTool;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -37,7 +24,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -46,6 +32,20 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fornow.app.R;
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.model.OrderList;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IViewListener;
+import com.fornow.app.ui.LoadingAnim;
+import com.fornow.app.ui.MyListView;
+import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
+import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
+import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
+import com.fornow.app.util.GsonTool;
+import com.fornow.app.util.LogUtils;
+import com.google.gson.reflect.TypeToken;
+
 /**
  * @author Jiafa Lv
  * @date Apr 24, 2014 10:52:20 AM
@@ -53,6 +53,7 @@ import android.widget.Toast;
  * 
  */
 public class OrderListActivity extends Activity {
+	private static final String TAG = OrderListActivity.class.getName();
 	private static final int LOADING_START = 0x00, LOADING_END = 0x01,
 			NET_ERROR = 0x02;
 	private Handler mHandler;
@@ -247,7 +248,7 @@ public class OrderListActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				Log.d("TAG", "---------------position:" + position);
+				LogUtils.d(TAG, "---------------position:" + position);
 			}
 		});
 	}

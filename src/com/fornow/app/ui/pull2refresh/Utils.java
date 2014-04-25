@@ -12,7 +12,7 @@
  *****************************************************************************/
 package com.fornow.app.ui.pull2refresh;
 
-import android.util.Log;
+import com.fornow.app.util.LogUtils;
 
 /**
  * @author Jiafa Lv
@@ -25,7 +25,7 @@ public class Utils {
 	static final String LOG_TAG = "PullToRefresh";
 
 	public static void warnDeprecation(String depreacted, String replacement) {
-		Log.w(LOG_TAG, "You're using the deprecated " + depreacted
+		LogUtils.w(LOG_TAG, "You're using the deprecated " + depreacted
 				+ " attr, please switch over to " + replacement);
 	}
 

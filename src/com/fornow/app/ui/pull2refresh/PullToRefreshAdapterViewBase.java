@@ -12,12 +12,9 @@
  *****************************************************************************/
 package com.fornow.app.ui.pull2refresh;
 
-import com.fornow.app.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +27,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
+
+import com.fornow.app.R;
+import com.fornow.app.util.LogUtils;
 
 /**
  * @author Jiafa Lv
@@ -105,7 +105,7 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView> extend
 			final int totalItemCount) {
 
 		if (DEBUG) {
-			Log.d(LOG_TAG, "First Visible: " + firstVisibleItem + ". Visible Count: " + visibleItemCount
+			LogUtils.d(LOG_TAG, "First Visible: " + firstVisibleItem + ". Visible Count: " + visibleItemCount
 					+ ". Total Items:" + totalItemCount);
 		}
 
@@ -377,7 +377,7 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView> extend
 
 		if (null == adapter || adapter.isEmpty()) {
 			if (DEBUG) {
-				Log.d(LOG_TAG, "isFirstItemVisible. Empty View.");
+				LogUtils.d(LOG_TAG, "isFirstItemVisible. Empty View.");
 			}
 			return true;
 
@@ -406,7 +406,7 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView> extend
 
 		if (null == adapter || adapter.isEmpty()) {
 			if (DEBUG) {
-				Log.d(LOG_TAG, "isLastItemVisible. Empty View.");
+				LogUtils.d(LOG_TAG, "isLastItemVisible. Empty View.");
 			}
 			return true;
 		} else {
@@ -414,7 +414,7 @@ public abstract class PullToRefreshAdapterViewBase<T extends AbsListView> extend
 			final int lastVisiblePosition = mRefreshableView.getLastVisiblePosition();
 
 			if (DEBUG) {
-				Log.d(LOG_TAG, "isLastItemVisible. Last Item Position: " + lastItemPosition + " Last Visible Pos: "
+				LogUtils.d(LOG_TAG, "isLastItemVisible. Last Item Position: " + lastItemPosition + " Last Visible Pos: "
 						+ lastVisiblePosition);
 			}
 

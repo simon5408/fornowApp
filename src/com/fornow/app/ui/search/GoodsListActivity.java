@@ -26,7 +26,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
@@ -50,6 +49,7 @@ import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
 import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
 import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
 import com.fornow.app.util.GsonTool;
+import com.fornow.app.util.LogUtils;
 import com.google.gson.reflect.TypeToken;
 
 /**
@@ -60,7 +60,7 @@ import com.google.gson.reflect.TypeToken;
  */
 public class GoodsListActivity extends Activity implements OnItemClickListener,
 		IViewListener {
-	private static final String TAG = "FruitList";
+	private static final String TAG = GoodsListActivity.class.getName();
 	private MyGridView gridview;
 	private TextView channel;
 	private Dialog dialog;
@@ -161,7 +161,7 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 								}
 							}
 
-							Log.v(TAG,
+							LogUtils.v(TAG,
 									"goodsData: "
 											+ GsonTool.toJson(
 													goodsData.get(0),
@@ -299,7 +299,7 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 			detail.setSell_out(data.getSell_out());
 			detail.setMax_count(data.getMax_count());
 			String strDetail = GsonTool.toJson(detail);
-			Log.v(TAG, "jinrituijian detail: " + detailData);
+			LogUtils.v(TAG, "jinrituijian detail: " + detailData);
 			Intent intent = new Intent(GoodsListActivity.this,
 					GoodDetailActivity.class);
 			intent.putExtra("data", strDetail);

@@ -24,7 +24,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ListView;
@@ -44,6 +43,7 @@ import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
 import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
 import com.fornow.app.ui.search.GoodDetailActivity;
 import com.fornow.app.util.GsonTool;
+import com.fornow.app.util.LogUtils;
 import com.google.gson.reflect.TypeToken;
 import com.haarman.listviewanimations.itemmanipulation.AnimateDismissAdapter;
 import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
@@ -55,6 +55,7 @@ import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
  * 
  */
 public class FavoriteActivity extends Activity {
+	private static final String TAG = FavoriteActivity.class.getName();
 	private Handler mHandler;
 	private PullToRefreshScrollView mPullRefreshScrollView;
 	@SuppressWarnings("unused")
@@ -111,7 +112,7 @@ public class FavoriteActivity extends Activity {
 				favoritesData = GsonTool.fromJson(favData,
 						new TypeToken<List<GoodsDetailData>>() {
 						});
-				Log.d("TAG", "===============favorite data:"
+				LogUtils.d(TAG, "===============favorite data:"
 						+ GsonTool.toJson(favoritesData));
 				favoriteAdapter = new FavoriteAdapter(favoritesData, mHandler,
 						mContext);
@@ -147,7 +148,7 @@ public class FavoriteActivity extends Activity {
 											new TypeToken<List<GoodsDetailData>>() {
 											});
 							favoritesData = responseData;
-							Log.d("TAG",
+							LogUtils.d(TAG,
 									"===============favorite data:"
 											+ GsonTool.toJson(
 													favoritesData));

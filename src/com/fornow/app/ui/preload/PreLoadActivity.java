@@ -33,6 +33,7 @@ import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.home.HomeActivity.BoolLoadComplete;
 import com.fornow.app.ui.main.MainActivity;
+import com.fornow.app.util.LogUtils;
 
 /**
  * @author Jiafa Lv
@@ -41,7 +42,7 @@ import com.fornow.app.ui.main.MainActivity;
  * 
  */
 public class PreLoadActivity extends Activity {
-//	private static final String TAG = "PreLoad";
+	private static final String TAG = PreLoadActivity.class.getName();
 	private BoolLoadComplete boolLoadComplete;
 	private Handler mHandler;
 	private static final int LOADING_END = 0x00, NET_ERROR = 0x01;
@@ -93,6 +94,7 @@ public class PreLoadActivity extends Activity {
 					@Override
 					public void updateView(ViewUpdateObj obj) {
 						if (obj.getCode() == 200) {
+							LogUtils.v(TAG, "Load ===> "+obj.getNotifyId());
 							switch (obj.getNotifyId()) {
 							case HOME_BANNER:
 								boolLoadComplete.setGetBanner(true);
@@ -109,6 +111,7 @@ public class PreLoadActivity extends Activity {
 							default:
 								break;
 							}
+							LogUtils.v(TAG, "Load ===> "+boolLoadComplete.boolComplete());
 							if (boolLoadComplete.boolComplete()) {
 								Message updateViewMsg = mHandler
 										.obtainMessage(LOADING_END);
@@ -126,6 +129,7 @@ public class PreLoadActivity extends Activity {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
+				LogUtils.v(TAG, "Load ===> 1");
 				ControllerManager.getInstance().getSearchController()
 						.getHomeData();
 				boolean isAutoLogin = CacheData.getInstance().getAutologin();

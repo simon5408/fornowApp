@@ -12,15 +12,15 @@
  *****************************************************************************/
 package com.fornow.app.ui;
 
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.dao.DaoManager;
-import com.fornow.app.datapool.CacheData;
-
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.view.WindowManager;
+
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.dao.DaoManager;
+import com.fornow.app.datapool.CacheData;
+import com.fornow.app.util.LogUtils;
 
 /**
  * @author Jiafa Lv
@@ -29,6 +29,7 @@ import android.view.WindowManager;
  * 
  */
 public class AppClass extends Application {
+	private static final String TAG = AppClass.class.getName();
 	private static Context mContext;
 	public static Handler globalHandler;
 	public static final int UPDATE_CART_COUNT = 0xff;
@@ -52,6 +53,6 @@ public class AppClass extends Application {
 		DaoManager.getInstance().init();
 		CacheData.getInstance().init();
 		// AnimationsManager.getInstance().init();
-		Log.d("TAG", "================on onCreate0");
+		LogUtils.d(TAG, "================on onCreate0");
 	}
 }

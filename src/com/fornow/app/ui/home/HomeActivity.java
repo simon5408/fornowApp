@@ -26,7 +26,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -54,6 +53,7 @@ import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
 import com.fornow.app.ui.search.GoodDetailActivity;
 import com.fornow.app.ui.search.GoodsListActivity;
 import com.fornow.app.util.GsonTool;
+import com.fornow.app.util.LogUtils;
 import com.google.gson.reflect.TypeToken;
 
 /**
@@ -65,7 +65,7 @@ import com.google.gson.reflect.TypeToken;
 public class HomeActivity extends BaseMainActivity implements
 		OnItemClickListener, IViewListener {
 
-	private static final String TAG = "HOMEACTIVITY";
+	private static final String TAG = HomeActivity.class.getName();
 	private LinearLayout homeContainer;
 	private MyGridView gridview;
 	private AutoPlayGallery banner;
@@ -172,7 +172,7 @@ public class HomeActivity extends BaseMainActivity implements
 			bannerData = GsonTool.fromJson(data,
 					new TypeToken<List<GoodsDetailData>>() {
 					});
-			Log.v(TAG,
+			LogUtils.v(TAG,
 					"banner data: "
 							+ GsonTool.toJson(bannerData.get(0),
 									GoodsDetailData.class));
@@ -208,7 +208,7 @@ public class HomeActivity extends BaseMainActivity implements
 			public void updateView(ViewUpdateObj obj) {
 				String pos = obj.getData();
 				if (bannerData != null) {
-					Log.v(TAG, "login complete code is: " + pos);
+					LogUtils.v(TAG, "login complete code is: " + pos);
 					try {
 //						String detailData = GsonTool.getGsonTool().toJson(
 //								bannerData.get(Integer.parseInt(pos)),
@@ -265,7 +265,7 @@ public class HomeActivity extends BaseMainActivity implements
 			privilegeData = GsonTool.fromJson(data,
 					new TypeToken<List<GoodsListData>>() {
 					});
-			Log.v(TAG,
+			LogUtils.v(TAG,
 					"privilege data: "
 							+ GsonTool.toJson(
 									privilegeData.get(0), GoodsListData.class));
@@ -376,7 +376,7 @@ public class HomeActivity extends BaseMainActivity implements
 				detail.setSell_out(data.getSell_out());
 				detail.setMax_count(data.getMax_count());
 				String strDetail = GsonTool.toJson(detail);
-				Log.v(TAG, "jinrituijian detail: " + detailData);
+				LogUtils.v(TAG, "jinrituijian detail: " + detailData);
 				Intent intent = new Intent(HomeActivity.this,
 						GoodDetailActivity.class);
 				intent.putExtra("data", strDetail);
@@ -516,7 +516,7 @@ public class HomeActivity extends BaseMainActivity implements
 					break;
 				case VERSION:
 					boolLoadComplete.setGetVersion(true);
-					Log.d("TAG", "---------------version:"
+					LogUtils.d(TAG, "---------------version:"
 							+ ClientData.getInstance().getVersion());
 					break;
 				case MIN_LIMIT:

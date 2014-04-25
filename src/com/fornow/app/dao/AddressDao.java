@@ -14,8 +14,6 @@ package com.fornow.app.dao;
 
 import java.util.LinkedList;
 
-import android.util.Log;
-
 import com.fornow.app.datapool.CacheData;
 import com.fornow.app.net.HttpHeader;
 import com.fornow.app.net.NetRequest;
@@ -23,6 +21,7 @@ import com.fornow.app.net.NetResponse;
 import com.fornow.app.net.NetworkManager;
 import com.fornow.app.service.IControllerListener;
 import com.fornow.app.service.IDataCallback;
+import com.fornow.app.util.LogUtils;
 
 /**
  * @author Jiafa Lv
@@ -31,6 +30,7 @@ import com.fornow.app.service.IDataCallback;
  * 
  */
 public class AddressDao {
+	private static final String TAG = AddressDao.class.getName();
 	public void getShipAddress(String uuid, final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/getShipAddress";
 		LinkedList<HttpHeader> headers = new LinkedList<HttpHeader>();
@@ -41,7 +41,7 @@ public class AddressDao {
 		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
-				Log.d("getShipAddress", "Code:" + netRes.code);
+				LogUtils.d(TAG, "[getShipAddress] Code:" + netRes.code);
 				// netRes.code = 200;
 				// netRes.res =
 				// "[{'id':'1231','phone':'12312411342','name':'张三','address':'宿舍一区101','area_id':'29873694','postcode':'123456','isdefault':true},{'id':'1221','phone':'12312411342','name':'张三','address':'宿舍一区102','area_id':'29873694','postcode':'123456','isdefault':false}]";
@@ -68,7 +68,7 @@ public class AddressDao {
 		NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
-				Log.d("updateShipAddress", "Code:" + netRes.code);
+				LogUtils.d(TAG, "[updateShipAddress] Code:" + netRes.code);
 //				netRes.code = 200;
 				ctr.callback(netRes);
 			}
@@ -87,7 +87,7 @@ public class AddressDao {
 		NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
-				Log.d("delShipAddress", "Code:" + netRes.code);
+				LogUtils.d(TAG, "[delShipAddress] Code:" + netRes.code);
 //				netRes.code = 200;
 				ctr.callback(netRes);
 			}

@@ -13,8 +13,6 @@
 package com.fornow.app.ui.pull2refresh;
 
 
-import com.fornow.app.R;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -24,7 +22,6 @@ import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,6 +31,9 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+
+import com.fornow.app.R;
+import com.fornow.app.util.LogUtils;
 
 /**
  * @author Jiafa Lv
@@ -130,7 +130,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 	@Override
 	public void addView(View child, int index, ViewGroup.LayoutParams params) {
 		if (DEBUG) {
-			Log.d(LOG_TAG, "addView: " + child.getClass().getSimpleName());
+			LogUtils.d(LOG_TAG, "addView: " + child.getClass().getSimpleName());
 		}
 
 		final T refreshableView = getRefreshableView();
@@ -424,7 +424,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 	public final void setMode(Mode mode) {
 		if (mode != mMode) {
 			if (DEBUG) {
-				Log.d(LOG_TAG, "Setting mode to: " + mode);
+				LogUtils.d(LOG_TAG, "Setting mode to: " + mode);
 			}
 			mMode = mode;
 			updateUIForMode();
@@ -541,7 +541,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 	final void setState(State state, final boolean... params) {
 		mState = state;
 		if (DEBUG) {
-			Log.d(LOG_TAG, "State: " + mState.name());
+			LogUtils.d(LOG_TAG, "State: " + mState.name());
 		}
 
 		switch (mState) {
@@ -845,7 +845,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 	@Override
 	protected final void onSizeChanged(int w, int h, int oldw, int oldh) {
 		if (DEBUG) {
-			Log.d(LOG_TAG, String.format("onSizeChanged. W: %d, H: %d", w, h));
+			LogUtils.d(LOG_TAG, String.format("onSizeChanged. W: %d, H: %d", w, h));
 		}
 
 		super.onSizeChanged(w, h, oldw, oldh);
@@ -915,7 +915,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 		}
 
 		if (DEBUG) {
-			Log.d(LOG_TAG, String.format("Setting Padding. L: %d, T: %d, R: %d, B: %d", pLeft, pTop, pRight, pBottom));
+			LogUtils.d(LOG_TAG, String.format("Setting Padding. L: %d, T: %d, R: %d, B: %d", pLeft, pTop, pRight, pBottom));
 		}
 		setPadding(pLeft, pTop, pRight, pBottom);
 	}
@@ -949,7 +949,7 @@ public abstract class PullToRefreshBase<T extends View> extends LinearLayout imp
 	 */
 	protected final void setHeaderScroll(int value) {
 		if (DEBUG) {
-			Log.d(LOG_TAG, "setHeaderScroll: " + value);
+			LogUtils.d(LOG_TAG, "setHeaderScroll: " + value);
 		}
 
 		// Clamp value to with pull scroll range

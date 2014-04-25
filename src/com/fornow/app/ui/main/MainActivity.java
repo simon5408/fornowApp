@@ -15,14 +15,13 @@ package com.fornow.app.ui.main;
 import java.util.List;
 
 import android.app.AlertDialog;
-import android.app.TabActivity;
 import android.app.AlertDialog.Builder;
+import android.app.TabActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,7 +30,6 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.google.gson.reflect.TypeToken;
 import com.fornow.app.R;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.ShopCart;
@@ -43,6 +41,8 @@ import com.fornow.app.ui.mine.MineActivity;
 import com.fornow.app.ui.shopcart.CartDataHelper;
 import com.fornow.app.ui.shopcart.ShopCartActivity;
 import com.fornow.app.util.GsonTool;
+import com.fornow.app.util.LogUtils;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * @author Jiafa Lv
@@ -51,6 +51,7 @@ import com.fornow.app.util.GsonTool;
  * 
  */
 public class MainActivity extends TabActivity implements OnClickListener {
+	private static final String TAG = MainActivity.class.getName();
 	public static String TAB_TAG = "tabTag";
 	public static String TAB_TAG_HOME = "home";
 	public static String TAB_TAG_GROUPBUY = "groupBuy";
@@ -173,7 +174,7 @@ public class MainActivity extends TabActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		Log.v("1111", "v.getId() is: " + v.getId());
+		LogUtils.v(TAG, "v.getId() is: " + v.getId());
 		int checkedId = v.getId();
 		if (mCurTabId == v.getId()) {
 			return;

@@ -12,8 +12,6 @@
  *****************************************************************************/
 package com.fornow.app.controller;
 
-import android.util.Log;
-
 import com.fornow.app.dao.DaoManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.LoginData;
@@ -25,6 +23,7 @@ import com.fornow.app.service.IControllerListener;
 import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.shopcart.CartDataHelper;
 import com.fornow.app.util.GsonTool;
+import com.fornow.app.util.LogUtils;
 
 /**
  * @author Jiafa Lv
@@ -33,6 +32,7 @@ import com.fornow.app.util.GsonTool;
  * 
  */
 public class LoginController extends AbstractController<IViewListener, String> {
+	private static final String TAG = LoginController.class.getName();
 	public enum loginType {
 		LOGIN, REGISTER
 	};
@@ -143,7 +143,7 @@ public class LoginController extends AbstractController<IViewListener, String> {
 			};
 			try {
 				String userInfo = GsonTool.toJson(user);
-				Log.d("TAG", "--------set userInfo:" + userInfo);
+				LogUtils.d(TAG, "--------set userInfo:" + userInfo);
 				DaoManager.getInstance().getUserDao()
 						.updateUser(uuid, userInfo, ctr);
 			} catch (Exception e) {

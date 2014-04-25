@@ -12,13 +12,12 @@
  *****************************************************************************/
 package com.fornow.app.ui.pull2refresh;
 
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase.Mode;
-
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase.State;
-
 import android.annotation.TargetApi;
-import android.util.Log;
 import android.view.View;
+
+import com.fornow.app.ui.pull2refresh.PullToRefreshBase.Mode;
+import com.fornow.app.ui.pull2refresh.PullToRefreshBase.State;
+import com.fornow.app.util.LogUtils;
 /**
  * @author Jiafa Lv
  * @date Apr 24, 2014 10:52:20 AM
@@ -132,7 +131,7 @@ public final class OverscrollHelper {
 				final int newScrollValue = (deltaValue + scrollValue);
 
 				if (PullToRefreshBase.DEBUG) {
-					Log.d(LOG_TAG, "OverScroll. DeltaX: " + deltaX + ", ScrollX: " + scrollX + ", DeltaY: " + deltaY
+					LogUtils.d(LOG_TAG, "OverScroll. DeltaX: " + deltaX + ", ScrollX: " + scrollX + ", DeltaY: " + deltaY
 							+ ", ScrollY: " + scrollY + ", NewY: " + newScrollValue + ", ScrollRange: " + scrollRange
 							+ ", CurrentScroll: " + currentScrollValue);
 				}

@@ -17,7 +17,6 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.fornow.app.R;
@@ -25,6 +24,7 @@ import com.fornow.app.net.NetRequest;
 import com.fornow.app.net.NetResponse;
 import com.fornow.app.net.NetworkManager;
 import com.fornow.app.service.IDataCallback;
+import com.fornow.app.util.LogUtils;
 
 /**
  * @author Jiafa Lv
@@ -33,6 +33,7 @@ import com.fornow.app.service.IDataCallback;
  * 
  */
 public class SettingActivity extends Activity {
+	private static final String TAG = SettingActivity.class.getName();
 
 	private TextView myName;
 	@Override
@@ -46,8 +47,8 @@ public class SettingActivity extends Activity {
 			@Override
 			public void updateData(final NetResponse netRes) {
 				
-				Log.d("TAG","Code:"+netRes.code);
-				Log.d("TAG","Response:"+netRes.res);
+				LogUtils.d(TAG,"Code:"+netRes.code);
+				LogUtils.d(TAG,"Response:"+netRes.res);
 				
 				myName.post(new Runnable() {
 					@Override
@@ -73,8 +74,8 @@ public class SettingActivity extends Activity {
 			NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 				@Override
 				public void updateData(NetResponse netRes) {
-					Log.d("TAG","Code:"+netRes.code);
-					Log.d("TAG","Response:"+netRes.res);
+					LogUtils.d(TAG,"Code:"+netRes.code);
+					LogUtils.d(TAG,"Response:"+netRes.res);
 				}
 			});
 		} catch (JSONException e) {

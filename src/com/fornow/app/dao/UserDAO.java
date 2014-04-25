@@ -14,8 +14,6 @@ package com.fornow.app.dao;
 
 import java.util.LinkedList;
 
-import android.util.Log;
-
 import com.fornow.app.controller.LoginController.loginType;
 import com.fornow.app.datapool.CacheData;
 import com.fornow.app.model.LoginData;
@@ -26,6 +24,7 @@ import com.fornow.app.net.NetworkManager;
 import com.fornow.app.service.IControllerListener;
 import com.fornow.app.service.IDataCallback;
 import com.fornow.app.util.GsonTool;
+import com.fornow.app.util.LogUtils;
 
 /**
  * @author Jiafa Lv
@@ -34,7 +33,7 @@ import com.fornow.app.util.GsonTool;
  * 
  */
 public class UserDAO {
-
+	private static final String TAG = UserDAO.class.getName();
 	public UserDAO() {
 
 	}
@@ -68,7 +67,7 @@ public class UserDAO {
 			NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 				@Override
 				public void updateData(NetResponse netRes) {
-					Log.d("sendLoginOrRegister", "Code:" + netRes.code);
+					LogUtils.d(TAG, "[sendLoginOrRegister] Code:" + netRes.code);
 //					netRes.code = 200;
 //					netRes.res = "{'uuid':'4cdbc040657a4847b2667e31d9e2c3d9', 'userinfo':{'user_name':'张三', 'sex':'男','age':24,'is_marital':null,'birthday':null,'constellation':null,'blood_type':null,'phone':'1235345363','qq':null,'email':'12234523452@qq.com','home_town':null,'residence':null,'avatar':null,'interest':null,'college':null,'department':null,'profession':null,'company':null}}";
 					ctr.callback(netRes);
@@ -85,7 +84,7 @@ public class UserDAO {
 		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
-				Log.d("logout", "Code:" + netRes.code);
+				LogUtils.d(TAG, "[logout] Code:" + netRes.code);
 				ctr.callback(netRes);
 			}
 		});
@@ -93,7 +92,7 @@ public class UserDAO {
 
 	public void updateUser(String uuid, String userInfo,
 			final IControllerListener ctr) {
-		Log.d("TAG", "userInfo" + userInfo);
+		LogUtils.d(TAG, "userInfo" + userInfo);
 		String url = CacheData.getInstance().getBaseUrl() + "/setUserInfo";
 		LinkedList<HttpHeader> headers = new LinkedList<HttpHeader>();
 		headers.add(new HttpHeader("uuid", uuid));
@@ -103,7 +102,7 @@ public class UserDAO {
 		NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
-				Log.d("updateUser", "Code:" + netRes.code);
+				LogUtils.d(TAG, "[updateUser] Code:" + netRes.code);
 				// netRes.code = 200;
 				// netRes.res =
 				// "{'uuid':'4cdbc040657a4847b2667e31d9e2c3d9', 'userinfo':{'user_name':'张三', 'sex':'男','age':24,'is_marital':null,'birthday':null,'constellation':null,'blood_type':null,'phone':'1235345363','qq':null,'email':'12234523452@qq.com','home_town':null,'residence':null,'avatar':null,'interest':null,'college':null,'department':null,'profession':null,'company':null}}";
