@@ -42,9 +42,10 @@ public class AddressDao {
 			@Override
 			public void updateData(NetResponse netRes) {
 				LogUtils.d(TAG, "[getShipAddress] Code:" + netRes.code);
-				// netRes.code = 200;
-				// netRes.res =
-				// "[{'id':'1231','phone':'12312411342','name':'张三','address':'宿舍一区101','area_id':'29873694','postcode':'123456','isdefault':true},{'id':'1221','phone':'12312411342','name':'张三','address':'宿舍一区102','area_id':'29873694','postcode':'123456','isdefault':false}]";
+				// TODO
+				 netRes.code = 200;
+				 netRes.res =
+				 "[{'id':'1231','phone':'12312411342','name':'张三','address':'宿舍一区101','area_id':'29873694','postcode':'123456','isdefault':true},{'id':'1221','phone':'12312411342','name':'张三','address':'宿舍一区102','area_id':'29873694','postcode':'123456','isdefault':false}]";
 				ctr.callback(netRes);
 			}
 		});
@@ -69,7 +70,8 @@ public class AddressDao {
 			@Override
 			public void updateData(NetResponse netRes) {
 				LogUtils.d(TAG, "[updateShipAddress] Code:" + netRes.code);
-//				netRes.code = 200;
+				// TODO
+				netRes.code = 200;
 				ctr.callback(netRes);
 			}
 		});
@@ -88,7 +90,8 @@ public class AddressDao {
 			@Override
 			public void updateData(NetResponse netRes) {
 				LogUtils.d(TAG, "[delShipAddress] Code:" + netRes.code);
-//				netRes.code = 200;
+				// TODO
+				netRes.code = 200;
 				ctr.callback(netRes);
 			}
 		});

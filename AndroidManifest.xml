@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fornow.app"
-    android:versionCode="1"
+    android:versionCode="1" 
     android:versionName="1.0" >
+    <!-- versionCode Integer类型，系统不显示给用户 -->
+    <!-- versionName String类型，系统显示用户 -->
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />

@@ -40,6 +40,7 @@ public class RegionDao {
 			public void updateData(NetResponse netRes) {
 				LogUtils.d(TAG, "Code:" + netRes.code);
 				LogUtils.d(TAG, "Response:" + netRes.res);
+				// TODO
 				netRes.res = "[{'id':'123','region_name':'南京信息工程大学','is_default':true,'coords':{'longitude': 104062157,'latitude': 30658255}},{'id': '124','region_name': '南京工业大学','default':false,'coords':{'longitude': 104062157,'latitude': 30658255}}]";
 				ctr.callback(null);
 			}
