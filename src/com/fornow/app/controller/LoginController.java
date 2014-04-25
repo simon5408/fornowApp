@@ -67,9 +67,9 @@ public class LoginController extends AbstractController<ViewListener, String> {
 				viewObj.setCode(response.code);
 				if (response.code == 200) {
 					try {
-						User user = GsonTool.getGsonTool().fromJson(
+						User user = GsonTool.fromJson(
 								response.res, User.class);
-						String userInfo = GsonTool.getGsonTool().toJson(
+						String userInfo = GsonTool.toJson(
 								user.getUserinfo());
 						ClientData.getInstance().setmUUID(user.getUuid());
 						ClientData.getInstance().setUser(userInfo);
@@ -127,9 +127,9 @@ public class LoginController extends AbstractController<ViewListener, String> {
 					viewObj.setCode(response.code);
 					if (response.code == 200) {
 						try {
-							User user = GsonTool.getGsonTool().fromJson(
+							User user = GsonTool.fromJson(
 									response.res, User.class);
-							String userInfo = GsonTool.getGsonTool().toJson(
+							String userInfo = GsonTool.toJson(
 									user.getUserinfo());
 							ClientData.getInstance().setUser(userInfo);
 						} catch (Exception e) {
@@ -142,7 +142,7 @@ public class LoginController extends AbstractController<ViewListener, String> {
 				}
 			};
 			try {
-				String userInfo = GsonTool.getGsonTool().toJson(user);
+				String userInfo = GsonTool.toJson(user);
 				Log.d("TAG", "--------set userInfo:" + userInfo);
 				DaoManager.getInstance().getUserDao()
 						.updateUser(uuid, userInfo, ctr);

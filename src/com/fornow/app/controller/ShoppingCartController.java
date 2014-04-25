@@ -69,17 +69,16 @@ public class ShoppingCartController extends
 					if (response.code == 200) {
 						List<ShopCart> newCart = null;
 						try {
-							List<ShopCart> backCart = GsonTool.getGsonTool()
+							List<ShopCart> backCart = GsonTool
 									.fromJson(response.res,
 											new TypeToken<List<ShopCart>>() {
-											}.getType());
+											});
 							if (cacheCart != null) {
 								List<ShopCart> cachedCart = GsonTool
-										.getGsonTool()
 										.fromJson(
 												cacheCart,
 												new TypeToken<List<ShopCart>>() {
-												}.getType());
+												});
 
 								int i, j, cachedSize = cachedCart.size(), backSize = backCart
 										.size();
@@ -120,7 +119,7 @@ public class ShoppingCartController extends
 							}
 							CartDataHelper.updateCacheCart(newCart);
 							CartDataHelper.syncCart();
-							viewObj.setData(GsonTool.getGsonTool().toJson(
+							viewObj.setData(GsonTool.toJson(
 									newCart));
 						} catch (Exception e) {
 							e.printStackTrace();

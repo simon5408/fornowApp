@@ -119,10 +119,10 @@ public class OrderListActivity extends Activity {
 				case LOADING_END:
 					String data = msg.getData().getString("data");
 					if (data != null) {
-						List<OrderList> responseData = GsonTool.getGsonTool()
+						List<OrderList> responseData = GsonTool
 								.fromJson(data,
 										new TypeToken<List<OrderList>>() {
-										}.getType());
+										});
 						if (currentRequestType == requestType.REFRESH) {
 							orderList = responseData;
 						} else if (currentRequestType == requestType.MORE) {

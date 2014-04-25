@@ -120,11 +120,10 @@ public class ShopCartActivity extends BaseMainActivity {
 						try {
 							ShipAddressData defaultAddress = null;
 							List<ShipAddressData> addressData = GsonTool
-									.getGsonTool()
 									.fromJson(
 											data,
 											new TypeToken<List<ShipAddressData>>() {
-											}.getType());
+											});
 							for (ShipAddressData d : addressData) {
 								if (d.isIsdefault()) {
 									defaultAddress = d;
@@ -132,8 +131,7 @@ public class ShopCartActivity extends BaseMainActivity {
 								}
 							}
 							if (defaultAddress != null) {
-								strDefaultAddress = GsonTool.getGsonTool()
-										.toJson(defaultAddress);
+								strDefaultAddress = GsonTool.toJson(defaultAddress);
 							}
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -299,9 +297,8 @@ public class ShopCartActivity extends BaseMainActivity {
 	public void updateList(String data) {
 		if (data != null) {
 			try {
-				cartData = GsonTool.getGsonTool().fromJson(data,
-						new TypeToken<List<ShopCart>>() {
-						}.getType());
+				cartData = GsonTool.fromJson(data,
+						new TypeToken<List<ShopCart>>(){});
 				listStatus = new ArrayList<ListStatus>();
 				boolShowDel = new BoolShowDel();
 				for (int i = 0; i < cartData.size(); i++) {
@@ -371,7 +368,7 @@ public class ShopCartActivity extends BaseMainActivity {
 	public void go2detail(String detail) {
 		if (detail != null) {
 			try {
-				ShopCart cart = GsonTool.getGsonTool().fromJson(detail,
+				ShopCart cart = GsonTool.fromJson(detail,
 						ShopCart.class);
 				GoodsDetailData detialData = new GoodsDetailData();
 				if (cart.getGoods_id() != null) {
@@ -402,7 +399,7 @@ public class ShopCartActivity extends BaseMainActivity {
 					detialData.setDeliver_area(cart.getDeliver_area());
 				}
 
-				String strDetail = GsonTool.getGsonTool().toJson(detialData);
+				String strDetail = GsonTool.toJson(detialData);
 				Intent intent = new Intent(ShopCartActivity.this,
 						GoodDetailActivity.class);
 				intent.putExtra("data", strDetail);
@@ -492,7 +489,7 @@ public class ShopCartActivity extends BaseMainActivity {
 			}
 			if (goodsList.size() > 0) {
 				try {
-					jiesuanList = GsonTool.getGsonTool().toJson(goodsList);
+					jiesuanList = GsonTool.toJson(goodsList);
 					if (ClientData.getInstance().getmUUID() == null) {
 						Intent in = new Intent(ShopCartActivity.this,
 								LoginActivity.class);

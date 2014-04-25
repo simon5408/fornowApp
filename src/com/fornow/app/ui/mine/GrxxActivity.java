@@ -102,7 +102,7 @@ public class GrxxActivity extends Activity {
 		String userInfo = ClientData.getInstance().getUser();
 		if (userInfo != null) {
 			try {
-				user = GsonTool.getGsonTool()
+				user = GsonTool
 						.fromJson(userInfo, UserInfo.class);
 				if (user.getUser_account() != null) {
 					zhanghaoView.setText(user.getUser_account());

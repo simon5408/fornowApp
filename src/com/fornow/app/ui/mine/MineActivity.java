@@ -45,7 +45,7 @@ public class MineActivity extends BaseMainActivity {
 
 		if (ClientData.getInstance().getUser() != null) {
 			String user = ClientData.getInstance().getUser();
-			UserInfo userInfo = GsonTool.getGsonTool().fromJson(user,
+			UserInfo userInfo = GsonTool.fromJson(user,
 					UserInfo.class);
 			if (userInfo.getUser_name() != null) {
 				mineNameView.setText(userInfo.getUser_name());

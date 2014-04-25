@@ -172,10 +172,10 @@ public class JieSuanActivity extends Activity {
 		try {
 			if (intent.getExtras() != null) {
 				if (intent.getExtras().get("data") != null) {
-					mList = GsonTool.getGsonTool().fromJson(
+					mList = GsonTool.fromJson(
 							intent.getExtras().get("data") + "",
 							new TypeToken<List<GoodsDetailData>>() {
-							}.getType());
+							});
 					for (GoodsDetailData d : mList) {
 						totalPrice += Float.valueOf(JiesuanAdapter
 								.itemTotalPrice(d.getCurrent_price() + "",
@@ -192,7 +192,7 @@ public class JieSuanActivity extends Activity {
 						&& intent.getExtras().get("defaultAddress") != null) {
 					String strAddress = intent.getExtras()
 							.get("defaultAddress").toString();
-					address = GsonTool.getGsonTool().fromJson(strAddress,
+					address = GsonTool.fromJson(strAddress,
 							ShipAddressData.class);
 					initShdz.setVisibility(View.VISIBLE);
 					addShdz.setVisibility(View.GONE);
@@ -238,7 +238,7 @@ public class JieSuanActivity extends Activity {
 					&& data.getExtras().getString("addressData") != null) {
 				String strAddress = data.getExtras().getString("addressData");
 				try {
-					address = GsonTool.getGsonTool().fromJson(strAddress,
+					address = GsonTool.fromJson(strAddress,
 							ShipAddressData.class);
 					initShdz.post(new Runnable() {
 						@Override
@@ -315,9 +315,9 @@ public class JieSuanActivity extends Activity {
 		String cartData = ClientData.getInstance().getmCart();
 		if (cartData != null) {
 			try {
-				List<ShopCart> cartObj = GsonTool.getGsonTool().fromJson(
+				List<ShopCart> cartObj = GsonTool.fromJson(
 						cartData, new TypeToken<List<ShopCart>>() {
-						}.getType());
+						});
 				int i, j;
 				for (i = 0; i < cartObj.size(); i++) {
 					for (j = 0; j < goodsList.size(); j++) {

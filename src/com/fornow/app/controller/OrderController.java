@@ -82,7 +82,7 @@ public class OrderController extends AbstractController<ViewListener, String> {
 
 			};
 			try {
-				String requestData = GsonTool.getGsonTool().toJson(data);
+				String requestData = GsonTool.toJson(data);
 				DaoManager.getInstance().getOrderDao()
 						.settlement(uuid, requestData, ctr);
 			} catch (Exception e) {

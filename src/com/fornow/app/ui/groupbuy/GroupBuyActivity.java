@@ -108,11 +108,10 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 					if (data != null) {
 						try {
 							List<GroupListData> responseData = GsonTool
-									.getGsonTool()
 									.fromJson(
 											data,
 											new TypeToken<List<GroupListData>>() {
-											}.getType());
+											});
 							if (currentRequestType == requestType.REFRESH) {
 								groupData = responseData;
 							} else if (currentRequestType == requestType.MORE) {
@@ -236,7 +235,7 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 						detail.setMax_count(data.getMax_count());
 					}
 
-					String strDetail = GsonTool.getGsonTool().toJson(detail);
+					String strDetail = GsonTool.toJson(detail);
 					Intent intent = new Intent(GroupBuyActivity.this,
 							GoodDetailActivity.class);
 					intent.putExtra("data", strDetail);

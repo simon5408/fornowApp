@@ -58,7 +58,7 @@ public class EditShipAddressActivity extends Activity {
 		if (intent.getExtras() != null
 				&& intent.getExtras().get("addressData") != null) {
 			try {
-				address = GsonTool.getGsonTool().fromJson(
+				address = GsonTool.fromJson(
 						intent.getExtras().get("addressData").toString(),
 						ShipAddressData.class);
 				if (address.getName() != null) {

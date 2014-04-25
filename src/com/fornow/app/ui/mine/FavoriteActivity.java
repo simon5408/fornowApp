@@ -108,11 +108,11 @@ public class FavoriteActivity extends Activity {
 		String favData = ClientData.getInstance().getmFavorites();
 		if (favData != null) {
 			try {
-				favoritesData = GsonTool.getGsonTool().fromJson(favData,
+				favoritesData = GsonTool.fromJson(favData,
 						new TypeToken<List<GoodsDetailData>>() {
-						}.getType());
+						});
 				Log.d("TAG", "===============favorite data:"
-						+ GsonTool.getGsonTool().toJson(favoritesData));
+						+ GsonTool.toJson(favoritesData));
 				favoriteAdapter = new FavoriteAdapter(favoritesData, mHandler,
 						mContext);
 				animateDismissAdapter = new AnimateDismissAdapter<String>(
@@ -142,15 +142,14 @@ public class FavoriteActivity extends Activity {
 					if (data != null) {
 						try {
 							List<GoodsDetailData> responseData = GsonTool
-									.getGsonTool()
 									.fromJson(
 											data,
 											new TypeToken<List<GoodsDetailData>>() {
-											}.getType());
+											});
 							favoritesData = responseData;
 							Log.d("TAG",
 									"===============favorite data:"
-											+ GsonTool.getGsonTool().toJson(
+											+ GsonTool.toJson(
 													favoritesData));
 							favoriteAdapter.notifyDataSetChanged();
 							animateDismissAdapter.notifyDataSetChanged();

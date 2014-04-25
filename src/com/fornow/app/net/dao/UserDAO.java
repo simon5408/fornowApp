@@ -61,7 +61,7 @@ public class UserDAO {
 			break;
 		}
 		try {
-			String requestBody = GsonTool.getGsonTool().toJson(request,
+			String requestBody = GsonTool.toJson(request,
 					LoginData.class);
 			NetRequest netPostReq = NetRequest.createPostRequest(url,
 					requestBody.getBytes());

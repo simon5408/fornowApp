@@ -41,9 +41,9 @@ public class CartDataHelper {
 			String cacheCart = ClientData.getInstance().getmCart();
 			List<ShopCart> localCart;
 			if (cacheCart != null) {
-				localCart = GsonTool.getGsonTool().fromJson(cacheCart,
+				localCart = GsonTool.fromJson(cacheCart,
 						new TypeToken<List<ShopCart>>() {
-						}.getType());
+						});
 			} else {
 				localCart = new ArrayList<ShopCart>();
 			}
@@ -55,7 +55,7 @@ public class CartDataHelper {
 				}
 				if (flag) {
 					localCart.add(cart);
-					String newCart = GsonTool.getGsonTool().toJson(localCart);
+					String newCart = GsonTool.toJson(localCart);
 					ClientData.getInstance().setmCart(newCart);
 					Message updateViewMsg = AppClass.globalHandler
 							.obtainMessage(AppClass.UPDATE_CART_COUNT);
@@ -73,7 +73,7 @@ public class CartDataHelper {
 	public static void updateCacheCart(List<ShopCart> cartData) {
 		if (cartData != null) {
 			try {
-				String cart = GsonTool.getGsonTool().toJson(cartData);
+				String cart = GsonTool.toJson(cartData);
 				ClientData.getInstance().setmCart(cart);
 			} catch (Exception e) {
 				e.printStackTrace();

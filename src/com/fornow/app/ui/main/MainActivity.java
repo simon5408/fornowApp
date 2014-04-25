@@ -111,9 +111,9 @@ public class MainActivity extends TabActivity implements OnClickListener {
 		String cart = ClientData.getInstance().getmCart();
 		if (cart != null) {
 			try {
-				List<ShopCart> cartObj = GsonTool.getGsonTool().fromJson(cart,
+				List<ShopCart> cartObj = GsonTool.fromJson(cart,
 						new TypeToken<List<ShopCart>>() {
-						}.getType());
+						});
 				int count = cartObj.size();
 				if (count > 0) {
 					cartCornerMark.setText(count + "");

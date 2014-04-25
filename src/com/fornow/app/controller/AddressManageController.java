@@ -81,7 +81,7 @@ public class AddressManageController extends
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
 			try {
-				String address = GsonTool.getGsonTool().toJson(data);
+				String address = GsonTool.toJson(data);
 				DaoManager
 						.getInstance()
 						.getAddressDao()

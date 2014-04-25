@@ -167,7 +167,7 @@ public class FavoriteAdapter extends BaseAdapter {
 									.obtainMessage(FavoriteActivity.FAV_CLICKED);
 							updateViewMsg.getData().putString(
 									"data",
-									GsonTool.getGsonTool().toJson(
+									GsonTool.toJson(
 											getItem(position)));
 							mHandler.sendMessage(updateViewMsg);
 						} catch (Exception e) {

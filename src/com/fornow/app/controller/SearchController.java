@@ -91,7 +91,6 @@ public class SearchController extends AbstractController<ViewListener, String> {
 							viewObj.setData(response.res);
 							try {
 								ImVersion version = GsonTool
-										.getGsonTool()
 										.fromJson(response.res, ImVersion.class);
 								ClientData.getInstance().setVersion(
 										version.getVersion());
@@ -115,7 +114,7 @@ public class SearchController extends AbstractController<ViewListener, String> {
 						if (response.code == 200) {
 							viewObj.setData(response.res);
 							try {
-								LimitPrice limitPrice = GsonTool.getGsonTool()
+								LimitPrice limitPrice = GsonTool
 										.fromJson(response.res,
 												LimitPrice.class);
 								ClientData.getInstance().setMinLimit(

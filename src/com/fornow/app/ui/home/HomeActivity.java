@@ -169,12 +169,12 @@ public class HomeActivity extends BaseMainActivity implements
 
 	private void makeBannerView(String data) {
 		try {
-			bannerData = GsonTool.getGsonTool().fromJson(data,
+			bannerData = GsonTool.fromJson(data,
 					new TypeToken<List<GoodsDetailData>>() {
-					}.getType());
+					});
 			Log.v(TAG,
 					"banner data: "
-							+ GsonTool.getGsonTool().toJson(bannerData.get(0),
+							+ GsonTool.toJson(bannerData.get(0),
 									GoodsDetailData.class));
 			drawables = new ArrayList<Drawable>();
 			imgAdapter = new ImageAdapter(this, drawables);
@@ -246,7 +246,7 @@ public class HomeActivity extends BaseMainActivity implements
 						detail.setSell_out(data.getSell_out());
 
 						detail.setMax_count(data.getMax_count());
-						String strDetail = GsonTool.getGsonTool()
+						String strDetail = GsonTool
 								.toJson(detail);
 						Intent intent = new Intent(HomeActivity.this,
 								GoodDetailActivity.class);
@@ -262,12 +262,12 @@ public class HomeActivity extends BaseMainActivity implements
 
 	private void makeGridView(String data) {
 		try {
-			privilegeData = GsonTool.getGsonTool().fromJson(data,
+			privilegeData = GsonTool.fromJson(data,
 					new TypeToken<List<GoodsListData>>() {
-					}.getType());
+					});
 			Log.v(TAG,
 					"privilege data: "
-							+ GsonTool.getGsonTool().toJson(
+							+ GsonTool.toJson(
 									privilegeData.get(0), GoodsListData.class));
 			ArrayList<HashMap<String, Object>> tuijianList = new ArrayList<HashMap<String, Object>>();
 			for (GoodsListData d : privilegeData) {
@@ -342,7 +342,7 @@ public class HomeActivity extends BaseMainActivity implements
 			long id) {
 		if (privilegeData != null) {
 			try {
-				String detailData = GsonTool.getGsonTool().toJson(
+				String detailData = GsonTool.toJson(
 						privilegeData.get(position), GoodsListData.class);
 				GoodsListData data = privilegeData.get(position);
 				GoodsDetailData detail = new GoodsDetailData();
@@ -375,7 +375,7 @@ public class HomeActivity extends BaseMainActivity implements
 				}
 				detail.setSell_out(data.getSell_out());
 				detail.setMax_count(data.getMax_count());
-				String strDetail = GsonTool.getGsonTool().toJson(detail);
+				String strDetail = GsonTool.toJson(detail);
 				Log.v(TAG, "jinrituijian detail: " + detailData);
 				Intent intent = new Intent(HomeActivity.this,
 						GoodDetailActivity.class);

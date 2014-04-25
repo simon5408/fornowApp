@@ -91,7 +91,7 @@ public class ShdzActivity extends Activity {
 						int position = Integer.valueOf(msg.getData().getString(
 								"position"));
 						try {
-							String selectAddress = GsonTool.getGsonTool()
+							String selectAddress = GsonTool
 									.toJson(addressData.get(position));
 							Intent inA = getIntent();
 							if (inA.getExtras() != null
@@ -191,9 +191,9 @@ public class ShdzActivity extends Activity {
 	public void loadList(String data) {
 		if (data != null) {
 			try {
-				addressData = GsonTool.getGsonTool().fromJson(data,
+				addressData = GsonTool.fromJson(data,
 						new TypeToken<List<ShipAddressData>>() {
-						}.getType());
+						});
 				mAdapter = new ShdzListAdapter(addressData, mContext, mHandler);
 				animateDismissAdapter = new AnimateDismissAdapter<String>(
 						mAdapter, new MyOnDismissCallback());

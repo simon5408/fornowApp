@@ -113,11 +113,10 @@ public class GoodDetailActivity extends Activity {
 						if (data != null) {
 							ShipAddressData defaultAddress = null;
 							List<ShipAddressData> addressData = GsonTool
-									.getGsonTool()
 									.fromJson(
 											data,
 											new TypeToken<List<ShipAddressData>>() {
-											}.getType());
+											});
 							for (ShipAddressData d : addressData) {
 								if (d.isIsdefault()) {
 									defaultAddress = d;
@@ -125,13 +124,13 @@ public class GoodDetailActivity extends Activity {
 								}
 							}
 							if (defaultAddress != null) {
-								strDefaultAddress = GsonTool.getGsonTool()
+								strDefaultAddress = GsonTool
 										.toJson(defaultAddress);
 							}
 						}
 						List<GoodsDetailData> goodsList = new ArrayList<GoodsDetailData>();
 						goodsList.add(detailData);
-						String strGoodsList = GsonTool.getGsonTool().toJson(
+						String strGoodsList = GsonTool.toJson(
 								goodsList);
 
 						Intent intent = new Intent(GoodDetailActivity.this,
@@ -205,7 +204,7 @@ public class GoodDetailActivity extends Activity {
 
 		if (detail != null) {
 			try {
-				detailData = GsonTool.getGsonTool().fromJson(detail,
+				detailData = GsonTool.fromJson(detail,
 						GoodsDetailData.class);
 				drawables = new ArrayList<Drawable>();
 				imgAdapter = new ImageAdapter(this, drawables);
@@ -279,9 +278,9 @@ public class GoodDetailActivity extends Activity {
 	public void boolFav(String goodId) {
 		String favData = ClientData.getInstance().getmFavorites();
 		if (favData != null) {
-			List<GoodsDetailData> favList = GsonTool.getGsonTool().fromJson(
+			List<GoodsDetailData> favList = GsonTool.fromJson(
 					favData, new TypeToken<List<GoodsDetailData>>() {
-					}.getType());
+					});
 			Iterator<GoodsDetailData> itr = favList.iterator();
 			while (itr.hasNext()) {
 				if (itr.next().getId().equals(goodId)) {

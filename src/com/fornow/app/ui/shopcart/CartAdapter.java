@@ -284,7 +284,7 @@ public class CartAdapter extends BaseAdapter {
 									.obtainMessage(ShopCartActivity.CART_CLICKED);
 							updateViewMsg.getData().putString(
 									"data",
-									GsonTool.getGsonTool().toJson(
+									GsonTool.toJson(
 											getItem(position)));
 							mHandler.sendMessage(updateViewMsg);
 						} catch (Exception e) {

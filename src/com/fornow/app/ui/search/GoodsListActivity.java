@@ -148,11 +148,10 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 					if (data != null) {
 						try {
 							List<GoodsListData> responseData = GsonTool
-									.getGsonTool()
 									.fromJson(
 											data,
 											new TypeToken<List<GoodsListData>>() {
-											}.getType());
+											});
 							if (currentRequestType == requestType.REFRESH) {
 								goodsData = responseData;
 							} else if (currentRequestType == requestType.MORE) {
@@ -164,7 +163,7 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 
 							Log.v(TAG,
 									"goodsData: "
-											+ GsonTool.getGsonTool().toJson(
+											+ GsonTool.toJson(
 													goodsData.get(0),
 													GoodsListData.class));
 							ArrayList<HashMap<String, Object>> tuijianList = new ArrayList<HashMap<String, Object>>();
@@ -264,7 +263,7 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		String detailData = GsonTool.getGsonTool().toJson(
+		String detailData = GsonTool.toJson(
 				goodsData.get(position), GoodsListData.class);
 		if (detailData != null) {
 			GoodsListData data = goodsData.get(position);
@@ -299,7 +298,7 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 
 			detail.setSell_out(data.getSell_out());
 			detail.setMax_count(data.getMax_count());
-			String strDetail = GsonTool.getGsonTool().toJson(detail);
+			String strDetail = GsonTool.toJson(detail);
 			Log.v(TAG, "jinrituijian detail: " + detailData);
 			Intent intent = new Intent(GoodsListActivity.this,
 					GoodDetailActivity.class);
