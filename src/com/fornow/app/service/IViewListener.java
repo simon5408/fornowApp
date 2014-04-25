@@ -10,16 +10,16 @@
  *            Copyright (c) 2014 by ForNow.  All rights reserved.
  *
  *****************************************************************************/
-package com.fornow.app.net.error;
+package com.fornow.app.service;
+
+import com.fornow.app.net.ViewUpdateObj;
 
 /**
- * @name ExceptionHandler
- * @description ExceptionHandler is used for
- * @author jiang_xx
- * @date Aug 9, 2013
+ * @author Jiafa Lv
+ * @date Apr 24, 2014 10:52:20 AM
+ * @email simon-jiafa@126.com
+ * 
  */
-public class ExceptionHandler {
-	public void handleError() {
-		
-	}
+public interface IViewListener {
+	void updateView(ViewUpdateObj obj);
 }

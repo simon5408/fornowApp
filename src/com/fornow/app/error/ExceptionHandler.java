@@ -10,7 +10,7 @@
  *            Copyright (c) 2014 by ForNow.  All rights reserved.
  *
  *****************************************************************************/
-package com.fornow.app.net;
+package com.fornow.app.error;
 
 /**
  * @author Jiafa Lv
@@ -18,6 +18,8 @@ package com.fornow.app.net;
  * @email simon-jiafa@126.com
  * 
  */
-public abstract class ControllerListener {
-	abstract public void callback(NetResponse response);
+public class ExceptionHandler {
+	public void handleError() {
+		
+	}
 }

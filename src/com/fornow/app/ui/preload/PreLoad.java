@@ -29,8 +29,8 @@ import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.datapool.CacheData;
 import com.fornow.app.model.LoginData;
-import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.home.HomeActivity.BoolLoadComplete;
 import com.fornow.app.ui.main.MainActivity;
 
@@ -88,7 +88,7 @@ public class PreLoad extends Activity {
 		boolLoadComplete = new BoolLoadComplete();
 		ControllerManager.getInstance().getSearchController().unRegisterAll();
 		ControllerManager.getInstance().getSearchController()
-				.registerNotification(new ViewListener() {
+				.registerNotification(new IViewListener() {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
@@ -139,7 +139,7 @@ public class PreLoad extends Activity {
 						ControllerManager.getInstance().getLoginController()
 								.unRegisterAll();
 						ControllerManager.getInstance().getLoginController()
-								.registerNotification(new ViewListener() {
+								.registerNotification(new IViewListener() {
 
 									@Override
 									public void updateView(ViewUpdateObj obj) {

@@ -13,8 +13,8 @@
 package com.fornow.app.ui;
 
 import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.dao.DaoManager;
 import com.fornow.app.datapool.CacheData;
-import com.fornow.app.net.dao.DaoManager;
 
 import android.app.Application;
 import android.content.Context;

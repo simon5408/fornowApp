@@ -30,8 +30,8 @@ import android.widget.Toast;
 import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.model.ShipAddressData;
-import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.LoadingAnim;
 import com.fornow.app.ui.shopcart.JieSuanActivity;
 import com.fornow.app.util.GsonTool;
@@ -140,7 +140,7 @@ public class ShdzActivity extends Activity {
 		ControllerManager.getInstance().getAddressManageController()
 				.unRegisterAll();
 		ControllerManager.getInstance().getAddressManageController()
-				.registerNotification(new ViewListener() {
+				.registerNotification(new IViewListener() {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
@@ -164,7 +164,7 @@ public class ShdzActivity extends Activity {
 	
 	public void deleteAddress(String addressId){
 		ControllerManager.getInstance().getAddressManageController().unRegisterAll();
-		ControllerManager.getInstance().getAddressManageController().registerNotification(new ViewListener() {
+		ControllerManager.getInstance().getAddressManageController().registerNotification(new IViewListener() {
 			
 			@Override
 			public void updateView(ViewUpdateObj obj) {

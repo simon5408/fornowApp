@@ -10,16 +10,16 @@
  *            Copyright (c) 2014 by ForNow.  All rights reserved.
  *
  *****************************************************************************/
-package com.fornow.app.net.dao;
+package com.fornow.app.dao;
 
 import android.util.Log;
 
 import com.fornow.app.datapool.CacheData;
-import com.fornow.app.net.ControllerListener;
-import com.fornow.app.net.DataCallback;
 import com.fornow.app.net.NetRequest;
 import com.fornow.app.net.NetResponse;
 import com.fornow.app.net.NetworkManager;
+import com.fornow.app.service.IControllerListener;
+import com.fornow.app.service.IDataCallback;
 
 /**
  * @author Jiafa Lv
@@ -33,10 +33,10 @@ public class SearchDataDao {
 
 	}
 
-	public void getBanner(final ControllerListener ctr) {
+	public void getBanner(final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/getBanner";
 		NetRequest netGetReq = NetRequest.createGetRequest(url);
-		NetworkManager.sendGetReq(netGetReq, new DataCallback() {
+		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("getBanner", "Code:" + netRes.code);
@@ -48,10 +48,10 @@ public class SearchDataDao {
 		});
 	}
 
-	public void getVersion(final ControllerListener ctr) {
+	public void getVersion(final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/getVersion";
 		NetRequest netGetReq = NetRequest.createGetRequest(url);
-		NetworkManager.sendGetReq(netGetReq, new DataCallback() {
+		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("getVersion", "Code:" + netRes.code);
@@ -63,10 +63,10 @@ public class SearchDataDao {
 		});
 	}
 
-	public void getLimitPrice(final ControllerListener ctr) {
+	public void getLimitPrice(final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/getSendPrice";
 		NetRequest netGetReq = NetRequest.createGetRequest(url);
-		NetworkManager.sendGetReq(netGetReq, new DataCallback() {
+		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("getLimitPrice", "Code:" + netRes.code);
@@ -78,10 +78,10 @@ public class SearchDataDao {
 		});
 	}
 
-	public void getDataByKey(String request, final ControllerListener ctr) {
+	public void getDataByKey(String request, final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/getGoodsList";
 		NetRequest netGetReq = NetRequest.createGetRequest(url);
-		NetworkManager.sendGetReq(netGetReq, new DataCallback() {
+		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("getDataByKey", "Code:" + netRes.code);
@@ -91,12 +91,12 @@ public class SearchDataDao {
 	}
 
 	public void getGoods(int offset, int length, String type,
-			final ControllerListener ctr) {
+			final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl()
 				+ "/getGoodsList?category=" + type + "&offset=" + offset
 				+ "&length=" + length;
 		NetRequest netGetReq = NetRequest.createGetRequest(url);
-		NetworkManager.sendGetReq(netGetReq, new DataCallback() {
+		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("getGoods", "Code:" + netRes.code);
@@ -109,12 +109,12 @@ public class SearchDataDao {
 	}
 
 	public void getGroupShoping(int offset, int length, String category,
-			final ControllerListener ctr) {
+			final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl()
 				+ "/getGroupBuyingList?category=" + category + "&offset="
 				+ offset + "&length=" + length;
 		NetRequest netGetReq = NetRequest.createGetRequest(url);
-		NetworkManager.sendGetReq(netGetReq, new DataCallback() {
+		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("getGroupShoping", "Code:" + netRes.code);
@@ -127,11 +127,11 @@ public class SearchDataDao {
 	}
 
 	public void getPrivilege(int offset, int length, String type,
-			final ControllerListener ctr) {
+			final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl()
 				+ "/getBargainPriceList";
 		NetRequest netGetReq = NetRequest.createGetRequest(url);
-		NetworkManager.sendGetReq(netGetReq, new DataCallback() {
+		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("getPrivilege", "Code:" + netRes.code);

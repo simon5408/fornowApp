@@ -46,8 +46,8 @@ import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.model.GoodsDetailData;
 import com.fornow.app.model.GroupListData;
-import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.MyListView;
 import com.fornow.app.ui.main.BaseMainActivity;
 import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
@@ -63,7 +63,7 @@ import com.google.gson.reflect.TypeToken;
  * @email simon-jiafa@126.com
  * 
  */
-public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
+public class GroupBuyActivity extends BaseMainActivity implements IViewListener {
 	private LinearLayout overContainerView, overView, fenleiView, sortView;
 	private ImageView fenleiArrow, sortArrow;
 	private boolean displayFenlei = false;

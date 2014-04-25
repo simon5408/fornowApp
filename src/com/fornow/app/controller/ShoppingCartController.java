@@ -15,13 +15,13 @@ package com.fornow.app.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fornow.app.dao.DaoManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.ShopCart;
-import com.fornow.app.net.ControllerListener;
 import com.fornow.app.net.NetResponse;
-import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.net.dao.DaoManager;
+import com.fornow.app.service.IControllerListener;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.shopcart.CartDataHelper;
 import com.fornow.app.util.GsonTool;
 import com.google.gson.reflect.TypeToken;
@@ -33,12 +33,12 @@ import com.google.gson.reflect.TypeToken;
  * 
  */
 public class ShoppingCartController extends
-		AbstractController<ViewListener, String> {
-	public void registerNotification(ViewListener notification) {
+		AbstractController<IViewListener, String> {
+	public void registerNotification(IViewListener notification) {
 		super.register(notification);
 	}
 
-	public void unRegisterNotification(ViewListener notification) {
+	public void unRegisterNotification(IViewListener notification) {
 		super.unRegister(notification);
 	}
 
@@ -62,7 +62,7 @@ public class ShoppingCartController extends
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
 			// get cart
-			ControllerListener ctr = new ControllerListener() {
+			IControllerListener ctr = new IControllerListener() {
 				@Override
 				public void callback(NetResponse response) {
 					viewObj.setCode(response.code);

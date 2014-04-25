@@ -18,11 +18,11 @@ import java.util.List;
 import android.os.Message;
 
 import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.dao.DaoManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.ShopCart;
-import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.net.dao.DaoManager;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.AppClass;
 import com.fornow.app.util.GsonTool;
 import com.google.gson.reflect.TypeToken;
@@ -87,7 +87,7 @@ public class CartDataHelper {
 	public static void getCartData() {
 		ControllerManager.getInstance().getShopCartController().unRegisterAll();
 		ControllerManager.getInstance().getShopCartController()
-				.registerNotification(new ViewListener() {
+				.registerNotification(new IViewListener() {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {

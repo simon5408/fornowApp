@@ -21,7 +21,10 @@ import java.util.regex.Pattern;
  * @email simon-jiafa@126.com
  * 
  */
-public class CheckMobileAndEmail {
+public class CheckUtils {
+	private static final String EMAIL_RULE = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+	private static final String MOBILE_RULE = "^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+	private static final String NUMBER_RULE = "^[0-9]{5}$";
 
 	/**
 	 * 验证邮箱地址是否正确
@@ -30,17 +33,10 @@ public class CheckMobileAndEmail {
 	 * @return
 	 */
 	public static boolean checkEmail(String email) {
-		boolean flag = false;
-		try {
-			String check = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
-			Pattern regex = Pattern.compile(check);
-			Matcher matcher = regex.matcher(email);
-			flag = matcher.matches();
-		} catch (Exception e) {
-			flag = false;
-		}
+		Pattern regex = Pattern.compile(EMAIL_RULE);
+		Matcher matcher = regex.matcher(email);
 
-		return flag;
+		return matcher.matches();
 	}
 
 	/**
@@ -50,27 +46,21 @@ public class CheckMobileAndEmail {
 	 * @return [0-9]{5,9}
 	 */
 	public static boolean isMobileNO(String mobiles) {
-		boolean flag = false;
-		try {
-			Pattern p = Pattern
-					.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
-			Matcher m = p.matcher(mobiles);
-			flag = m.matches();
-		} catch (Exception e) {
-			flag = false;
-		}
-		return flag;
+		Pattern p = Pattern.compile(MOBILE_RULE);
+		Matcher m = p.matcher(mobiles);
+
+		return m.matches();
 	}
 
+	/**
+	 * 
+	 * @param number
+	 * @return
+	 */
 	public static boolean isNum(String number) {
-		boolean flag = false;
-		try {
-			Pattern p = Pattern.compile("^[0-9]{5}$");
-			Matcher m = p.matcher(number);
-			flag = m.matches();
-		} catch (Exception e) {
-			flag = false;
-		}
-		return flag;
+		Pattern p = Pattern.compile(NUMBER_RULE);
+		Matcher m = p.matcher(number);
+		
+		return m.matches();
 	}
 }

@@ -38,8 +38,8 @@ import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.GoodsDetailData;
 import com.fornow.app.model.ShipAddressData;
 import com.fornow.app.model.ShopCart;
-import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.MyListView;
 import com.fornow.app.ui.main.BaseMainActivity;
 import com.fornow.app.ui.mine.LoginActivity;
@@ -226,7 +226,7 @@ public class ShopCartActivity extends BaseMainActivity {
 		mHandler.sendMessage(updateViewMsg);
 		ControllerManager.getInstance().getShopCartController().unRegisterAll();
 		ControllerManager.getInstance().getShopCartController()
-				.registerNotification(new ViewListener() {
+				.registerNotification(new IViewListener() {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
@@ -273,7 +273,7 @@ public class ShopCartActivity extends BaseMainActivity {
 		mHandler.sendMessage(updateViewMsg);
 		ControllerManager.getInstance().getShopCartController().unRegisterAll();
 		ControllerManager.getInstance().getShopCartController()
-				.registerNotification(new ViewListener() {
+				.registerNotification(new IViewListener() {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
@@ -521,7 +521,7 @@ public class ShopCartActivity extends BaseMainActivity {
 		ControllerManager.getInstance().getAddressManageController()
 				.unRegisterAll();
 		ControllerManager.getInstance().getAddressManageController()
-				.registerNotification(new ViewListener() {
+				.registerNotification(new IViewListener() {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {

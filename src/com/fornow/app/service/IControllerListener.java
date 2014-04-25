@@ -10,7 +10,9 @@
  *            Copyright (c) 2014 by ForNow.  All rights reserved.
  *
  *****************************************************************************/
-package com.fornow.app.net;
+package com.fornow.app.service;
+
+import com.fornow.app.net.NetResponse;
 
 /**
  * @author Jiafa Lv
@@ -18,6 +20,6 @@ package com.fornow.app.net;
  * @email simon-jiafa@126.com
  * 
  */
-public interface ViewListener {
-	void updateView(ViewUpdateObj obj);
+public abstract class IControllerListener {
+	abstract public void callback(NetResponse response);
 }

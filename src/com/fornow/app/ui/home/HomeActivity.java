@@ -41,8 +41,8 @@ import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.GoodsDetailData;
 import com.fornow.app.model.GoodsListData;
-import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.GridViewImgAdapter;
 import com.fornow.app.ui.MyGridView;
 import com.fornow.app.ui.loadImg.AsyncImgLoader;
@@ -63,7 +63,7 @@ import com.google.gson.reflect.TypeToken;
  * 
  */
 public class HomeActivity extends BaseMainActivity implements
-		OnItemClickListener, ViewListener {
+		OnItemClickListener, IViewListener {
 
 	private static final String TAG = "HOMEACTIVITY";
 	private LinearLayout homeContainer;
@@ -202,7 +202,7 @@ public class HomeActivity extends BaseMainActivity implements
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		banner.setCallBack(new ViewListener() {
+		banner.setCallBack(new IViewListener() {
 
 			@Override
 			public void updateView(ViewUpdateObj obj) {

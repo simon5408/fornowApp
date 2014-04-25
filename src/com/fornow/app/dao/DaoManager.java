@@ -10,7 +10,7 @@
  *            Copyright (c) 2014 by ForNow.  All rights reserved.
  *
  *****************************************************************************/
-package com.fornow.app.net.dao;
+package com.fornow.app.dao;
 
 /**
  * @author Jiafa Lv

@@ -39,8 +39,8 @@ import com.fornow.app.model.GoodsDetailData;
 import com.fornow.app.model.SettlementGoods;
 import com.fornow.app.model.ShipAddressData;
 import com.fornow.app.model.ShopCart;
-import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.mine.ShdzActivity;
 import com.fornow.app.ui.mine.ShdzActivity.CLICK_TYPE;
 import com.fornow.app.util.GsonTool;
@@ -280,7 +280,7 @@ public class JieSuanActivity extends Activity {
 			ControllerManager.getInstance().getOrderController()
 					.unRegisterAll();
 			ControllerManager.getInstance().getOrderController()
-					.registerNotification(new ViewListener() {
+					.registerNotification(new IViewListener() {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {

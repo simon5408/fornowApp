@@ -27,9 +27,9 @@ import android.widget.Toast;
 import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.model.ShipAddressData;
-import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.util.CheckMobileAndEmail;
+import com.fornow.app.service.IViewListener;
+import com.fornow.app.util.CheckUtils;
 import com.fornow.app.util.GsonTool;
 
 /**
@@ -164,7 +164,7 @@ public class EditShipAddressActivity extends Activity {
 
 			ShipAddressData newAddress = (address == null) ? new ShipAddressData()
 					: address;
-			if (CheckMobileAndEmail.isMobileNO(phoneView.getText().toString())) {
+			if (CheckUtils.isMobileNO(phoneView.getText().toString())) {
 				newAddress.setPhone(phoneView.getText().toString());
 				newAddress.setName(userNameView.getText().toString());
 				newAddress.setAddress(addressView.getText().toString());
@@ -172,7 +172,7 @@ public class EditShipAddressActivity extends Activity {
 				ControllerManager.getInstance().getAddressManageController()
 						.unRegisterAll();
 				ControllerManager.getInstance().getAddressManageController()
-						.registerNotification(new ViewListener() {
+						.registerNotification(new IViewListener() {
 
 							@Override
 							public void updateView(ViewUpdateObj obj) {

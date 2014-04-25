@@ -10,7 +10,7 @@
  *            Copyright (c) 2014 by ForNow.  All rights reserved.
  *
  *****************************************************************************/
-package com.fornow.app.net.dao;
+package com.fornow.app.dao;
 
 import java.util.LinkedList;
 
@@ -19,12 +19,12 @@ import android.util.Log;
 import com.fornow.app.controller.LoginController.loginType;
 import com.fornow.app.datapool.CacheData;
 import com.fornow.app.model.LoginData;
-import com.fornow.app.net.ControllerListener;
-import com.fornow.app.net.DataCallback;
 import com.fornow.app.net.HttpHeader;
 import com.fornow.app.net.NetRequest;
 import com.fornow.app.net.NetResponse;
 import com.fornow.app.net.NetworkManager;
+import com.fornow.app.service.IControllerListener;
+import com.fornow.app.service.IDataCallback;
 import com.fornow.app.util.GsonTool;
 
 /**
@@ -39,16 +39,16 @@ public class UserDAO {
 
 	}
 
-	public void login(LoginData request, final ControllerListener ctr) {
+	public void login(LoginData request, final IControllerListener ctr) {
 		sendLoginOrRegister(request, loginType.LOGIN, ctr);
 	}
 
-	public void register(LoginData request, final ControllerListener ctr) {
+	public void register(LoginData request, final IControllerListener ctr) {
 		sendLoginOrRegister(request, loginType.REGISTER, ctr);
 	}
 
 	private void sendLoginOrRegister(LoginData request, loginType type,
-			final ControllerListener ctr) {
+			final IControllerListener ctr) {
 		String url = "";
 		switch (type) {
 		case LOGIN:
@@ -65,7 +65,7 @@ public class UserDAO {
 					LoginData.class);
 			NetRequest netPostReq = NetRequest.createPostRequest(url,
 					requestBody.getBytes());
-			NetworkManager.sendPostReq(netPostReq, new DataCallback() {
+			NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 				@Override
 				public void updateData(NetResponse netRes) {
 					Log.d("sendLoginOrRegister", "Code:" + netRes.code);
@@ -79,10 +79,10 @@ public class UserDAO {
 		}
 	}
 
-	public void logout(final ControllerListener ctr) {
+	public void logout(final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/logout";
 		NetRequest netGetReq = NetRequest.createGetRequest(url);
-		NetworkManager.sendGetReq(netGetReq, new DataCallback() {
+		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("logout", "Code:" + netRes.code);
@@ -92,7 +92,7 @@ public class UserDAO {
 	}
 
 	public void updateUser(String uuid, String userInfo,
-			final ControllerListener ctr) {
+			final IControllerListener ctr) {
 		Log.d("TAG", "userInfo" + userInfo);
 		String url = CacheData.getInstance().getBaseUrl() + "/setUserInfo";
 		LinkedList<HttpHeader> headers = new LinkedList<HttpHeader>();
@@ -100,7 +100,7 @@ public class UserDAO {
 		headers.add(HttpHeader.CONTENT_JSON);
 		NetRequest netPostReq = NetRequest.createPostRequestWithHeaders(url,
 				userInfo.getBytes(), headers);
-		NetworkManager.sendPostReq(netPostReq, new DataCallback() {
+		NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("updateUser", "Code:" + netRes.code);

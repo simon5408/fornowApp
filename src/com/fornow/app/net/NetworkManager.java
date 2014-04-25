@@ -27,6 +27,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 
+import com.fornow.app.service.IDataCallback;
+
 /**
  * @author Jiafa Lv
  * @date Apr 24, 2014 10:52:20 AM
@@ -45,7 +47,7 @@ public class NetworkManager {
 	 *            : DataCallback
 	 */
 	public static void sendGetReq(final NetRequest netReq,
-			final DataCallback callback) {
+			final IDataCallback callback) {
 
 		new Thread() {
 
@@ -93,7 +95,7 @@ public class NetworkManager {
 	 *            :DataCallback
 	 */
 	public static void sendPostReq(final NetRequest netReq,
-			final DataCallback callback) {
+			final IDataCallback callback) {
 
 		new Thread() {
 

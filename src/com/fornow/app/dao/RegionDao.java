@@ -10,16 +10,16 @@
  *            Copyright (c) 2014 by ForNow.  All rights reserved.
  *
  *****************************************************************************/
-package com.fornow.app.net.dao;
+package com.fornow.app.dao;
 
 
 import android.util.Log;
 
-import com.fornow.app.net.ControllerListener;
-import com.fornow.app.net.DataCallback;
 import com.fornow.app.net.NetRequest;
 import com.fornow.app.net.NetResponse;
 import com.fornow.app.net.NetworkManager;
+import com.fornow.app.service.IControllerListener;
+import com.fornow.app.service.IDataCallback;
 
 /**
  * @author Jiafa Lv
@@ -33,10 +33,10 @@ public class RegionDao {
 
 	}
 
-	public void getData(String request, final ControllerListener ctr) {
+	public void getData(String request, final IControllerListener ctr) {
 		NetRequest netGetReq = NetRequest
 				.createGetRequest("http://httpbin.org/ip");
-		NetworkManager.sendGetReq(netGetReq, new DataCallback() {
+		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("RegionDao getData", "Code:" + netRes.code);

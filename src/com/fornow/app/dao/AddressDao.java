@@ -10,19 +10,19 @@
  *            Copyright (c) 2014 by ForNow.  All rights reserved.
  *
  *****************************************************************************/
-package com.fornow.app.net.dao;
+package com.fornow.app.dao;
 
 import java.util.LinkedList;
 
 import android.util.Log;
 
 import com.fornow.app.datapool.CacheData;
-import com.fornow.app.net.ControllerListener;
-import com.fornow.app.net.DataCallback;
 import com.fornow.app.net.HttpHeader;
 import com.fornow.app.net.NetRequest;
 import com.fornow.app.net.NetResponse;
 import com.fornow.app.net.NetworkManager;
+import com.fornow.app.service.IControllerListener;
+import com.fornow.app.service.IDataCallback;
 
 /**
  * @author Jiafa Lv
@@ -31,14 +31,14 @@ import com.fornow.app.net.NetworkManager;
  * 
  */
 public class AddressDao {
-	public void getShipAddress(String uuid, final ControllerListener ctr) {
+	public void getShipAddress(String uuid, final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/getShipAddress";
 		LinkedList<HttpHeader> headers = new LinkedList<HttpHeader>();
 		headers.add(new HttpHeader("uuid", uuid));
 		headers.add(HttpHeader.CONTENT_JSON);
 		NetRequest netGetReq = NetRequest.createGetRequestWithHeaders(url,
 				headers);
-		NetworkManager.sendGetReq(netGetReq, new DataCallback() {
+		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("getShipAddress", "Code:" + netRes.code);
@@ -57,7 +57,7 @@ public class AddressDao {
 	 * @param ctr
 	 */
 	public void updateShipAddress(String uuid, String address,
-			final ControllerListener ctr) {
+			final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl()
 				+ "/updateShipAddress";
 		LinkedList<HttpHeader> headers = new LinkedList<HttpHeader>();
@@ -65,7 +65,7 @@ public class AddressDao {
 		headers.add(HttpHeader.CONTENT_JSON);
 		NetRequest netPostReq = NetRequest.createPostRequestWithHeaders(url,
 				address.getBytes(), headers);
-		NetworkManager.sendPostReq(netPostReq, new DataCallback() {
+		NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("updateShipAddress", "Code:" + netRes.code);
@@ -76,7 +76,7 @@ public class AddressDao {
 	}
 
 	public void delShipAddress(String uuid, String addressId,
-			final ControllerListener ctr) {
+			final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/delShipAddress";
 		String requestBody = "{'id': " + addressId + "}";
 		LinkedList<HttpHeader> headers = new LinkedList<HttpHeader>();
@@ -84,7 +84,7 @@ public class AddressDao {
 		headers.add(HttpHeader.CONTENT_JSON);
 		NetRequest netPostReq = NetRequest.createPostRequestWithHeaders(url,
 				requestBody.getBytes(), headers);
-		NetworkManager.sendPostReq(netPostReq, new DataCallback() {
+		NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("delShipAddress", "Code:" + netRes.code);

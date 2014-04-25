@@ -21,10 +21,10 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.fornow.app.R;
-import com.fornow.app.net.DataCallback;
 import com.fornow.app.net.NetRequest;
 import com.fornow.app.net.NetResponse;
 import com.fornow.app.net.NetworkManager;
+import com.fornow.app.service.IDataCallback;
 
 /**
  * @author Jiafa Lv
@@ -42,7 +42,7 @@ public class SettingActivity extends Activity {
 		myName = (TextView) findViewById(R.id.my_name);
 
 		NetRequest netGetReq = NetRequest.createGetRequest("http://httpbin.org/ip");
-		NetworkManager.sendGetReq(netGetReq, new DataCallback() {
+		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(final NetResponse netRes) {
 				
@@ -70,7 +70,7 @@ public class SettingActivity extends Activity {
 			JSONObject json = new JSONObject();
 			json.put("name", "value");
 			NetRequest netPostReq = NetRequest.createPostRequest("http://httpbin.org/post", json.toString().getBytes());
-			NetworkManager.sendPostReq(netPostReq, new DataCallback() {
+			NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 				@Override
 				public void updateData(NetResponse netRes) {
 					Log.d("TAG","Code:"+netRes.code);

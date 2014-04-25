@@ -14,15 +14,15 @@ package com.fornow.app.controller;
 
 import android.util.Log;
 
+import com.fornow.app.dao.DaoManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.LoginData;
 import com.fornow.app.model.User;
 import com.fornow.app.model.UserInfo;
-import com.fornow.app.net.ControllerListener;
 import com.fornow.app.net.NetResponse;
-import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.net.dao.DaoManager;
+import com.fornow.app.service.IControllerListener;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.shopcart.CartDataHelper;
 import com.fornow.app.util.GsonTool;
 
@@ -32,16 +32,16 @@ import com.fornow.app.util.GsonTool;
  * @email simon-jiafa@126.com
  * 
  */
-public class LoginController extends AbstractController<ViewListener, String> {
+public class LoginController extends AbstractController<IViewListener, String> {
 	public enum loginType {
 		LOGIN, REGISTER
 	};
 
-	public void registerNotification(ViewListener notification) {
+	public void registerNotification(IViewListener notification) {
 		super.register(notification);
 	}
 
-	public void unRegisterNotification(ViewListener notification) {
+	public void unRegisterNotification(IViewListener notification) {
 		super.unRegister(notification);
 	}
 
@@ -58,7 +58,7 @@ public class LoginController extends AbstractController<ViewListener, String> {
 	}
 
 	private void sendLoginOrRegisterReq(LoginData param, loginType type) {
-		ControllerListener ctr = new ControllerListener() {
+		IControllerListener ctr = new IControllerListener() {
 
 			@Override
 			public void callback(NetResponse response) {
@@ -99,7 +99,7 @@ public class LoginController extends AbstractController<ViewListener, String> {
 	}
 
 	public void logout() {
-		ControllerListener ctr = new ControllerListener() {
+		IControllerListener ctr = new IControllerListener() {
 
 			@Override
 			public void callback(NetResponse response) {
@@ -119,7 +119,7 @@ public class LoginController extends AbstractController<ViewListener, String> {
 	public void updateUser(UserInfo user) {
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
-			ControllerListener ctr = new ControllerListener() {
+			IControllerListener ctr = new IControllerListener() {
 
 				@Override
 				public void callback(NetResponse response) {

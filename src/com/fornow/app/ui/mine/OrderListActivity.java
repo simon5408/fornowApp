@@ -20,8 +20,8 @@ import com.google.gson.reflect.TypeToken;
 import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.model.OrderList;
-import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.LoadingAnim;
 import com.fornow.app.ui.MyListView;
 import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
@@ -206,7 +206,7 @@ public class OrderListActivity extends Activity {
 		mHandler.sendMessage(updateViewMsg);
 		ControllerManager.getInstance().getOrderController().unRegisterAll();
 		ControllerManager.getInstance().getOrderController()
-				.registerNotification(new ViewListener() {
+				.registerNotification(new IViewListener() {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {

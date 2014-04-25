@@ -27,8 +27,8 @@ import android.widget.Toast;
 import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.model.LoginData;
-import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.LoadingAnim;
 import com.fornow.app.ui.captcha.CheckAction;
 import com.fornow.app.ui.captcha.CheckGetUtil;
@@ -160,7 +160,7 @@ public class RegisterActivity extends Activity {
 					ControllerManager.getInstance().getLoginController()
 							.unRegisterAll();
 					ControllerManager.getInstance().getLoginController()
-							.registerNotification(new ViewListener() {
+							.registerNotification(new IViewListener() {
 
 								@Override
 								public void updateView(ViewUpdateObj obj) {

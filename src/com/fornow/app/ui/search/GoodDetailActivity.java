@@ -43,8 +43,8 @@ import com.fornow.app.model.GoodsDetailData;
 import com.fornow.app.model.ImgData;
 import com.fornow.app.model.ShipAddressData;
 import com.fornow.app.model.ShopCart;
-import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.LoadingAnim;
 import com.fornow.app.ui.home.AutoPlayGallery;
 import com.fornow.app.ui.home.ImageAdapter;
@@ -182,7 +182,7 @@ public class GoodDetailActivity extends Activity {
 
 	public void initView() {
 		gallery = (AutoPlayGallery) findViewById(R.id.img_gallery);
-		gallery.setCallBack(new ViewListener() {
+		gallery.setCallBack(new IViewListener() {
 
 			@Override
 			public void updateView(ViewUpdateObj obj) {
@@ -325,7 +325,7 @@ public class GoodDetailActivity extends Activity {
 			ControllerManager.getInstance().getFavoritesController()
 					.unRegisterAll();
 			ControllerManager.getInstance().getFavoritesController()
-					.registerNotification(new ViewListener() {
+					.registerNotification(new IViewListener() {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {
@@ -346,7 +346,7 @@ public class GoodDetailActivity extends Activity {
 			ControllerManager.getInstance().getFavoritesController()
 					.unRegisterAll();
 			ControllerManager.getInstance().getFavoritesController()
-					.registerNotification(new ViewListener() {
+					.registerNotification(new IViewListener() {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {
@@ -399,7 +399,7 @@ public class GoodDetailActivity extends Activity {
 		ControllerManager.getInstance().getAddressManageController()
 				.unRegisterAll();
 		ControllerManager.getInstance().getAddressManageController()
-				.registerNotification(new ViewListener() {
+				.registerNotification(new IViewListener() {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {

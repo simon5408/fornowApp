@@ -13,7 +13,7 @@
 package com.fornow.app.ui.mine;
 
 import com.fornow.app.R;
-import com.fornow.app.util.CheckMobileAndEmail;
+import com.fornow.app.util.CheckUtils;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -109,7 +109,7 @@ public class EditGrxxActivity extends Activity {
 			Intent intent = new Intent(EditGrxxActivity.this,
 					GrxxActivity.class);
 			if (editType.equals(getResources().getString(R.string.str_sjhm))) {
-				if (CheckMobileAndEmail.isMobileNO(text)) {
+				if (CheckUtils.isMobileNO(text)) {
 					intent.putExtra("data", text);
 					setResult(RESULT_OK, intent);
 					this.finish();
@@ -120,7 +120,7 @@ public class EditGrxxActivity extends Activity {
 				}
 			} else if (editType.equals(getResources().getString(
 					R.string.str_dzyx))) {
-				if (CheckMobileAndEmail.checkEmail(text)) {
+				if (CheckUtils.checkEmail(text)) {
 					intent.putExtra("data", text);
 					setResult(RESULT_OK, intent);
 					this.finish();

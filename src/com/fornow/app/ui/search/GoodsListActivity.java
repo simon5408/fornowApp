@@ -41,8 +41,8 @@ import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.model.GoodsDetailData;
 import com.fornow.app.model.GoodsListData;
-import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.GridViewImgAdapter;
 import com.fornow.app.ui.LoadingAnim;
 import com.fornow.app.ui.MyGridView;
@@ -59,7 +59,7 @@ import com.google.gson.reflect.TypeToken;
  * 
  */
 public class GoodsListActivity extends Activity implements OnItemClickListener,
-		ViewListener {
+		IViewListener {
 	private static final String TAG = "FruitList";
 	private MyGridView gridview;
 	private TextView channel;

@@ -22,16 +22,6 @@ import com.google.gson.reflect.TypeToken;
  * 
  */
 public class GsonTool {
-	/**
-	 * 将JSON字符串转化成实体Bean对象
-	 * 
-	 * @param json
-	 * @param classOfT
-	 * @return
-	 */
-	public static <T> T fromJson(String json, Class<T> classOfT) {
-		return new Gson().fromJson(json, classOfT);
-	}
 
 	/**
 	 * 将实体Bean对象转化成JSON字符串
@@ -51,6 +41,17 @@ public class GsonTool {
 	 */
 	public static <T> String toJson(Object jsonElement, Class<T> classOfT) {
 		return new Gson().toJson(jsonElement, classOfT);
+	}
+	
+	/**
+	 * 将JSON字符串转化成实体Bean对象
+	 * 
+	 * @param json
+	 * @param classOfT
+	 * @return
+	 */
+	public static <T> T fromJson(String json, Class<T> classOfT) {
+		return new Gson().fromJson(json, classOfT);
 	}
 
 	/**

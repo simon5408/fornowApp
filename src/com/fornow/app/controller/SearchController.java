@@ -12,14 +12,14 @@
  *****************************************************************************/
 package com.fornow.app.controller;
 
+import com.fornow.app.dao.DaoManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.ImVersion;
 import com.fornow.app.model.LimitPrice;
-import com.fornow.app.net.ControllerListener;
 import com.fornow.app.net.NetResponse;
-import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.net.dao.DaoManager;
+import com.fornow.app.service.IControllerListener;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.NotifyId;
 import com.fornow.app.util.GsonTool;
 
@@ -29,13 +29,13 @@ import com.fornow.app.util.GsonTool;
  * @email simon-jiafa@126.com
  * 
  */
-public class SearchController extends AbstractController<ViewListener, String> {
+public class SearchController extends AbstractController<IViewListener, String> {
 
-	public void registerNotification(ViewListener notification) {
+	public void registerNotification(IViewListener notification) {
 		super.register(notification);
 	}
 
-	public void unRegisterNotification(ViewListener notification) {
+	public void unRegisterNotification(IViewListener notification) {
 		super.unRegister(notification);
 	}
 
@@ -47,7 +47,7 @@ public class SearchController extends AbstractController<ViewListener, String> {
 		int offset = 0, length = 6;
 
 		DaoManager.getInstance().getSearchDataDao()
-				.getBanner(new ControllerListener() {
+				.getBanner(new IControllerListener() {
 					@Override
 					public void callback(NetResponse response) {
 						ViewUpdateObj viewObj = new ViewUpdateObj();
@@ -64,7 +64,7 @@ public class SearchController extends AbstractController<ViewListener, String> {
 				});
 
 		DaoManager.getInstance().getSearchDataDao()
-				.getPrivilege(offset, length, "All", new ControllerListener() {
+				.getPrivilege(offset, length, "All", new IControllerListener() {
 					@Override
 					public void callback(NetResponse response) {
 						ViewUpdateObj viewObj = new ViewUpdateObj();
@@ -82,7 +82,7 @@ public class SearchController extends AbstractController<ViewListener, String> {
 				});
 
 		DaoManager.getInstance().getSearchDataDao()
-				.getVersion(new ControllerListener() {
+				.getVersion(new IControllerListener() {
 					@Override
 					public void callback(NetResponse response) {
 						ViewUpdateObj viewObj = new ViewUpdateObj();
@@ -106,7 +106,7 @@ public class SearchController extends AbstractController<ViewListener, String> {
 				});
 
 		DaoManager.getInstance().getSearchDataDao()
-				.getLimitPrice(new ControllerListener() {
+				.getLimitPrice(new IControllerListener() {
 					@Override
 					public void callback(NetResponse response) {
 						ViewUpdateObj viewObj = new ViewUpdateObj();
@@ -133,7 +133,7 @@ public class SearchController extends AbstractController<ViewListener, String> {
 
 	public void getGoodsList(int offset, int length, String category) {
 		DaoManager.getInstance().getSearchDataDao()
-				.getGoods(offset, length, category, new ControllerListener() {
+				.getGoods(offset, length, category, new IControllerListener() {
 					@Override
 					public void callback(NetResponse response) {
 						ViewUpdateObj viewObj = new ViewUpdateObj();
@@ -153,7 +153,7 @@ public class SearchController extends AbstractController<ViewListener, String> {
 				.getInstance()
 				.getSearchDataDao()
 				.getGroupShoping(offset, length, category,
-						new ControllerListener() {
+						new IControllerListener() {
 							@Override
 							public void callback(NetResponse response) {
 								ViewUpdateObj viewObj = new ViewUpdateObj();
