@@ -40,7 +40,7 @@ import com.fornow.app.ui.main.MainActivity;
  * @email simon-jiafa@126.com
  * 
  */
-public class PreLoad extends Activity {
+public class PreLoadActivity extends Activity {
 //	private static final String TAG = "PreLoad";
 	private BoolLoadComplete boolLoadComplete;
 	private Handler mHandler;
@@ -51,7 +51,7 @@ public class PreLoad extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.pre_load);
-		final Intent intent = new Intent(PreLoad.this, MainActivity.class);
+		final Intent intent = new Intent(PreLoadActivity.this, MainActivity.class);
 		// startActivity(intent);
 		// PreLoad.this.finish();
 		mHandler = new Handler() {
@@ -61,7 +61,7 @@ public class PreLoad extends Activity {
 				case LOADING_END:
 					intent.putExtra("success", true);
 					startActivity(intent);
-					PreLoad.this.finish();
+					PreLoadActivity.this.finish();
 					break;
 				case NET_ERROR:
 					View view = getLayoutInflater().inflate(R.layout.my_toast,
@@ -70,14 +70,14 @@ public class PreLoad extends Activity {
 							.findViewById(R.id.toast_text);
 					toastText.setText(getResources().getString(
 							R.string.str_net_error));
-					Toast toast = new Toast(PreLoad.this);
+					Toast toast = new Toast(PreLoadActivity.this);
 					toast.setGravity(Gravity.CENTER, 0, 0);
 					toast.setDuration(Toast.LENGTH_SHORT);
 					toast.setView(view);
 					toast.show();
 					intent.putExtra("success", false);
 					startActivity(intent);
-					PreLoad.this.finish();
+					PreLoadActivity.this.finish();
 					break;
 				default:
 					break;

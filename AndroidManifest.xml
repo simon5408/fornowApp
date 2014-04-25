@@ -21,7 +21,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.AppTheme" >
         <activity
-            android:name="com.fornow.app.ui.preload.PreLoad"
+            android:name="com.fornow.app.ui.preload.PreLoadActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
