@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -12,36 +12,33 @@
  *****************************************************************************/
 package com.fornow.app.controller;
 
+import android.util.Log;
+
 import com.fornow.app.dao.DaoManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.LoginData;
+import com.fornow.app.model.RegisterData;
 import com.fornow.app.model.User;
 import com.fornow.app.model.UserInfo;
+import com.fornow.app.net.ControllerListener;
 import com.fornow.app.net.NetResponse;
+import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.service.IControllerListener;
-import com.fornow.app.service.IViewListener;
-import com.fornow.app.ui.shopcart.CartDataHelper;
-import com.fornow.app.util.GsonTool;
-import com.fornow.app.util.LogUtils;
+import com.fornow.app.utils.GsonTool;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-8-16
  */
-public class LoginController extends AbstractController<IViewListener, String> {
-	private static final String TAG = LoginController.class.getName();
+public class LoginController extends AbstractController<ViewListener, String> {
 	public enum loginType {
 		LOGIN, REGISTER
 	};
 
-	public void registerNotification(IViewListener notification) {
+	public void registerNotification(ViewListener notification) {
 		super.register(notification);
 	}
 
-	public void unRegisterNotification(IViewListener notification) {
+	public void unRegisterNotification(ViewListener notification) {
 		super.unRegister(notification);
 	}
 
@@ -50,32 +47,27 @@ public class LoginController extends AbstractController<IViewListener, String> {
 	}
 
 	public void login(LoginData param) {
-		sendLoginOrRegisterReq(param, loginType.LOGIN);
-	}
-
-	public void register(LoginData param) {
-		sendLoginOrRegisterReq(param, loginType.REGISTER);
-	}
-
-	private void sendLoginOrRegisterReq(LoginData param, loginType type) {
-		IControllerListener ctr = new IControllerListener() {
+		ControllerListener ctr = new ControllerListener() {
 
 			@Override
 			public void callback(NetResponse response) {
+				// TODO Auto-generated method stub
 				// cache the user data
 				ViewUpdateObj viewObj = new ViewUpdateObj();
 				viewObj.setCode(response.code);
 				if (response.code == 200) {
 					try {
-						User user = GsonTool.fromJson(
+						User user = GsonTool.getGsonTool().fromJson(
 								response.res, User.class);
-						String userInfo = GsonTool.toJson(
+						String userInfo = GsonTool.getGsonTool().toJson(
 								user.getUserinfo());
 						ClientData.getInstance().setmUUID(user.getUuid());
 						ClientData.getInstance().setUser(userInfo);
 						viewObj.setData(response.res);
-						CartDataHelper.getCartData();
-						ControllerManager.getInstance().getFavoritesController().getData();
+						ControllerManager.getInstance().getShopCartController()
+								.getCartData();
+						ControllerManager.getInstance()
+								.getFavoritesController().getData();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -85,24 +77,49 @@ public class LoginController extends AbstractController<IViewListener, String> {
 				}
 			}
 		};
-		switch (type) {
-		case LOGIN:
-			DaoManager.getInstance().getUserDao().login(param, ctr);
-			break;
-		case REGISTER:
-			DaoManager.getInstance().getUserDao().register(param, ctr);
-			break;
-		default:
-			break;
-		}
-
+		DaoManager.getInstance().getUserDao().login(param, ctr);
 	}
 
-	public void logout() {
-		IControllerListener ctr = new IControllerListener() {
+	public void register(String deviceId, RegisterData param) {
+		ControllerListener ctr = new ControllerListener() {
 
 			@Override
 			public void callback(NetResponse response) {
+				// TODO Auto-generated method stub
+				// cache the user data
+				ViewUpdateObj viewObj = new ViewUpdateObj();
+				viewObj.setCode(response.code);
+				if (response.code == 200) {
+					try {
+						User user = GsonTool.getGsonTool().fromJson(
+								response.res, User.class);
+						String userInfo = GsonTool.getGsonTool().toJson(
+								user.getUserinfo());
+						ClientData.getInstance().setmUUID(user.getUuid());
+						ClientData.getInstance().setUser(userInfo);
+						viewObj.setData(response.res);
+						ControllerManager.getInstance().getShopCartController()
+								.getCartData();
+						ControllerManager.getInstance()
+								.getFavoritesController().getData();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				if (mNotifiables != null) {
+					mNotifiables.updateView(viewObj);
+				}
+			}
+		};
+		DaoManager.getInstance().getUserDao().register(deviceId, param, ctr);
+	}
+
+	public void logout() {
+		ControllerListener ctr = new ControllerListener() {
+
+			@Override
+			public void callback(NetResponse response) {
+				// TODO Auto-generated method stub
 				ViewUpdateObj viewObj = new ViewUpdateObj();
 				viewObj.setCode(response.code);
 				if (response.code == 200) {
@@ -119,17 +136,18 @@ public class LoginController extends AbstractController<IViewListener, String> {
 	public void updateUser(UserInfo user) {
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
-			IControllerListener ctr = new IControllerListener() {
+			ControllerListener ctr = new ControllerListener() {
 
 				@Override
 				public void callback(NetResponse response) {
+					// TODO Auto-generated method stub
 					ViewUpdateObj viewObj = new ViewUpdateObj();
 					viewObj.setCode(response.code);
 					if (response.code == 200) {
 						try {
-							User user = GsonTool.fromJson(
+							User user = GsonTool.getGsonTool().fromJson(
 									response.res, User.class);
-							String userInfo = GsonTool.toJson(
+							String userInfo = GsonTool.getGsonTool().toJson(
 									user.getUserinfo());
 							ClientData.getInstance().setUser(userInfo);
 						} catch (Exception e) {
@@ -142,14 +160,54 @@ public class LoginController extends AbstractController<IViewListener, String> {
 				}
 			};
 			try {
-				String userInfo = GsonTool.toJson(user);
-				LogUtils.d(TAG, "--------set userInfo:" + userInfo);
+				String userInfo = GsonTool.getGsonTool().toJson(user);
 				DaoManager.getInstance().getUserDao()
 						.updateUser(uuid, userInfo, ctr);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+	}
 
+	public void getCheckCode(String phone) {
+		ControllerListener ctr = new ControllerListener() {
+
+			@Override
+			public void callback(NetResponse response) {
+				// TODO Auto-generated method stub
+				ViewUpdateObj viewObj = new ViewUpdateObj();
+				viewObj.setCode(response.code);
+				if (response.code == 200) {
+					viewObj.setData(response.res);
+				}
+				if (mNotifiables != null) {
+					mNotifiables.updateView(viewObj);
+				}
+			}
+		};
+		DaoManager.getInstance().getUserDao().getCheckCode(phone, ctr);
+	}
+
+	public void sendSuggestion(String suggestion) {
+		String uuid = ClientData.getInstance().getmUUID();
+		if (uuid != null) {
+			ControllerListener ctr = new ControllerListener() {
+
+				@Override
+				public void callback(NetResponse response) {
+					// TODO Auto-generated method stub
+					ViewUpdateObj viewObj = new ViewUpdateObj();
+					viewObj.setCode(response.code);
+					if (response.code == 200) {
+						viewObj.setData(response.res);
+					}
+					if (mNotifiables != null) {
+						mNotifiables.updateView(viewObj);
+					}
+				}
+			};
+			DaoManager.getInstance().getUserDao()
+					.sendSuggestion(uuid, suggestion, ctr);
+		}
 	}
 }

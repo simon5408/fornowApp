@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -13,12 +13,23 @@
 package com.fornow.app.ui.groupbuy;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
+
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.model.GoodsDetailData;
+import com.fornow.app.model.GroupListData;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.ui.MyListView;
+import com.fornow.app.ui.goodsdetail.GoodDetailActivity;
+import com.fornow.app.ui.main.BaseMainActivity;
+import com.fornow.app.utils.GsonTool;
+import com.fornow.app.utils.pull2refresh.PullToRefreshBase;
+import com.fornow.app.utils.pull2refresh.PullToRefreshScrollView;
+import com.fornow.app.utils.pull2refresh.PullToRefreshBase.OnRefreshListener;
+import com.google.gson.reflect.TypeToken;
+import com.fornow.app.R;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -34,40 +45,14 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ScrollView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fornow.app.R;
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.model.GoodsDetailData;
-import com.fornow.app.model.GroupListData;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.service.IViewListener;
-import com.fornow.app.ui.MyListView;
-import com.fornow.app.ui.main.BaseMainActivity;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
-import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
-import com.fornow.app.ui.search.GoodDetailActivity;
-import com.fornow.app.util.GsonTool;
-import com.google.gson.reflect.TypeToken;
-
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-11-11
  */
-public class GroupBuyActivity extends BaseMainActivity implements IViewListener {
-	private LinearLayout overContainerView, overView, fenleiView, sortView;
-	private ImageView fenleiArrow, sortArrow;
-	private boolean displayFenlei = false;
-	private boolean displaySort = false;
+public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 	private int offset = 0, length = 10;
 	private static final int LOADING_START = 0x00, LOADING_END = 0x01,
 			NET_ERROR = 0x02;
@@ -75,8 +60,6 @@ public class GroupBuyActivity extends BaseMainActivity implements IViewListener 
 	private Handler mHandler;
 	private Context mContext;
 	private MyListView listView;
-	private TextView fenleiText;
-	private ListView fenleiList, sortList;
 	private GroupListAdapter mAdapter;
 	private PullToRefreshScrollView mPullRefreshScrollView;
 	@SuppressWarnings("unused")
@@ -90,8 +73,10 @@ public class GroupBuyActivity extends BaseMainActivity implements IViewListener 
 		MORE, REFRESH
 	};
 
+	@SuppressLint("HandlerLeak")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.group_list);
 		mContext = this.getApplicationContext();
@@ -108,10 +93,11 @@ public class GroupBuyActivity extends BaseMainActivity implements IViewListener 
 					if (data != null) {
 						try {
 							List<GroupListData> responseData = GsonTool
+									.getGsonTool()
 									.fromJson(
 											data,
 											new TypeToken<List<GroupListData>>() {
-											});
+											}.getType());
 							if (currentRequestType == requestType.REFRESH) {
 								groupData = responseData;
 							} else if (currentRequestType == requestType.MORE) {
@@ -173,14 +159,6 @@ public class GroupBuyActivity extends BaseMainActivity implements IViewListener 
 				Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
 				-1.0f);
 		mHiddenAction.setDuration(500);
-		overContainerView = (LinearLayout) findViewById(R.id.over_container_view);
-		overView = (LinearLayout) findViewById(R.id.over_view);
-		fenleiView = (LinearLayout) findViewById(R.id.fenlei_view);
-		sortView = (LinearLayout) findViewById(R.id.sort_view);
-		fenleiText = (TextView) findViewById(R.id.fenlei_text);
-		// sortText = (TextView) findViewById(R.id.sort_text);
-		fenleiArrow = (ImageView) findViewById(R.id.fenlei_arrow);
-		sortArrow = (ImageView) findViewById(R.id.sort_arrow);
 		clockwiseAnimation = AnimationUtils.loadAnimation(this,
 				R.anim.clockwise_anim);
 		clockwiseAnimation.setFillAfter(true);
@@ -193,9 +171,8 @@ public class GroupBuyActivity extends BaseMainActivity implements IViewListener 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+				// TODO Auto-generated method stub
 				try {
-					// String detailData = GsonTool.getGsonTool().toJson(
-					// groupData.get(arg2), GroupListData.class);
 					GroupListData data = groupData.get(arg2);
 					GoodsDetailData detail = new GoodsDetailData();
 					if (data.getId() != null) {
@@ -235,7 +212,7 @@ public class GroupBuyActivity extends BaseMainActivity implements IViewListener 
 						detail.setMax_count(data.getMax_count());
 					}
 
-					String strDetail = GsonTool.toJson(detail);
+					String strDetail = GsonTool.getGsonTool().toJson(detail);
 					Intent intent = new Intent(GroupBuyActivity.this,
 							GoodDetailActivity.class);
 					intent.putExtra("data", strDetail);
@@ -253,6 +230,7 @@ public class GroupBuyActivity extends BaseMainActivity implements IViewListener 
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ScrollView> refreshView) {
+						// TODO Auto-generated method stub
 						Date date = new Date();
 						SimpleDateFormat formatter = new SimpleDateFormat(
 								"yyyy/MM/dd HH:mm");
@@ -275,130 +253,19 @@ public class GroupBuyActivity extends BaseMainActivity implements IViewListener 
 				});
 
 		mScrollView = mPullRefreshScrollView.getRefreshableView();
-
-		initFenleiFilter();
-		initSortFilter();
 	}
 
-	public void initFenleiFilter() {
-		fenleiList = (ListView) findViewById(R.id.fenlei_list);
-		List<HashMap<String, Object>> fenleiListData = new ArrayList<HashMap<String, Object>>();
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("text", getResources().getString(R.string.str_all));
-		map.put("icon", R.drawable.fenlei_all);
-		fenleiListData.add(map);
-		map = new HashMap<String, Object>();
-		map.put("text", getResources().getString(R.string.str_fruit));
-		map.put("icon", R.drawable.fenlei_fruit);
-		fenleiListData.add(map);
-		map = new HashMap<String, Object>();
-		map.put("text", getResources().getString(R.string.str_vegetable));
-		map.put("icon", R.drawable.fenlei_vegetable);
-		fenleiListData.add(map);
-		SimpleAdapter adapter = new SimpleAdapter(this, fenleiListData,
-				R.layout.group_filter_item, new String[] { "icon", "text" },
-				new int[] { R.id.filter_icon, R.id.filter_text });
-		fenleiList.setAdapter(adapter);
-		fenleiList.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				switch (position) {
-				case 0:
-					category = "all";
-					fenleiText.setText(getResources().getString(
-							R.string.str_all));
-					break;
-				case 1:
-					category = "fruit";
-					fenleiText.setText(getResources().getString(
-							R.string.str_fruit));
-					break;
-				case 2:
-					category = "vegetable";
-					fenleiText.setText(getResources().getString(
-							R.string.str_vegetable));
-					break;
-				default:
-					break;
-				}
-				sendRequest(requestType.REFRESH);
-				fenleiClick(null);
-			}
-		});
-	}
-
-	public void initSortFilter() {
-		sortList = (ListView) findViewById(R.id.sort_list);
-		List<HashMap<String, Object>> sortListData = new ArrayList<HashMap<String, Object>>();
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("text", getResources().getString(R.string.str_tgsysj));
-		sortListData.add(map);
-		map = new HashMap<String, Object>();
-		map.put("text", getResources().getString(R.string.str_group_price));
-		sortListData.add(map);
-		SimpleAdapter adapter = new SimpleAdapter(this, sortListData,
-				R.layout.group_sort_filter_item, new String[] { "text" },
-				new int[] { R.id.filter_text });
-		sortList.setAdapter(adapter);
-		sortList.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				switch (position) {
-				case 0:// 时间
-					if (groupData != null && groupData.size() > 0) {
-						Collections.sort(groupData,
-								new Comparator<GroupListData>() {
-
-									@Override
-									public int compare(GroupListData args0,
-											GroupListData args1) {
-										return Long
-												.valueOf(args0.getEnd_time())
-												.compareTo(
-														Long.valueOf(args1
-																.getEnd_time()));
-									}
-								});
-						mAdapter.notifyDataSetChanged();
-					}
-					break;
-				case 1:// 价格
-					if (groupData != null && groupData.size() > 0) {
-						Collections.sort(groupData,
-								new Comparator<GroupListData>() {
-
-									@Override
-									public int compare(GroupListData args0,
-											GroupListData args1) {
-										return args0
-												.getCurrent_price()
-												.compareTo(
-														args1.getCurrent_price());
-									}
-								});
-						mAdapter.notifyDataSetChanged();
-					}
-					break;
-				default:
-					break;
-				}
-				sortClick(null);
-			}
-		});
-	}
 
 	@Override
 	protected void onStart() {
+		// TODO Auto-generated method stub
 		super.onStart();
 
 	}
 
 	@Override
 	protected void onResume() {
+		// TODO Auto-generated method stub
 		super.onResume();
 	}
 
@@ -423,60 +290,7 @@ public class GroupBuyActivity extends BaseMainActivity implements IViewListener 
 				.getGroupList(offset, length, category);
 	}
 
-	public void fenleiClick(View v) {
-		sortArrow.clearAnimation();
-		if (!displayFenlei) {
-			displayFenlei = true;
-			overContainerView.setVisibility(View.VISIBLE);
-			overView.setVisibility(View.VISIBLE);
-			fenleiView.startAnimation(mShowAction);
-			fenleiView.setVisibility(View.VISIBLE);
-			fenleiArrow.startAnimation(clockwiseAnimation);
-			if (displaySort) {
-				displaySort = false;
-				sortView.startAnimation(mHiddenAction);
-				sortView.setVisibility(View.INVISIBLE);
-				sortArrow.startAnimation(anticlockwiseAnimation);
-			}
-		} else {
-			displayFenlei = false;
-			fenleiView.startAnimation(mHiddenAction);
-			fenleiView.setVisibility(View.INVISIBLE);
-			overView.startAnimation(mHiddenAction);
-			overView.setVisibility(View.GONE);
-			overContainerView.setVisibility(View.GONE);
-			fenleiArrow.startAnimation(anticlockwiseAnimation);
-		}
-	}
 
-	public void sortClick(View v) {
-		fenleiArrow.clearAnimation();
-		if (!displaySort) {
-			displaySort = true;
-			overContainerView.setVisibility(View.VISIBLE);
-			overView.setVisibility(View.VISIBLE);
-			sortView.startAnimation(mShowAction);
-			sortView.setVisibility(View.VISIBLE);
-			sortArrow.startAnimation(clockwiseAnimation);
-			if (displayFenlei) {
-				displayFenlei = false;
-				fenleiView.startAnimation(mHiddenAction);
-				fenleiView.setVisibility(View.INVISIBLE);
-				fenleiArrow.startAnimation(anticlockwiseAnimation);
-			}
-		} else {
-			displaySort = false;
-			sortView.startAnimation(mHiddenAction);
-			sortView.setVisibility(View.INVISIBLE);
-			overView.startAnimation(mHiddenAction);
-			overView.setVisibility(View.GONE);
-			overContainerView.setVisibility(View.GONE);
-			sortArrow.startAnimation(anticlockwiseAnimation);
-		}
-	}
-
-	public void fenleiAll(View v) {
-	}
 
 	private class RefreshDataTask extends AsyncTask<Void, Void, String[]> {
 
@@ -518,6 +332,7 @@ public class GroupBuyActivity extends BaseMainActivity implements IViewListener 
 
 	@Override
 	public void updateView(ViewUpdateObj obj) {
+		// TODO Auto-generated method stub
 		if (obj.getCode() == 200) {
 			if (obj.getData() != null) {
 				Message updateViewMsg = mHandler.obtainMessage(LOADING_END);

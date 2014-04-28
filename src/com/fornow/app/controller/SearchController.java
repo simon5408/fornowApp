@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -16,26 +16,23 @@ import com.fornow.app.dao.DaoManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.ImVersion;
 import com.fornow.app.model.LimitPrice;
+import com.fornow.app.net.ControllerListener;
 import com.fornow.app.net.NetResponse;
+import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.service.IControllerListener;
-import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.NotifyId;
-import com.fornow.app.util.GsonTool;
+import com.fornow.app.utils.GsonTool;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-8-24
  */
-public class SearchController extends AbstractController<IViewListener, String> {
+public class SearchController extends AbstractController<ViewListener, String> {
 
-	public void registerNotification(IViewListener notification) {
+	public void registerNotification(ViewListener notification) {
 		super.register(notification);
 	}
 
-	public void unRegisterNotification(IViewListener notification) {
+	public void unRegisterNotification(ViewListener notification) {
 		super.unRegister(notification);
 	}
 
@@ -44,12 +41,13 @@ public class SearchController extends AbstractController<IViewListener, String> 
 	}
 
 	public void getHomeData() {
-		int offset = 0, length = 6;
+		int offset = 0, length = 10;
 
 		DaoManager.getInstance().getSearchDataDao()
-				.getBanner(new IControllerListener() {
+				.getBanner(new ControllerListener() {
 					@Override
 					public void callback(NetResponse response) {
+						// TODO Auto-generated method stub
 						ViewUpdateObj viewObj = new ViewUpdateObj();
 						viewObj.setCode(response.code);
 						if (response.code == 200) {
@@ -64,9 +62,10 @@ public class SearchController extends AbstractController<IViewListener, String> 
 				});
 
 		DaoManager.getInstance().getSearchDataDao()
-				.getPrivilege(offset, length, "All", new IControllerListener() {
+				.getPrivilege(offset, length, new ControllerListener() {
 					@Override
 					public void callback(NetResponse response) {
+						// TODO Auto-generated method stub
 						ViewUpdateObj viewObj = new ViewUpdateObj();
 						viewObj.setCode(response.code);
 						if (response.code == 200) {
@@ -82,15 +81,17 @@ public class SearchController extends AbstractController<IViewListener, String> 
 				});
 
 		DaoManager.getInstance().getSearchDataDao()
-				.getVersion(new IControllerListener() {
+				.getVersion(new ControllerListener() {
 					@Override
 					public void callback(NetResponse response) {
+						// TODO Auto-generated method stub
 						ViewUpdateObj viewObj = new ViewUpdateObj();
 						viewObj.setCode(response.code);
 						if (response.code == 200) {
 							viewObj.setData(response.res);
 							try {
 								ImVersion version = GsonTool
+										.getGsonTool()
 										.fromJson(response.res, ImVersion.class);
 								ClientData.getInstance().setVersion(
 										version.getVersion());
@@ -106,15 +107,16 @@ public class SearchController extends AbstractController<IViewListener, String> 
 				});
 
 		DaoManager.getInstance().getSearchDataDao()
-				.getLimitPrice(new IControllerListener() {
+				.getLimitPrice(new ControllerListener() {
 					@Override
 					public void callback(NetResponse response) {
+						// TODO Auto-generated method stub
 						ViewUpdateObj viewObj = new ViewUpdateObj();
 						viewObj.setCode(response.code);
 						if (response.code == 200) {
 							viewObj.setData(response.res);
 							try {
-								LimitPrice limitPrice = GsonTool
+								LimitPrice limitPrice = GsonTool.getGsonTool()
 										.fromJson(response.res,
 												LimitPrice.class);
 								ClientData.getInstance().setMinLimit(
@@ -131,11 +133,33 @@ public class SearchController extends AbstractController<IViewListener, String> 
 				});
 	}
 
-	public void getGoodsList(int offset, int length, String category) {
+	public void getPrivilege(int offset, int length) {
 		DaoManager.getInstance().getSearchDataDao()
-				.getGoods(offset, length, category, new IControllerListener() {
+				.getPrivilege(offset, length, new ControllerListener() {
 					@Override
 					public void callback(NetResponse response) {
+						// TODO Auto-generated method stub
+						ViewUpdateObj viewObj = new ViewUpdateObj();
+						viewObj.setCode(response.code);
+						if (response.code == 200) {
+							ClientData.getInstance()
+									.setmPrivilege(response.res);
+							viewObj.setData(response.res);
+							viewObj.setNotifyId(NotifyId.HOME_PRIVILEGE);
+						}
+						if (mNotifiables != null) {
+							mNotifiables.updateView(viewObj);
+						}
+					}
+				});
+	}
+
+	public void getGoodsList(int offset, int length, String category) {
+		DaoManager.getInstance().getSearchDataDao()
+				.getGoods(offset, length, category, new ControllerListener() {
+					@Override
+					public void callback(NetResponse response) {
+						// TODO Auto-generated method stub
 						ViewUpdateObj viewObj = new ViewUpdateObj();
 						viewObj.setCode(response.code);
 						if (response.code == 200) {
@@ -153,9 +177,10 @@ public class SearchController extends AbstractController<IViewListener, String> 
 				.getInstance()
 				.getSearchDataDao()
 				.getGroupShoping(offset, length, category,
-						new IControllerListener() {
+						new ControllerListener() {
 							@Override
 							public void callback(NetResponse response) {
+								// TODO Auto-generated method stub
 								ViewUpdateObj viewObj = new ViewUpdateObj();
 								viewObj.setCode(response.code);
 								if (response.code == 200) {

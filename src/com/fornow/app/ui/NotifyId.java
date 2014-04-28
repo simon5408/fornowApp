@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -13,10 +13,7 @@
 package com.fornow.app.ui;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-10-12
  */
 public enum NotifyId {
 	HOME_BANNER, HOME_PRIVILEGE, VERSION, MIN_LIMIT

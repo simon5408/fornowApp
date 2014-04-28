@@ -2,94 +2,110 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="100dip"
-        android:baselineAligned="false"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dip" >
+        android:padding="8dip" >
 
-        <ImageView
-            android:id="@+id/fav_good_icon"
-            android:layout_width="80dip"
-            android:layout_height="80dip"
-            android:contentDescription="@string/shop_icon_desc"
-            android:scaleType="fitXY" >
-        </ImageView>
-
-        <FrameLayout
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center_vertical" >
+
+            <ImageView
+                android:id="@+id/fav_good_icon"
+                android:layout_width="100dip"
+                android:layout_height="100dip"
+                android:scaleType="fitXY" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dip"
+            android:paddingRight="8dip" >
 
             <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="80dip"
-                android:orientation="vertical"
-                android:paddingLeft="10dip" >
+                android:id="@+id/cart_name_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true" >
 
                 <TextView
                     android:id="@+id/fav_good_name"
+                    style="@style/goods_name_text"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="3"
-                    android:ellipsize="end"
-                    android:gravity="left|center_vertical"
-                    android:singleLine="true"
-                    android:textColor="#333333"
-                    android:textSize="18sp" />
+                    android:layout_height="wrap_content"
+                    android:singleLine="true" >
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cart_name_area"
+                android:gravity="right" >
+
+                <TextView
+                    android:id="@+id/fav_good_intro"
+                    style="@style/cart_introduce_text_style"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true" >
+                </TextView>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true" >
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="2"
-                    android:orientation="vertical" >
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
 
-                    <TextView
-                        android:id="@+id/fav_good_intro"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1"
-                        android:ellipsize="end"
-                        android:gravity="left|center_vertical"
-                        android:singleLine="true"
-                        android:textColor="#5e5e5e"
-                        android:textSize="14sp" />
+                    <ImageView
+                        android:layout_width="20dip"
+                        android:layout_height="20dip"
+                        android:src="@drawable/rmb" />
 
                     <TextView
                         android:id="@+id/fav_good_price"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1"
-                        android:ellipsize="end"
-                        android:gravity="left|center_vertical"
+                        style="@style/goods_unit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dip" >
+                    </TextView>
+
+                    <TextView
+                        style="@style/goods_unit_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:textColor="#5e5e5e"
-                        android:textSize="14sp" />
+                        android:text="@string/sell_unit" >
+                    </TextView>
                 </LinearLayout>
-            </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
 
-            <Button
-                android:id="@+id/fav_del"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|right"
-                android:background="@drawable/button_delete"
-                android:clickable="true"
-                android:paddingLeft="8dip"
-                android:paddingRight="8dip"
-                android:text="@string/str_delete"
-                android:textColor="#ffffff"
-                android:textSize="14sp"
-                android:visibility="gone" />
-        </FrameLayout>
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="4"
+            android:gravity="center_horizontal|center_vertical" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/underline" >
+            <ImageButton style="@style/go2_left_arrow" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

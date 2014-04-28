@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -12,75 +12,99 @@
  *****************************************************************************/
 package com.fornow.app.ui.setting;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
 
+import com.fornow.app.datapool.CacheData;
+import com.fornow.app.datapool.ClientData;
+import com.fornow.app.ui.AppClass;
+import com.fornow.app.ui.customdialog.CommonMsgDialog;
 import com.fornow.app.R;
-import com.fornow.app.net.NetRequest;
-import com.fornow.app.net.NetResponse;
-import com.fornow.app.net.NetworkManager;
-import com.fornow.app.service.IDataCallback;
-import com.fornow.app.util.LogUtils;
 
-/**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
- */
 public class SettingActivity extends Activity {
-	private static final String TAG = SettingActivity.class.getName();
+	private Context mContext;
 
-	private TextView myName;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setContentView(R.layout.settings);
-		myName = (TextView) findViewById(R.id.my_name);
-
-		NetRequest netGetReq = NetRequest.createGetRequest("http://httpbin.org/ip");
-		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
-			@Override
-			public void updateData(final NetResponse netRes) {
-				
-				LogUtils.d(TAG,"Code:"+netRes.code);
-				LogUtils.d(TAG,"Response:"+netRes.res);
-				
-				myName.post(new Runnable() {
-					@Override
-					public void run() {
-						try {
-							JSONObject json = new JSONObject(netRes.res);
-							String origin = json.getString("origin");
-							myName.setText(origin);
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-
-					}
-				});
-			}
-		});	
-		
-		
-		try {
-			JSONObject json = new JSONObject();
-			json.put("name", "value");
-			NetRequest netPostReq = NetRequest.createPostRequest("http://httpbin.org/post", json.toString().getBytes());
-			NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
-				@Override
-				public void updateData(NetResponse netRes) {
-					LogUtils.d(TAG,"Code:"+netRes.code);
-					LogUtils.d(TAG,"Response:"+netRes.res);
-				}
-			});
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		setContentView(R.layout.settings);
+		mContext = this.getApplicationContext();
 	}
-	
+
+	public void logout(View v) {
+		final CommonMsgDialog dialogBuilder = new CommonMsgDialog(
+				SettingActivity.this, R.style.Theme_Dialog);
+		dialogBuilder.setDialogTitle(mContext.getResources().getString(
+				R.string.str_tishi));
+		dialogBuilder.setDialogMsg(mContext.getResources().getString(
+				R.string.str_exit_msg));
+		dialogBuilder.setOnCancelBtnListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dialogBuilder.dismiss();
+			}
+		});
+
+		dialogBuilder.setOnConfirmBtnListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dialogBuilder.dismiss();
+				ClientData.getInstance().recycle();
+				CacheData.getInstance().setLoginPass(null);
+				CacheData.getInstance().setAutologin(false);
+				Message updateViewMsg = AppClass.globalHandler
+						.obtainMessage(AppClass.LOGOUT);
+				AppClass.globalHandler.sendMessage(updateViewMsg);
+			}
+
+		});
+		dialogBuilder.show();
+	}
+
+	public void cleanCache(View v) {
+		final CommonMsgDialog dialogBuilder = new CommonMsgDialog(
+				SettingActivity.this, R.style.Theme_Dialog);
+		dialogBuilder.setDialogTitle(mContext.getResources().getString(
+				R.string.str_tishi));
+		dialogBuilder.setDialogMsg(mContext.getResources().getString(
+				R.string.str_clean_cache_msg));
+		dialogBuilder.setOnCancelBtnListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dialogBuilder.dismiss();
+			}
+		});
+
+		dialogBuilder.setOnConfirmBtnListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dialogBuilder.dismiss();
+				CacheData.getInstance().cleanCache();
+			}
+
+		});
+		dialogBuilder.show();
+	}
+
+	public void go2Yjfk(View v) {
+		Intent intent = new Intent(SettingActivity.this, YjfkActivity.class);
+		startActivity(intent);
+	}
+
+	public void softBack(View v) {
+		this.finish();
+	}
 }

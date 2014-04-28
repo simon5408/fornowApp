@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="home_introColor">#878278</color>
+    <color name="currentPriceColor">#fb8800</color>
+    <color name="originPriceColor">#b2b2b2</color>
+    <color name="green">#727272</color>
+    <color name="manColor">#1bc6c6</color>
     <color name="transparent">#00000000</color>
+    <color name="darkgreen">#18adad</color>
+    <color name="origin">#ff8a00</color>
+    <color name="origin_hover">#e57a00</color>
+    <color name="dart_origin">#ff4401</color>
+    <color name="dart_origin_hover">#cc3600</color>
+    <color name="goodsname">#1f1f1f</color>
+    <color name="yishoucangColor">#fc8801</color>
+    <color name="gray">#818181</color>
+    <color name="gray_hover">#666666</color>
+    <color name="list_selector_color">#f7f7f7</color>
+    <color name="gray_bg_color">#eeeeee</color>
 
 </resources>

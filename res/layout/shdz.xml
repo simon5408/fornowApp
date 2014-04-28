@@ -2,73 +2,81 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#00000000" >
+    android:background="#ffffff" >
 
-    <LinearLayout
+    <FrameLayout
+        style="@style/home_pullToRefresh_style"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="58dip"
-        android:background="@drawable/app_background" >
+        android:layout_gravity="bottom"
+        android:padding="8dip" >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_margin="8dip"
-            android:background="@drawable/block_bg"
-            android:orientation="vertical" >
+            android:layout_gravity="top"
+            android:layout_marginBottom="50dip" >
 
-            <LinearLayout
+            <ListView
+                android:id="@+id/addressList"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginTop="8dip"
-                android:orientation="vertical" >
-
-                <ListView
-                    android:id="@+id/addressList"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:background="@null"
-                    android:cacheColorHint="#00000000"
-                    android:divider="@null"
-                    android:fadingEdge="none"
-                    android:fastScrollEnabled="true"
-                    android:overScrollFooter="@null" />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:background="@drawable/main_border"
+                android:cacheColorHint="#00000000"
+                android:divider="#dadada"
+                android:dividerHeight="1dip"
+                android:fadingEdge="none"
+                android:fastScrollEnabled="true"
+                android:listSelector="@drawable/list_item_selector"
+                android:overScrollFooter="@null" />
         </LinearLayout>
-    </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="60dip"
-        android:layout_gravity="bottom"
-        android:background="@drawable/white_footer_bg" >
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dip"
+            android:layout_gravity="bottom"
+            android:gravity="bottom" >
 
-        <ImageButton
-            android:id="@+id/bottom_back"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/bottom_back_white_btn"
-            android:clickable="true"
-            android:onClick="softBack"
-            android:scaleType="fitXY" />
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:background="@drawable/btn_origin_bg"
+                android:gravity="center_vertical|center_horizontal"
+                android:onClick="addAddress"
+                android:text="@string/str_tjxdz"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </FrameLayout>
 
-        <Button
-            android:id="@+id/addNewAddress"
-            android:layout_width="wrap_content"
+    <FrameLayout
+        style="@style/header_style"
+        android:background="@drawable/header_bg" >
+
+        <TextView
+            style="@style/header_text_style"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dip"
-            android:background="@drawable/button_green"
-            android:clickable="true"
-            android:gravity="center_vertical|center_horizontal"
-            android:onClick="addAddress"
-            android:padding="4dip"
-            android:text="@string/str_tjxdz"
-            android:textColor="#ffffff"
-            android:textSize="20sp" />
-    </RelativeLayout>
+            android:layout_gravity="center_vertical"
+            android:gravity="center_horizontal"
+            android:text="@string/shouhuodizhi" />
+
+        <LinearLayout
+            android:layout_width="60dip"
+            android:layout_height="fill_parent"
+            android:background="@drawable/top_back__btn_bg"
+            android:gravity="center"
+            android:onClick="softBack" >
+
+            <ImageButton
+                android:id="@+id/header_back"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/left_arrow"
+                android:clickable="false"
+                android:scaleType="fitXY" />
+        </LinearLayout>
+    </FrameLayout>
 
 </FrameLayout>

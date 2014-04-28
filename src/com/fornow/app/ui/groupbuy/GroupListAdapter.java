@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -17,6 +17,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.fornow.app.model.GroupListData;
+import com.fornow.app.ui.AppClass;
+import com.fornow.app.ui.loadimg.AsyncImgLoader;
+import com.fornow.app.ui.loadimg.AsyncImgLoader.ImageCallback;
+import com.fornow.app.R;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -26,22 +33,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.fornow.app.R;
-import com.fornow.app.model.GroupListData;
-import com.fornow.app.ui.AppClass;
-import com.fornow.app.ui.loadImg.AsyncImgLoader;
-import com.fornow.app.ui.loadImg.AsyncImgLoader.ImageCallback;
-
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-11-12
  */
 public class GroupListAdapter extends BaseAdapter {
 	private List<GroupListData> groupList;
 	private Context mContext;
 	private AsyncImgLoader imgLoader;
+	@SuppressLint("SimpleDateFormat")
 	private DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
 	public GroupListAdapter(List<GroupListData> groupList, Context context) {
@@ -52,21 +51,25 @@ public class GroupListAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
+		// TODO Auto-generated method stub
 		return groupList.size();
 	}
 
 	@Override
 	public GroupListData getItem(int position) {
+		// TODO Auto-generated method stub
 		return groupList.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
+		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO Auto-generated method stub
 		View rowView = convertView;
 		final ViewHolder holder;
 		if (rowView == null) {
@@ -77,14 +80,11 @@ public class GroupListAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) rowView.getTag();
 		}
-		holder.getGoodName().setText(
-				AppClass.getContext().getResources()
-						.getString(R.string.goods_name_tag)
-						+ getItem(position).getName());
+		holder.getGoodName().setText(getItem(position).getName());
 		holder.getGoodPrice().setText(
-				AppClass.getContext().getResources()
-						.getString(R.string.goods_unit)
-						+ getItem(position).getCurrent_price() + "");
+				getItem(position).getCurrent_price()
+						+ AppClass.getContext().getResources()
+								.getString(R.string.sell_unit));
 		String dateAfterFormat = format.format(new Date(Long.parseLong(getItem(
 				position).getEnd_time())));
 		holder.getGroupEndTime().setText(
@@ -102,9 +102,11 @@ public class GroupListAdapter extends BaseAdapter {
 						@Override
 						public void imageLoaded(final Drawable imageDrawable,
 								final String Tag) {
+							// TODO Auto-generated method stub
 							imageView.post(new Runnable() {
 								@Override
 								public void run() {
+									// TODO Auto-generated method stub
 									ImageView imageViewByTag = (ImageView) mView
 											.findViewWithTag(Tag);
 									if (imageViewByTag != null

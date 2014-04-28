@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -15,30 +15,29 @@ package com.fornow.app.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.os.Message;
+
 import com.fornow.app.dao.DaoManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.ShopCart;
+import com.fornow.app.net.ControllerListener;
 import com.fornow.app.net.NetResponse;
+import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.service.IControllerListener;
-import com.fornow.app.service.IViewListener;
-import com.fornow.app.ui.shopcart.CartDataHelper;
-import com.fornow.app.util.GsonTool;
+import com.fornow.app.ui.AppClass;
+import com.fornow.app.utils.GsonTool;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-10-23
  */
 public class ShoppingCartController extends
-		AbstractController<IViewListener, String> {
-	public void registerNotification(IViewListener notification) {
+		AbstractController<ViewListener, String> {
+	public void registerNotification(ViewListener notification) {
 		super.register(notification);
 	}
 
-	public void unRegisterNotification(IViewListener notification) {
+	public void unRegisterNotification(ViewListener notification) {
 		super.unRegister(notification);
 	}
 
@@ -61,24 +60,27 @@ public class ShoppingCartController extends
 		viewObj.setData(cacheCart);
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
-			// get cart
-			IControllerListener ctr = new IControllerListener() {
+			// TODO get cart
+			ControllerListener ctr = new ControllerListener() {
 				@Override
 				public void callback(NetResponse response) {
+					// TODO Auto-generated method stub
+
 					viewObj.setCode(response.code);
 					if (response.code == 200) {
 						List<ShopCart> newCart = null;
 						try {
-							List<ShopCart> backCart = GsonTool
+							List<ShopCart> backCart = GsonTool.getGsonTool()
 									.fromJson(response.res,
 											new TypeToken<List<ShopCart>>() {
-											});
+											}.getType());
 							if (cacheCart != null) {
 								List<ShopCart> cachedCart = GsonTool
+										.getGsonTool()
 										.fromJson(
 												cacheCart,
 												new TypeToken<List<ShopCart>>() {
-												});
+												}.getType());
 
 								int i, j, cachedSize = cachedCart.size(), backSize = backCart
 										.size();
@@ -117,9 +119,10 @@ public class ShoppingCartController extends
 							} else {
 								newCart = backCart;
 							}
-							CartDataHelper.updateCacheCart(newCart);
-							CartDataHelper.syncCart();
-							viewObj.setData(GsonTool.toJson(
+							String strCart = GsonTool.getGsonTool().toJson(
+									newCart);
+							ClientData.getInstance().setmCart(strCart);
+							viewObj.setData(GsonTool.getGsonTool().toJson(
 									newCart));
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -138,15 +141,70 @@ public class ShoppingCartController extends
 		}
 	}
 
-	// 删除本地
-	public void deleteCacheCart() {
+	public void addCart(ShopCart cart) {
+		boolean flag = true;
+		try {
+			String cacheCart = ClientData.getInstance().getmCart();
+			List<ShopCart> localCart;
+			if (cacheCart != null) {
+				localCart = GsonTool.getGsonTool().fromJson(cacheCart,
+						new TypeToken<List<ShopCart>>() {
+						}.getType());
+			} else {
+				localCart = new ArrayList<ShopCart>();
+			}
+			if (cart != null) {
+				for (ShopCart s : localCart) {
+					if (s.getGoods_id().equals(cart.getGoods_id())) {
+						int count = s.getCount();
+						count += cart.getCount();
+						s.setCount(count);
+						flag = false;
+					}
+				}
+				if (flag) {
+					localCart.add(cart);
+				}
+				updateCartData(localCart);
+			}
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	// 用户退出后需要删除本地所有cart
-	public void deleteAllCacheCart() {
-		ClientData.getInstance().setmCart(null);
-		CartDataHelper.updateCacheCart(null);
-	}
+	public void updateCartData(List<ShopCart> cartData) {
+		try {
+			if (cartData != null) {
+				String strCart = GsonTool.getGsonTool().toJson(cartData);
+				ClientData.getInstance().setmCart(strCart);
+				String uuid = ClientData.getInstance().getmUUID();
+				if (uuid != null) {
+					ControllerListener ctr = new ControllerListener() {
 
+						@Override
+						public void callback(NetResponse response) {
+							// TODO Auto-generated method stub
+							ViewUpdateObj viewObj = new ViewUpdateObj();
+							viewObj.setCode(response.code);
+							if (response.code == 200) {
+								viewObj.setData(response.res);
+								Message updateViewMsg = AppClass.globalHandler
+										.obtainMessage(AppClass.UPDATE_CART_COUNT);
+								AppClass.globalHandler
+										.sendMessage(updateViewMsg);
+							}
+							if (mNotifiables != null) {
+								mNotifiables.updateView(viewObj);
+							}
+						}
+					};
+					DaoManager.getInstance().getCartDao()
+							.updateCart(uuid, strCart, ctr);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

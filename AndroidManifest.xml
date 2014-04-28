@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fornow.app"
-    android:versionCode="1" 
+    android:versionCode="1"
     android:versionName="1.0" >
-    <!-- versionCode Integer类型，系统不显示给用户 -->
-    <!-- versionName String类型，系统显示用户 -->
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,7 +10,7 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.RWRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    
+
     <uses-sdk
         android:minSdkVersion="3"
         android:targetSdkVersion="10" />
@@ -23,7 +21,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.AppTheme" >
         <activity
-            android:name="com.fornow.app.ui.preload.PreLoadActivity"
+            android:name="com.fornow.app.ui.preload.PreLoad"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
@@ -33,10 +31,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="com.fornow.app.ui.main.MainActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Overlay"
             android:windowSoftInputMode="adjustPan" >
@@ -51,25 +49,29 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.fornow.app.ui.search.GoodsListActivity"
+            android:name="com.fornow.app.ui.goodsdetail.GoodsListActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.fornow.app.ui.search.GoodDetailActivity"
+            android:name="com.fornow.app.ui.goodsdetail.GoodDetailActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.fornow.app.ui.mine.LoginActivity"
+            android:name="com.fornow.app.ui.login.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity
-            android:name="com.fornow.app.ui.mine.RegisterActivity"
+            android:name="com.fornow.app.ui.login.RegisterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity
-            android:name="com.fornow.app.ui.mine.ShdzActivity"
+            android:name="com.fornow.app.ui.addressmanager.ShdzActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.fornow.app.ui.addressmanager.SelectShdzActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -77,19 +79,15 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.fornow.app.ui.mine.FavoriteActivity"
+            android:name="com.fornow.app.ui.favorite.FavoriteActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.fornow.app.ui.mine.YjfkActivity"
+            android:name="com.fornow.app.ui.setting.YjfkActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.fornow.app.ui.mine.EditGrxxActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.fornow.app.ui.mine.OrderListActivity"
+            android:name="com.fornow.app.ui.ordermanager.OrderListActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -99,14 +97,35 @@
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
         <activity
-            android:name="com.fornow.app.ui.mine.EditShipAddressActivity"
+            android:name="com.fornow.app.ui.shopcart.JieSuanSuccessActivity"
             android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="com.fornow.app.ui.search.SearchActivity" >
+        <activity
+            android:name="com.fornow.app.ui.addressmanager.EditShipAddressActivity"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="com.fornow.app.ui.search.SearchShopList" >
+        <activity
+            android:name="com.fornow.app.ui.addressmanager.SelectProvince"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="com.fornow.app.ui.search.SearchGoodsList" >
+        <activity
+            android:name="com.fornow.app.ui.addressmanager.SelectCities"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.fornow.app.ui.addressmanager.SelectArea"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.fornow.app.ui.addressmanager.SelectRegion"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        <activity android:name="com.fornow.app.ui.goodsdetail.SearchActivity" >
+        </activity>
+        <activity android:name="com.fornow.app.ui.goodsdetail.SearchShopList" >
+        </activity>
+        <activity android:name="com.fornow.app.ui.goodsdetail.SearchGoodsList" >
         </activity>
         <activity
             android:name="com.fornow.app.ui.shopcart.ShopCartActivity"
@@ -116,7 +135,9 @@
             android:name="com.fornow.app.ui.mine.MineActivity"
             android:screenOrientation="portrait" >
         </activity>
-        <activity android:name="com.fornow.app.ui.setting.SettingActivity" >
+        <activity
+            android:name="com.fornow.app.ui.setting.SettingActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.fornow.app.ui.home.GoodsList"

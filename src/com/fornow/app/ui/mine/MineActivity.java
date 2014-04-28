@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -12,40 +12,44 @@
  *****************************************************************************/
 package com.fornow.app.ui.mine;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
-import android.content.DialogInterface;
+import com.fornow.app.datapool.ClientData;
+import com.fornow.app.model.UserInfo;
+import com.fornow.app.ui.addressmanager.ShdzActivity;
+import com.fornow.app.ui.favorite.FavoriteActivity;
+import com.fornow.app.ui.main.BaseMainActivity;
+import com.fornow.app.ui.ordermanager.OrderListActivity;
+import com.fornow.app.ui.setting.SettingActivity;
+import com.fornow.app.ui.setting.YjfkActivity;
+import com.fornow.app.utils.GsonTool;
+import com.fornow.app.R;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
-import com.fornow.app.R;
-import com.fornow.app.datapool.ClientData;
-import com.fornow.app.model.UserInfo;
-import com.fornow.app.ui.AppClass;
-import com.fornow.app.ui.main.BaseMainActivity;
-import com.fornow.app.util.GsonTool;
-
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-8-4
  */
 public class MineActivity extends BaseMainActivity {
 	private TextView mineNameView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mine);
 		mineNameView = (TextView) findViewById(R.id.mine_name);
 
+	}
+
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
 		if (ClientData.getInstance().getUser() != null) {
 			String user = ClientData.getInstance().getUser();
-			UserInfo userInfo = GsonTool.fromJson(user,
+			UserInfo userInfo = GsonTool.getGsonTool().fromJson(user,
 					UserInfo.class);
 			if (userInfo.getUser_name() != null) {
 				mineNameView.setText(userInfo.getUser_name());
@@ -56,13 +60,15 @@ public class MineActivity extends BaseMainActivity {
 	}
 
 	@Override
-	protected void onStart() {
-		super.onStart();
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
 	}
 
-	@Override
-	protected void onResume() {
-		super.onResume();
+	// 设置
+	public void getInSettings(View v) {
+		Intent intent = new Intent(MineActivity.this, SettingActivity.class);
+		startActivity(intent);
 	}
 
 	// 收货地址
@@ -122,28 +128,5 @@ public class MineActivity extends BaseMainActivity {
 		Intent intent = new Intent(MineActivity.this, OrderListActivity.class);
 		intent.putExtra("status", 3);
 		startActivity(intent);
-	}
-
-	public void logout(View v) {
-		AlertDialog.Builder builder = new Builder(MineActivity.this);
-		builder.setMessage("确定要退出当前用户吗?");
-		builder.setTitle("提示");
-		builder.setPositiveButton("确认",
-				new android.content.DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-						Message updateViewMsg = AppClass.globalHandler
-								.obtainMessage(AppClass.LOGOUT);
-						AppClass.globalHandler.sendMessage(updateViewMsg);
-					}
-				});
-		builder.setNegativeButton("取消",
-				new android.content.DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-					}
-				});
-		builder.create().show();
 	}
 }

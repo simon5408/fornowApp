@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -15,10 +15,10 @@ package com.fornow.app.model;
 import java.io.Serializable;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @name AbstractModel
+ * @description AbstractModel is used as the super class of all model
+ * @author Simon Lv
+ * @date Aug 9, 2013
  */
 public class AbstractModel implements Serializable{
 	private static final long serialVersionUID = -5884341301090573734L;

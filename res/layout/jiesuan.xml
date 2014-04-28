@@ -2,54 +2,59 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#00000000" >
+    android:background="#ffffff" >
 
-    <ScrollView
+    <FrameLayout
+        android:id="@+id/jiesuanContent"
+        style="@style/home_pullToRefresh_style"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginBottom="58dip"
-        android:background="@drawable/app_background"
-        android:fadingEdge="none"
-        android:focusable="true"
-        android:focusableInTouchMode="true" >
+        android:visibility="invisible"
+        android:layout_gravity="bottom" >
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="top"
+            android:layout_marginBottom="90dip"
             android:orientation="vertical" >
 
-            <FrameLayout
+            <LinearLayout
                 android:id="@+id/jiesuan_init_shdz"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dip"
-                android:layout_marginRight="8dip"
-                android:layout_marginTop="8dip"
-                android:background="@drawable/block_bg"
-                android:visibility="gone" >
+                android:layout_height="70dip"
+                android:background="@drawable/jiesuan_address_select"
+                android:clickable="true"
+                android:onClick="selectShdz"
+                android:orientation="horizontal"
+                android:paddingLeft="8dip"
+                android:paddingRight="8dip" >
 
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:gravity="center_vertical"
                     android:orientation="vertical"
-                    android:padding="8dip" >
+                    android:padding="10dip" >
 
                     <RelativeLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="40dip" >
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1" >
 
                         <TextView
                             android:id="@+id/jiesuan_shdz_shr"
+                            style="@style/goods_name_text"
                             android:layout_width="wrap_content"
                             android:layout_height="fill_parent"
                             android:layout_alignParentLeft="true"
-                            android:gravity="center_vertical"
-                            android:textColor="#5e5e5e"
-                            android:textSize="20sp" />
+                            android:gravity="center_vertical" />
 
                         <ImageView
-                            android:layout_width="25dip"
-                            android:layout_height="25dip"
+                            android:layout_width="20dip"
+                            android:layout_height="20dip"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="8dip"
                             android:layout_toLeftOf="@+id/jiesuan_shdz_phone"
@@ -57,184 +62,196 @@
 
                         <TextView
                             android:id="@+id/jiesuan_shdz_phone"
+                            style="@style/goods_name_text"
                             android:layout_width="wrap_content"
                             android:layout_height="fill_parent"
                             android:layout_alignParentRight="true"
                             android:gravity="center_vertical"
-                            android:textColor="#5e5e5e"
-                            android:textSize="20sp" />
+                            android:textSize="16sp" />
                     </RelativeLayout>
 
-                    <LinearLayout
-                        android:id="@+id/bottom_dotted_line0"
+                    <RelativeLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/dotted_line_bg"
-                        android:orientation="horizontal" >
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/jiesuan_shdz_address"
-                        android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
-                        android:layout_marginBottom="8dip"
-                        android:layout_marginTop="8dip"
-                        android:gravity="center_vertical"
-                        android:textColor="#5e5e5e"
-                        android:textSize="16sp" />
+                        android:layout_weight="1" >
+
+                        <TextView
+                            android:id="@+id/jiesuan_shdz_address"
+                            style="@style/goods_name_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:clickable="true"
-                    android:onClick="selectShdz" >
+                    android:layout_weight="9"
+                    android:clickable="false"
+                    android:gravity="center_horizontal|center_vertical" >
+
+                    <ImageButton style="@style/go2_left_arrow" />
                 </LinearLayout>
-            </FrameLayout>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/jiesuan_add_shdz"
                 android:layout_width="fill_parent"
                 android:layout_height="40dip"
-                android:layout_marginLeft="8dip"
-                android:layout_marginRight="8dip"
-                android:layout_marginTop="8dip"
-                android:background="@drawable/button_green"
-                android:gravity="center_vertical|center_horizontal"
+                android:layout_margin="8dip"
+                android:background="@drawable/btn_origin_bg"
+                android:gravity="center"
                 android:onClick="selectShdz"
-                android:padding="6dip"
                 android:text="@string/str_qtjshdz"
                 android:textColor="#ffffff"
                 android:textSize="20sp" />
 
-            <LinearLayout
-                style="@style/home_block_style"
+            <ScrollView
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/block_bg"
-                android:orientation="vertical" >
-
-                <FrameLayout
-                    style="@style/cart_header"
-                    android:layout_width="fill_parent"
-                    android:orientation="horizontal" >
-
-                    <LinearLayout
-                        android:layout_width="240dip"
-                        android:layout_height="fill_parent"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/cart_title_radius"
-                        android:gravity="center" >
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@drawable/cart_title" />
-                    </LinearLayout>
-                </FrameLayout>
+                android:layout_height="fill_parent"
+                android:fadingEdge="none"
+                android:focusable="true"
+                android:focusableInTouchMode="true" >
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:orientation="vertical"
+                    android:padding="8dip" >
 
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="14dip"
                         android:orientation="vertical" >
 
-                        <include layout="@layout/mylist" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/bottom_dotted_line0"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/dotted_line_bg"
-                        android:orientation="horizontal" >
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dip"
-                        android:background="@drawable/input_area"
-                        android:padding="8dip" >
-
-                        <EditText
-                            android:id="@+id/jiesuan_liuyan"
+                        <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:gravity="center_vertical"
-                            android:hint="@string/str_bzly"
-                            android:lineSpacingExtra="8dip"
-                            android:textColor="#333333"
-                            android:textSize="18sp" />
+                            android:layout_marginTop="14dip"
+                            android:orientation="vertical" >
+
+                            <include layout="@layout/mylist" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/bottom_dotted_line0"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/dotted_line_bg"
+                            android:orientation="horizontal" >
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dip"
+                            android:background="@drawable/input_area1"
+                            android:padding="8dip" >
+
+                            <EditText
+                                android:id="@+id/jiesuan_liuyan"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:gravity="center_vertical"
+                                android:hint="@string/str_bzly"
+                                android:lineSpacingExtra="5dip"
+                                android:textColor="#333333"
+                                android:textSize="18sp" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
+            </ScrollView>
         </LinearLayout>
-    </ScrollView>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="60dip"
-        android:layout_gravity="bottom"
-        android:background="@drawable/white_footer_bg" >
-
-        <ImageButton
-            android:id="@+id/bottom_back"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/bottom_back_white_btn"
-            android:clickable="true"
-            android:onClick="softBack"
-            android:scaleType="fitXY" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center_vertical" >
+            android:layout_width="fill_parent"
+            android:layout_height="90dip"
+            android:layout_gravity="bottom"
+            android:background="@drawable/tab_border"
+            android:orientation="vertical"
+            android:padding="8dip" >
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:paddingLeft="4dip"
-                android:text="@string/heji"
-                android:textColor="#ff5000"
-                android:textSize="20sp" />
+                android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/jiesuan_total_price"
-                android:layout_width="wrap_content"
+                <TextView
+                    style="@style/goods_name_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/str_shifukuan"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="20dip"
+                    android:layout_height="20dip"
+                    android:paddingLeft="5dip"
+                    android:src="@drawable/rmb" />
+
+                <TextView
+                    android:id="@+id/jiesuan_total_price"
+                    style="@style/goods_unit_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dip"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:gravity="center_vertical"
-                android:paddingLeft="4dip"
-                android:text="@string/default_total_price"
-                android:textColor="#ff5000"
-                android:textSize="20sp" />
+                android:layout_weight="1"
+                android:gravity="bottom" >
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dip"
+                    android:background="@drawable/btn_origin_bg"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:onClick="confirmBuy"
+                    android:text="@string/str_qrgm"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp" />
+            </LinearLayout>
         </LinearLayout>
+    </FrameLayout>
 
-        <Button
-            android:layout_width="wrap_content"
+    <FrameLayout
+        style="@style/header_style"
+        android:background="@drawable/header_bg" >
+
+        <TextView
+            style="@style/header_text_style"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="8dip"
-            android:background="@drawable/button_green"
-            android:gravity="center_vertical|center_horizontal"
-            android:onClick="confirmBuy"
-            android:padding="6dip"
-            android:text="@string/str_qrgm"
-            android:textColor="#ffffff"
-            android:textSize="20sp" />
-    </RelativeLayout>
+            android:layout_gravity="center_vertical"
+            android:gravity="center_horizontal"
+            android:text="@string/shouhuodizhi" />
+
+        <LinearLayout
+            android:layout_width="60dip"
+            android:layout_height="fill_parent"
+            android:background="@drawable/top_back__btn_bg"
+            android:gravity="center"
+            android:onClick="softBack" >
+
+            <ImageButton
+                android:id="@+id/header_back"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/left_arrow"
+                android:clickable="false"
+                android:scaleType="fitXY" />
+        </LinearLayout>
+    </FrameLayout>
 
 </FrameLayout>

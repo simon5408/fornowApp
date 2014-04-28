@@ -2,48 +2,38 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#000000"
-    android:orientation="vertical" >
+    android:background="#ffffff">
 
-    <com.fornow.app.ui.pull2refresh.PullToRefreshScrollView
-        xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/pull_refresh_scrollview"
+    <LinearLayout
+        style="@style/shopcart_bg"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:orientation="vertical"
         android:layout_gravity="bottom"
-        android:layout_marginTop="57dip"
-        android:background="@drawable/app_background"
-        android:fadingEdge="none"
-        ptr:ptrAnimationStyle="flip"
-        ptr:ptrMode="pullFromStart" >
+        android:padding="8dip" >
 
-        <include layout="@layout/mylist" />
-    </com.fornow.app.ui.pull2refresh.PullToRefreshScrollView>
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="60dip"
-        android:layout_gravity="top"
-        android:background="@drawable/white_header_bg" >
-
-        <ImageButton
-            android:layout_width="wrap_content"
+        <com.fornow.app.utils.pull2refresh.PullToRefreshScrollView
+            xmlns:ptr="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/pull_refresh_scrollview"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/top_back_white_btn"
-            android:clickable="true"
-            android:onClick="softBack"
-            android:scaleType="fitXY" />
+            android:fadingEdge="none"
+            ptr:ptrAnimationStyle="flip"
+            ptr:ptrMode="pullFromStart" >
+
+            <include layout="@layout/mylist" />
+        </com.fornow.app.utils.pull2refresh.PullToRefreshScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/header_style"
+        android:gravity="center" >
 
         <TextView
+            style="@style/header_text_style"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center_vertical"
-            android:text="@string/wodeshoucang"
-            android:textColor="#333333"
-            android:textSize="25sp" />
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:text="@string/category_favorite" />
+    </LinearLayout>
 
 </FrameLayout>

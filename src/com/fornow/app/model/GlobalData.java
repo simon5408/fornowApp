@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -16,10 +16,7 @@ import java.util.List;
 
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-8-4
  */
 public class GlobalData extends AbstractModel{
 
@@ -27,7 +24,6 @@ public class GlobalData extends AbstractModel{
 	private static GlobalData g;
 
 	private LocationData location;
-	private List<RegionData> regionData;
 	private List<ShopData> shopList;
 
 	public static GlobalData getInstance() {
@@ -49,14 +45,6 @@ public class GlobalData extends AbstractModel{
 		this.location = location;
 	}
 
-	public List<RegionData> getRegionData() {
-		return regionData;
-	}
-
-	public void setRegionData(List<RegionData> regionData) {
-		this.regionData = regionData;
-	}
-
 	public List<ShopData> getShopList() {
 		return shopList;
 	}
@@ -66,5 +54,6 @@ public class GlobalData extends AbstractModel{
 	}
 	
 	public void saveData(){
+		//TODO
 	}
 }

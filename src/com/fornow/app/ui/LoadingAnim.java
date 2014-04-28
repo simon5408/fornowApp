@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -12,35 +12,35 @@
  *****************************************************************************/
 package com.fornow.app.ui;
 
+import com.fornow.app.R;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.fornow.app.R;
-
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-9-7
  */
 public class LoadingAnim extends Dialog {
-//	private Context mContext;
+	private Context mContext;
 
 	public LoadingAnim(Context context) {
 		super(context);
-//		this.mContext = context;
+		// TODO Auto-generated constructor stub
+		this.mContext = context;
 	}
 
 	public LoadingAnim(Context context, int theme) {
 		super(context, theme);
-//		this.mContext = context;
+		// TODO Auto-generated constructor stub
+		this.mContext = context;
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.common_loading);
 
@@ -48,6 +48,7 @@ public class LoadingAnim extends Dialog {
 
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
+		// TODO Auto-generated method stub
 		super.onWindowFocusChanged(hasFocus);
 		ImageView imgLoading = (ImageView) findViewById(R.id.loading_img);
 		imgLoading.setBackgroundResource(R.anim.loading_anim);
@@ -58,6 +59,7 @@ public class LoadingAnim extends Dialog {
 
 	@Override
 	public void dismiss() {
+		// TODO Auto-generated method stub
 		super.dismiss();
 	}
 

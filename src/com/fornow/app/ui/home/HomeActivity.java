@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -18,6 +18,25 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.datapool.ClientData;
+import com.fornow.app.model.GoodsDetailData;
+import com.fornow.app.model.GoodsListData;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.ui.GridViewImgAdapter;
+import com.fornow.app.ui.MyGridView;
+import com.fornow.app.ui.goodsdetail.GoodDetailActivity;
+import com.fornow.app.ui.loadimg.AsyncImgLoader;
+import com.fornow.app.ui.loadimg.AsyncImgLoader.ImageCallback;
+import com.fornow.app.ui.main.BaseMainActivity;
+import com.fornow.app.utils.GsonTool;
+import com.fornow.app.utils.pull2refresh.PullToRefreshBase;
+import com.fornow.app.utils.pull2refresh.PullToRefreshScrollView;
+import com.fornow.app.utils.pull2refresh.PullToRefreshBase.OnRefreshListener;
+import com.google.gson.reflect.TypeToken;
+import com.fornow.app.R;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +45,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,37 +55,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fornow.app.R;
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.datapool.ClientData;
-import com.fornow.app.model.GoodsDetailData;
-import com.fornow.app.model.GoodsListData;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.service.IViewListener;
-import com.fornow.app.ui.GridViewImgAdapter;
-import com.fornow.app.ui.MyGridView;
-import com.fornow.app.ui.loadImg.AsyncImgLoader;
-import com.fornow.app.ui.loadImg.AsyncImgLoader.ImageCallback;
-import com.fornow.app.ui.main.BaseMainActivity;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
-import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
-import com.fornow.app.ui.search.GoodDetailActivity;
-import com.fornow.app.ui.search.GoodsListActivity;
-import com.fornow.app.util.GsonTool;
-import com.fornow.app.util.LogUtils;
-import com.google.gson.reflect.TypeToken;
-
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-8-4
  */
 public class HomeActivity extends BaseMainActivity implements
-		OnItemClickListener, IViewListener {
+		OnItemClickListener, ViewListener {
 
-	private static final String TAG = HomeActivity.class.getName();
+	private static final String TAG = "HOMEACTIVITY";
 	private LinearLayout homeContainer;
 	private MyGridView gridview;
 	private AutoPlayGallery banner;
@@ -82,12 +78,13 @@ public class HomeActivity extends BaseMainActivity implements
 			LOADING_END = 0x03, NET_ERROR = 0x04, BIG_IMG_LOADED = 0x05;
 	private List<GoodsDetailData> bannerData = null;
 	private List<GoodsListData> privilegeData = null;
-	private Intent fruitIntent, vegetableIntent;
 	private ImageAdapter imgAdapter;
+	private int offset = 0, length = 10;
 	private AsyncImgLoader imgLoader = new AsyncImgLoader();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
 		mContext = this.getApplication();
@@ -105,9 +102,11 @@ public class HomeActivity extends BaseMainActivity implements
 	@SuppressLint("HandlerLeak")
 	@Override
 	protected void onStart() {
+		// TODO Auto-generated method stub
 		super.onStart();
 	}
 
+	@SuppressLint("HandlerLeak")
 	public void initHandler() {
 		mHandler = new Handler() {
 			@Override
@@ -164,18 +163,16 @@ public class HomeActivity extends BaseMainActivity implements
 
 	@Override
 	protected void onResume() {
+		// TODO Auto-generated method stub
 		super.onResume();
 	}
 
 	private void makeBannerView(String data) {
 		try {
-			bannerData = GsonTool.fromJson(data,
+			bannerData = GsonTool.getGsonTool().fromJson(data,
 					new TypeToken<List<GoodsDetailData>>() {
-					});
-			LogUtils.v(TAG,
-					"banner data: "
-							+ GsonTool.toJson(bannerData.get(0),
-									GoodsDetailData.class));
+					}.getType());
+			Log.v(TAG, "TODO banner data: " + data);
 			drawables = new ArrayList<Drawable>();
 			imgAdapter = new ImageAdapter(this, drawables);
 
@@ -186,6 +183,8 @@ public class HomeActivity extends BaseMainActivity implements
 							public void imageLoaded(
 									final Drawable imageDrawable,
 									final String Tag) {
+								// TODO Auto-generated method stub
+
 								if (imageDrawable != null) {
 									drawables.add(imageDrawable);
 								} else {
@@ -202,17 +201,15 @@ public class HomeActivity extends BaseMainActivity implements
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		banner.setCallBack(new IViewListener() {
+		banner.setCallBack(new ViewListener() {
 
 			@Override
 			public void updateView(ViewUpdateObj obj) {
+				// TODO Auto-generated method stub
 				String pos = obj.getData();
 				if (bannerData != null) {
-					LogUtils.v(TAG, "login complete code is: " + pos);
+					Log.v(TAG, "TODO login complete code is: " + pos);
 					try {
-//						String detailData = GsonTool.getGsonTool().toJson(
-//								bannerData.get(Integer.parseInt(pos)),
-//								GoodsDetailData.class);
 						GoodsDetailData data = bannerData.get(Integer
 								.parseInt(pos));
 						GoodsDetailData detail = new GoodsDetailData();
@@ -246,7 +243,7 @@ public class HomeActivity extends BaseMainActivity implements
 						detail.setSell_out(data.getSell_out());
 
 						detail.setMax_count(data.getMax_count());
-						String strDetail = GsonTool
+						String strDetail = GsonTool.getGsonTool()
 								.toJson(detail);
 						Intent intent = new Intent(HomeActivity.this,
 								GoodDetailActivity.class);
@@ -262,26 +259,18 @@ public class HomeActivity extends BaseMainActivity implements
 
 	private void makeGridView(String data) {
 		try {
-			privilegeData = GsonTool.fromJson(data,
+			privilegeData = GsonTool.getGsonTool().fromJson(data,
 					new TypeToken<List<GoodsListData>>() {
-					});
-			LogUtils.v(TAG,
-					"privilege data: "
-							+ GsonTool.toJson(
-									privilegeData.get(0), GoodsListData.class));
+					}.getType());
+			Log.v(TAG, "TODO privilege data: " + data);
 			ArrayList<HashMap<String, Object>> tuijianList = new ArrayList<HashMap<String, Object>>();
 			for (GoodsListData d : privilegeData) {
 				HashMap<String, Object> map = new HashMap<String, Object>();
-				map.put("GoodsName",
-						getResources().getString(R.string.goods_name_tag)
-								+ d.getName());
-				map.put("GoodsCurrentPrice",
-						getResources().getString(R.string.goods_unit)
-								+ d.getCurrent_price());
+				map.put("GoodsName", d.getName());
+				map.put("GoodsCurrentPrice", d.getCurrent_price());
 				map.put("GoodsOriginPrice",
-						getResources().getString(R.string.goods_unit)
-								+ d.getCurrent_price()
-								+ getResources().getString(R.string.sell_unit));
+						getResources().getString(R.string.str_origin_price)
+								+ d.getCurrent_price());
 				// map.put("ItemImage", R.drawable.tuijian_sample);
 				map.put("ImgId", d.getIcon().getId());
 				map.put("ImgUrl", d.getIcon().getUrl());
@@ -309,6 +298,7 @@ public class HomeActivity extends BaseMainActivity implements
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ScrollView> refreshView) {
+						// TODO Auto-generated method stub
 						Date date = new Date();
 						SimpleDateFormat formatter = new SimpleDateFormat(
 								"yyyy/MM/dd HH:mm");
@@ -317,8 +307,16 @@ public class HomeActivity extends BaseMainActivity implements
 						label += formatter.format(date);
 						refreshView.getLoadingLayoutProxy()
 								.setLastUpdatedLabel(label);
-
-						new GetDataTask().execute();
+						switch (refreshView.getCurrentMode()) {
+						case PULL_FROM_START:
+							new GetDataTask().execute();
+							break;
+						case PULL_FROM_END:
+							new GetMoreDataTask().execute();
+							break;
+						default:
+							break;
+						}
 					}
 				});
 
@@ -330,6 +328,7 @@ public class HomeActivity extends BaseMainActivity implements
 	}
 
 	public void onPrepareData() {
+		offset = 0;
 		boolLoadComplete = new BoolLoadComplete();
 		ControllerManager.getInstance().getSearchController().unRegisterAll();
 		ControllerManager.getInstance().getSearchController()
@@ -337,12 +336,37 @@ public class HomeActivity extends BaseMainActivity implements
 		ControllerManager.getInstance().getSearchController().getHomeData();
 	}
 
+	public void getMoreData() {
+		ControllerManager.getInstance().getSearchController().unRegisterAll();
+		ControllerManager.getInstance().getSearchController()
+				.registerNotification(new ViewListener() {
+
+					@Override
+					public void updateView(ViewUpdateObj obj) {
+						// TODO Auto-generated method stub
+						if (obj.getCode() == 200) {
+							Message updateViewMsg = mHandler
+									.obtainMessage(LOADING_END);
+							mHandler.sendMessage(updateViewMsg);
+						} else {
+							Message updateViewMsg = mHandler
+									.obtainMessage(NET_ERROR);
+							mHandler.sendMessage(updateViewMsg);
+						}
+					}
+				});
+		offset += length;
+		ControllerManager.getInstance().getSearchController()
+				.getPrivilege(offset, length);
+	}
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
+		// TODO Auto-generated method stub
 		if (privilegeData != null) {
 			try {
-				String detailData = GsonTool.toJson(
+				String detailData = GsonTool.getGsonTool().toJson(
 						privilegeData.get(position), GoodsListData.class);
 				GoodsListData data = privilegeData.get(position);
 				GoodsDetailData detail = new GoodsDetailData();
@@ -375,8 +399,8 @@ public class HomeActivity extends BaseMainActivity implements
 				}
 				detail.setSell_out(data.getSell_out());
 				detail.setMax_count(data.getMax_count());
-				String strDetail = GsonTool.toJson(detail);
-				LogUtils.v(TAG, "jinrituijian detail: " + detailData);
+				String strDetail = GsonTool.getGsonTool().toJson(detail);
+				Log.v(TAG, "TODO jinrituijian detail: " + detailData);
 				Intent intent = new Intent(HomeActivity.this,
 						GoodDetailActivity.class);
 				intent.putExtra("data", strDetail);
@@ -387,54 +411,31 @@ public class HomeActivity extends BaseMainActivity implements
 		}
 	}
 
-	/**
-	 * public void showRegionList(View v) { Dialog dialog = new
-	 * RegionList(HomeActivity.this, R.style.my_dialog);
-	 * dialog.setContentView(R.layout.region_list);
-	 * dialog.setCanceledOnTouchOutside(true); dialog.show(); WindowManager
-	 * windowManager = getWindowManager(); Display display =
-	 * windowManager.getDefaultDisplay(); WindowManager.LayoutParams lp =
-	 * dialog.getWindow().getAttributes(); lp.width = (int) (display.getWidth()
-	 * * 0.9); lp.height = (int) (display.getHeight() * 0.9);
-	 * dialog.getWindow().setAttributes(lp); }
-	 */
-
-	@SuppressLint("NewApi")
-	public void getInFruit(View v) {
-		Bundle bundle = new Bundle();
-		bundle.putString("type", "fruit");
-		fruitIntent = new Intent(HomeActivity.this, GoodsListActivity.class);
-		fruitIntent.putExtras(bundle);
-		startActivity(fruitIntent);
-		int version = Integer.valueOf(android.os.Build.VERSION.SDK);
-		if (version >= 5) {
-			// overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-			overridePendingTransition(android.R.anim.slide_in_left,
-					android.R.anim.slide_out_right);
-		}
-	}
-
-	@SuppressLint("NewApi")
-	public void getInVegetable(View v) {
-		Bundle bundle = new Bundle();
-		bundle.putString("type", "vegetable");
-		vegetableIntent = new Intent(HomeActivity.this, GoodsListActivity.class);
-		vegetableIntent.putExtras(bundle);
-		startActivity(vegetableIntent);
-		int version = Integer.valueOf(android.os.Build.VERSION.SDK);
-		if (version >= 5) {
-			// overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-			overridePendingTransition(android.R.anim.slide_in_left,
-					android.R.anim.slide_out_right);
-		}
-	}
-
 	private class GetDataTask extends AsyncTask<Void, Void, String[]> {
 
 		@Override
 		protected String[] doInBackground(Void... params) {
 			// Simulates a background job.
 			onPrepareData();
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(String[] result) {
+			// Do some stuff here
+
+			// Call onRefreshComplete when the list has been refreshed.
+			// mPullRefreshScrollView.onRefreshComplete();
+			super.onPostExecute(result);
+		}
+	}
+
+	private class GetMoreDataTask extends AsyncTask<Void, Void, String[]> {
+
+		@Override
+		protected String[] doInBackground(Void... params) {
+			// Simulates a background job.
+			getMoreData();
 			return null;
 		}
 
@@ -498,6 +499,7 @@ public class HomeActivity extends BaseMainActivity implements
 
 	@Override
 	public void updateView(ViewUpdateObj obj) {
+		// TODO Auto-generated method stub
 		if (obj.getCode() == 200) {
 			if (obj.getData() != null) {
 				Message updateViewMsg = null;
@@ -516,8 +518,6 @@ public class HomeActivity extends BaseMainActivity implements
 					break;
 				case VERSION:
 					boolLoadComplete.setGetVersion(true);
-					LogUtils.d(TAG, "---------------version:"
-							+ ClientData.getInstance().getVersion());
 					break;
 				case MIN_LIMIT:
 					boolLoadComplete.setGetMinLimit(true);

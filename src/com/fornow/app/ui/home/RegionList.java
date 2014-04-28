@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -17,26 +17,27 @@ import android.content.Context;
 import android.os.Bundle;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-9-5
  */
 public class RegionList extends Dialog {
-//	private Context mContext;
+	@SuppressWarnings("unused")
+	private Context mContext;
 
 	public RegionList(Context context) {
 		super(context);
-//		this.mContext = context;
+		// TODO Auto-generated constructor stub
+		this.mContext = context;
 	}
 
 	public RegionList(Context context, int theme) {
 		super(context, theme);
-//		this.mContext = context;
+		// TODO Auto-generated constructor stub
+		this.mContext = context;
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 	}
 }

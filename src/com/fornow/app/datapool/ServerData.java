@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -21,14 +21,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import com.fornow.app.model.RegionData;
 import com.fornow.app.model.UserInfo;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @name ServerData
+ * @description ServerData is used for
+ * @author Simon Lv
+ * @date Aug 9, 2013
  */
 public class ServerData implements Serializable {
 
@@ -36,7 +35,6 @@ public class ServerData implements Serializable {
 	private static final String filePath = "";
 
 	private UserInfo user;
-	private RegionData region;
 
 	private static ServerData serverData = null;
 
@@ -82,14 +80,6 @@ public class ServerData implements Serializable {
 
 	public void setUser(UserInfo user) {
 		this.user = user;
-	}
-
-	public RegionData getRegion() {
-		return region;
-	}
-
-	public void setRegion(RegionData region) {
-		this.region = region;
 	}
 
 }

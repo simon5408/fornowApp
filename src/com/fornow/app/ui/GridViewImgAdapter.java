@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -15,6 +15,10 @@ package com.fornow.app.ui;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.fornow.app.ui.loadimg.AsyncImgLoader;
+import com.fornow.app.ui.loadimg.AsyncImgLoader.ImageCallback;
+import com.fornow.app.R;
+
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -25,15 +29,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.fornow.app.R;
-import com.fornow.app.ui.loadImg.AsyncImgLoader;
-import com.fornow.app.ui.loadImg.AsyncImgLoader.ImageCallback;
-
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-10-27
  */
 public class GridViewImgAdapter extends BaseAdapter {
 	private ArrayList<HashMap<String, Object>> list;
@@ -49,22 +46,26 @@ public class GridViewImgAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
+		// TODO Auto-generated method stub
 		return this.list.size();
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
 	public HashMap getItem(int position) {
+		// TODO Auto-generated method stub
 		return this.list.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		// TODO Auto-generated method stub
 		View rowView = convertView;
 		ViewHolder holder;
 		if (rowView == null) {
@@ -95,9 +96,11 @@ public class GridViewImgAdapter extends BaseAdapter {
 						@Override
 						public void imageLoaded(final Drawable imageDrawable,
 								final String Tag) {
+							// TODO Auto-generated method stub
 							imageView.post(new Runnable() {
 								@Override
 								public void run() {
+									// TODO Auto-generated method stub
 									ImageView imageViewByTag = (ImageView) mView
 											.findViewWithTag(Tag);
 									if (imageViewByTag != null

@@ -2,10 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#000000"
+    android:background="#ffffff"
     android:orientation="vertical" >
 
-    <com.fornow.app.ui.pull2refresh.PullToRefreshScrollView
+    <com.fornow.app.utils.pull2refresh.PullToRefreshScrollView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/pull_refresh_scrollview"
         style="@style/home_pullToRefresh_style"
@@ -14,7 +14,7 @@
         android:layout_gravity="bottom"
         android:fadingEdge="none"
         ptr:ptrAnimationStyle="flip"
-        ptr:ptrMode="pullFromStart" >
+        ptr:ptrMode="both" >
 
         <LinearLayout
             android:id="@+id/home_container"
@@ -27,40 +27,9 @@
                 style="@style/home_banner_style"
                 android:layout_width="fill_parent" />
 
-            <LinearLayout
-                style="@style/home_padding"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="horizontal" >
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:paddingRight="4dip" >
-
-                    <ImageButton
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:background="@drawable/home_btn_01_bg"
-                        android:onClick="getInFruit" >
-                    </ImageButton>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:paddingLeft="4dip" >
-
-                    <ImageButton
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:background="@drawable/home_btn_02_bg"
-                        android:onClick="getInVegetable" >
-                    </ImageButton>
-                </LinearLayout>
-            </LinearLayout>
+            <TextView
+                style="@style/home_introduce"
+                android:text="@string/introduce" />
 
             <LinearLayout
                 style="@style/home_padding"
@@ -72,14 +41,13 @@
                     style="@style/home_tuijian_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/jinrituijian" />
+                    android:text="@string/remaishuiguo" />
             </LinearLayout>
 
             <LinearLayout
                 style="@style/home_block_style"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/block_bg" >
+                android:layout_height="wrap_content" >
 
                 <com.fornow.app.ui.MyGridView
                     android:id="@+id/homeMenuGridView"
@@ -91,14 +59,17 @@
                     android:stretchMode="columnWidth" />
             </LinearLayout>
         </LinearLayout>
-    </com.fornow.app.ui.pull2refresh.PullToRefreshScrollView>
+    </com.fornow.app.utils.pull2refresh.PullToRefreshScrollView>
 
     <LinearLayout
         style="@style/header_style"
-        android:background="@drawable/header_bg"
-        android:gravity="center_horizontal" >
+        android:gravity="center" >
 
-        <ImageView style="@style/header_logo_style" />
+        <ImageView
+            android:layout_width="75dip"
+            android:layout_height="45dip"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
     </LinearLayout>
 
 </FrameLayout>

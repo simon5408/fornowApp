@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -13,10 +13,7 @@
 package com.fornow.app.controller;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-8-16
  */
 public class ControllerManager {
 	private static ControllerManager controllerManager;
@@ -26,6 +23,7 @@ public class ControllerManager {
 	private AddressManageController addressManageController;
 	private OrderController orderController;
 	private FavoritesController favoritesController;
+	private RegionController regionController;
 
 	private ControllerManager() {
 
@@ -38,6 +36,7 @@ public class ControllerManager {
 		addressManageController = new AddressManageController();
 		orderController = new OrderController();
 		favoritesController = new FavoritesController();
+		regionController = new RegionController();
 	}
 
 	public static ControllerManager getInstance() {
@@ -73,6 +72,10 @@ public class ControllerManager {
 
 	public FavoritesController getFavoritesController() {
 		return favoritesController;
+	}
+
+	public RegionController getRegionController() {
+		return regionController;
 	}
 
 }

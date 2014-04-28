@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants" >
 
     <LinearLayout
         android:id="@+id/bottom_dotted_line0"
@@ -25,133 +26,111 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="100dip"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="8dip"
-                android:layout_weight="5"
+                android:layout_weight="3"
                 android:gravity="center_vertical" >
 
                 <ImageView
                     android:id="@+id/jiesuan_goods_img"
-                    android:layout_width="80dip"
-                    android:layout_height="80dip"
+                    android:layout_width="100dip"
+                    android:layout_height="100dip"
                     android:scaleType="fitXY" />
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:layout_weight="2"
                 android:gravity="center_vertical"
-                android:orientation="vertical"
                 android:paddingLeft="8dip"
                 android:paddingRight="8dip" >
 
                 <LinearLayout
+                    android:id="@+id/cart_name_area"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true" >
 
                     <TextView
                         android:id="@+id/jiesuan_goods_name"
                         style="@style/goods_name_text"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:lines="2"
-                        android:textColor="#333333" >
+                        android:singleLine="true" >
                     </TextView>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dip"
+                    android:layout_below="@+id/cart_name_area"
                     android:gravity="right" >
 
-                    <ImageButton
-                        android:id="@+id/jiesuan_goods_count_minus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/cart_minus_btn" />
-
                     <TextView
-                        android:id="@+id/jiesuan_goods_input_area"
-                        style="@style/goods_unit_text"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/jiesuan_goods_introduction"
+                        style="@style/goods_originPrice_text_style"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/cart_input"
-                        android:gravity="center"
-                        android:textColor="#333333" />
-
-                    <ImageButton
-                        android:id="@+id/jiesuan_goods_count_add"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/cart_add_btn" />
+                        android:singleLine="true" >
+                    </TextView>
                 </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dip" >
+                    android:layout_alignParentBottom="true" >
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="20dip"
+                            android:layout_height="20dip"
+                            android:src="@drawable/rmb" />
 
                         <TextView
                             android:id="@+id/jiesuan_goodsPrice"
                             style="@style/goods_unit_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="bottom"
-                            android:textColor="#333333" >
+                            android:paddingLeft="5dip" >
                         </TextView>
 
                         <TextView
-                            style="@style/goods_name_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="bottom"
-                            android:text="@string/sell_unit"
-                            android:textColor="#333333" >
-                        </TextView>
-
-                        <TextView
-                            android:id="@+id/jiesuan_goods_count"
                             style="@style/goods_unit_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="bottom"
-                            android:textColor="#333333" >
+                            android:singleLine="true"
+                            android:text="@string/sell_unit" >
                         </TextView>
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/jiesuan_goods_total_price"
-                        style="@style/goods_unit_text"
+                        android:id="@+id/jiesuan_goods_count"
+                        style="@style/goods_name_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:gravity="bottom"
-                        android:textColor="#ff5000" >
+                        android:background="@drawable/input_area1"
+                        android:gravity="center" >
                     </TextView>
                 </RelativeLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="4"
+                android:clickable="false"
+                android:gravity="center_horizontal|center_vertical" >
+
+                <ImageButton style="@style/go2_left_arrow" />
             </LinearLayout>
         </LinearLayout>
-
-        <Button
-            android:id="@+id/jiesuan_goods_del"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|right"
-            android:background="@drawable/button_delete"
-            android:clickable="true"
-            android:paddingLeft="8dip"
-            android:paddingRight="8dip"
-            android:text="@string/str_delete"
-            android:textColor="#ffffff"
-            android:textSize="14sp"
-            android:visibility="gone" />
     </FrameLayout>
 
 </RelativeLayout>

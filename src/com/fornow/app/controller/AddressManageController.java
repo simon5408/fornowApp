@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -15,25 +15,22 @@ package com.fornow.app.controller;
 import com.fornow.app.dao.DaoManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.ShipAddressData;
+import com.fornow.app.net.ControllerListener;
 import com.fornow.app.net.NetResponse;
+import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.service.IControllerListener;
-import com.fornow.app.service.IViewListener;
-import com.fornow.app.util.GsonTool;
+import com.fornow.app.utils.GsonTool;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-11-6
  */
 public class AddressManageController extends
-		AbstractController<IViewListener, String> {
-	public void registerNotification(IViewListener notification) {
+		AbstractController<ViewListener, String> {
+	public void registerNotification(ViewListener notification) {
 		super.register(notification);
 	}
 
-	public void unRegisterNotification(IViewListener notification) {
+	public void unRegisterNotification(ViewListener notification) {
 		super.unRegister(notification);
 	}
 
@@ -50,10 +47,11 @@ public class AddressManageController extends
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
 			DaoManager.getInstance().getAddressDao()
-					.getShipAddress(uuid, new IControllerListener() {
+					.getShipAddress(uuid, new ControllerListener() {
 
 						@Override
 						public void callback(NetResponse response) {
+							// TODO Auto-generated method stub
 							ViewUpdateObj viewObj = new ViewUpdateObj();
 							viewObj.setCode(response.code);
 							if (response.code == 200) {
@@ -81,15 +79,16 @@ public class AddressManageController extends
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
 			try {
-				String address = GsonTool.toJson(data);
+				String address = GsonTool.getGsonTool().toJson(data);
 				DaoManager
 						.getInstance()
 						.getAddressDao()
 						.updateShipAddress(uuid, address,
-								new IControllerListener() {
+								new ControllerListener() {
 
 									@Override
 									public void callback(NetResponse response) {
+										// TODO Auto-generated method stub
 										ViewUpdateObj viewObj = new ViewUpdateObj();
 										viewObj.setCode(response.code);
 										if (mNotifiables != null) {
@@ -108,10 +107,11 @@ public class AddressManageController extends
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
 			DaoManager.getInstance().getAddressDao()
-					.delShipAddress(uuid, addressId, new IControllerListener() {
+					.delShipAddress(uuid, addressId, new ControllerListener() {
 
 						@Override
 						public void callback(NetResponse response) {
+							// TODO Auto-generated method stub
 							ViewUpdateObj viewObj = new ViewUpdateObj();
 							viewObj.setCode(response.code);
 							if (mNotifiables != null) {

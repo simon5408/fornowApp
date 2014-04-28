@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -15,10 +15,7 @@ package com.fornow.app.model;
 import java.util.List;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-12-1
  */
 public class ConfirmData extends AbstractModel {
 	private static final long serialVersionUID = 1L;

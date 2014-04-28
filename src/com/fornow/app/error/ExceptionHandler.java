@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -13,10 +13,10 @@
 package com.fornow.app.error;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @name ExceptionHandler
+ * @description ExceptionHandler is used for
+ * @author Simon Lv
+ * @date Aug 9, 2013
  */
 public class ExceptionHandler {
 	public void handleError() {

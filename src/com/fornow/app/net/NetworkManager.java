@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -27,13 +27,10 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 
-import com.fornow.app.service.IDataCallback;
-
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
+ * Aug 30, 2013
  * 
+ * @author Simon Lv
  */
 public class NetworkManager {
 	private static final int TIMEOUT = 10000;
@@ -47,7 +44,7 @@ public class NetworkManager {
 	 *            : DataCallback
 	 */
 	public static void sendGetReq(final NetRequest netReq,
-			final IDataCallback callback) {
+			final DataCallback callback) {
 
 		new Thread() {
 
@@ -95,7 +92,7 @@ public class NetworkManager {
 	 *            :DataCallback
 	 */
 	public static void sendPostReq(final NetRequest netReq,
-			final IDataCallback callback) {
+			final DataCallback callback) {
 
 		new Thread() {
 

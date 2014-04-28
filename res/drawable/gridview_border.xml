@@ -4,21 +4,23 @@
     <!-- 连框颜色值 -->
     <item>
         <shape>
-            <solid android:color="#e4e4e4" />
+            <solid android:color="#e8e8e8" />
         </shape>
     </item>
     <!-- 主体背景颜色值 -->
     <item
-        android:bottom="1dp"
-        android:right="1dp">
+        android:top="1dip"
+        android:bottom="1dip"
+        android:right="1dip"
+        android:left="1dip">
         <shape>
             <solid android:color="#ffffff" />
 
             <padding
                 android:bottom="1dip"
-                android:left="0dip"
+                android:left="1dip"
                 android:right="1dip"
-                android:top="0dip" />
+                android:top="1dip" />
         </shape>
     </item>
 

@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -14,6 +14,11 @@ package com.fornow.app.ui.home;
 
 import java.util.ArrayList;
 
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.R;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,16 +42,10 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
-import com.fornow.app.R;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.service.IViewListener;
-
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-8-11
  */
+
 public class AutoPlayGallery extends RelativeLayout implements
 		OnItemClickListener {
 	private final static int BASE_BACKGROUND_COLOR = 0x33000000;
@@ -58,20 +57,23 @@ public class AutoPlayGallery extends RelativeLayout implements
 	private int height = 30; // base height ,can be modify by setHeight
 	private boolean flag = false; // switch for playing
 	private Thread autoPlayThread;
-	private IViewListener callBack;
+	private ViewListener callBack;
 
 	public AutoPlayGallery(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		// TODO Auto-generated constructor stub
 		setupContentView(context);
 	}
 
 	public AutoPlayGallery(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		// TODO Auto-generated constructor stub
 		setupContentView(context);
 	}
 
 	public AutoPlayGallery(Context context) {
 		super(context);
+		// TODO Auto-generated constructor stub
 		setupContentView(context);
 	}
 
@@ -129,11 +131,14 @@ public class AutoPlayGallery extends RelativeLayout implements
 				@Override
 				public void onItemSelected(AdapterView<?> arg0, View view,
 						int position, long arg3) {
+					// TODO Auto-generated method stub
 					indicatePoint(position);
 				}
 
 				@Override
 				public void onNothingSelected(AdapterView<?> arg0) {
+					// TODO Auto-generated method stub
+
 				}
 			});
 			flag = true;// make the switch true
@@ -245,10 +250,12 @@ public class AutoPlayGallery extends RelativeLayout implements
 	 * 
 	 * @param size
 	 */
+	@SuppressLint("HandlerLeak")
 	private void play(final int size) {
 		final Handler handler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
+				// TODO Auto-generated method stub
 				if (mGallery.isTouched()) {
 					count = mGallery.getFirstVisiblePosition() + 1;
 					mGallery.setTouched(false);
@@ -273,6 +280,7 @@ public class AutoPlayGallery extends RelativeLayout implements
 					try {
 						Thread.sleep(duration);
 					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
 						e.printStackTrace();
 						break;
 					}
@@ -285,12 +293,13 @@ public class AutoPlayGallery extends RelativeLayout implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
+		// TODO
 		ViewUpdateObj viewObj = new ViewUpdateObj();
 		viewObj.setData(Integer.toString(position));
 		this.callBack.updateView(viewObj);
 	}
 
-	public void setCallBack(IViewListener callBack) {
+	public void setCallBack(ViewListener callBack) {
 		this.callBack = callBack;
 	}
 }
@@ -298,10 +307,12 @@ public class AutoPlayGallery extends RelativeLayout implements
 class MyGallery extends Gallery {
 	public MyGallery(Context context) {
 		super(context);
+		// TODO Auto-generated constructor stub
 	}
 
 	public MyGallery(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		// TODO Auto-generated constructor stub
 	}
 
 	public MyGallery(Context context, AttributeSet attrs, int defStyle) {

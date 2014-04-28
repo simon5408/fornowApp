@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -15,14 +15,16 @@ package com.fornow.app.datapool;
 import java.io.Serializable;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @name ClientData
+ * @description ClientData is used for
+ * @author Simon Lv
+ * @date Aug 9, 2013
  */
 public class ClientData implements Serializable {
 
 	private static final long serialVersionUID = -5701224101571896291L;
+	@SuppressWarnings("unused")
+	private static final String filePath = "";
 
 	private static ClientData clientData = null;
 	private String version = null;

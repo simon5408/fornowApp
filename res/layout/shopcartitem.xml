@@ -1,174 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:descendantFocusability="blocksDescendants"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:descendantFocusability="blocksDescendants" >
 
     <LinearLayout
-        android:id="@+id/bottom_dotted_line0"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/dotted_line_bg"
-        android:orientation="horizontal" >
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:orientation="horizontal"
+        android:padding="8dip" >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bottom_dotted_line0"
-            android:orientation="horizontal"
-            android:paddingBottom="10dip"
-            android:paddingTop="10dip" >
+            android:layout_weight="3"
+            android:gravity="center_vertical" >
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="4"
-                android:gravity="center_vertical" >
-
-                <ImageButton
-                    android:id="@+id/cart_select"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="4dip"
-                    android:background="@drawable/checkbox_no" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
+            <ImageView
+                android:id="@+id/cart_img"
+                android:layout_width="100dip"
                 android:layout_height="100dip"
-                android:layout_marginLeft="8dip"
-                android:layout_weight="3"
-                android:gravity="center_vertical" >
+                android:scaleType="fitXY" />
+        </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/cart_img"
-                    android:layout_width="80dip"
-                    android:layout_height="80dip"
-                    android:scaleType="fitXY" />
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dip"
+            android:paddingRight="8dip" >
+
+            <LinearLayout
+                android:id="@+id/cart_name_area"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true" >
+
+                <TextView
+                    android:id="@+id/cart_name"
+                    style="@style/goods_name_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true" >
+                </TextView>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingLeft="8dip"
-                android:paddingRight="8dip" >
+                android:layout_below="@+id/cart_name_area"
+                android:gravity="right" >
+
+                <TextView
+                    android:id="@+id/cart_introduction"
+                    style="@style/goods_originPrice_text_style"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true" >
+                </TextView>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true" >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/cart_name"
-                        style="@style/goods_name_text"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:lines="2"
-                        android:textColor="#333333" >
-                    </TextView>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dip"
-                    android:gravity="right" >
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
 
-                    <ImageButton
-                        android:id="@+id/cart_count_minus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/cart_minus_btn" />
+                    <ImageView
+                        android:layout_width="20dip"
+                        android:layout_height="20dip"
+                        android:src="@drawable/rmb" />
 
                     <TextView
-                        android:id="@+id/cart_input_area"
+                        android:id="@+id/TextItemPrice"
                         style="@style/goods_unit_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/cart_input"
-                        android:gravity="center"
-                        android:textColor="#333333" />
-
-                    <ImageButton
-                        android:id="@+id/cart_count_add"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/cart_add_btn" />
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dip" >
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal" >
-
-                        <TextView
-                            android:id="@+id/TextItemPrice"
-                            style="@style/goods_unit_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="bottom"
-                            android:textColor="#333333" >
-                        </TextView>
-
-                        <TextView
-                            android:id="@+id/cart_goods_name"
-                            style="@style/goods_name_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="bottom"
-                            android:text="@string/sell_unit"
-                            android:textColor="#333333" >
-                        </TextView>
-
-                        <TextView
-                            android:id="@+id/cart_goods_count"
-                            style="@style/goods_unit_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="bottom"
-                            android:textColor="#333333" >
-                        </TextView>
-                    </LinearLayout>
+                        android:paddingLeft="5dip" >
+                    </TextView>
 
                     <TextView
-                        android:id="@+id/cart_item_total_price"
                         style="@style/goods_unit_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:gravity="bottom"
-                        android:textColor="#ff5000" >
+                        android:singleLine="true"
+                        android:text="@string/sell_unit" >
                     </TextView>
-                </RelativeLayout>
-            </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/cart_item_count"
+                    style="@style/goods_name_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/input_area1"
+                    android:gravity="center" >
+                </TextView>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/cart_select"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="4"
+            android:gravity="right" >
+
+            <ImageView
+                android:id="@+id/cart_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:background="@drawable/checkbox_no"
+                android:clickable="false" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/cart_del"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|right"
-            android:background="@drawable/button_delete"
-            android:clickable="true"
-            android:paddingLeft="8dip"
-            android:paddingRight="8dip"
-            android:text="@string/str_delete"
-            android:textColor="#ffffff"
-            android:textSize="14sp"
-            android:visibility="gone" />
-    </FrameLayout>
+    </LinearLayout>
 
 </RelativeLayout>

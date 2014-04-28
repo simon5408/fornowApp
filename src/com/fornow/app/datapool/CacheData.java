@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -18,18 +18,15 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-10-23
  */
 public class CacheData {
 	private static SharedPreferences share;
 	private static CacheData cacheData;
 
 	private final String BASE_URL = "base_url";
-	private final String baseUrl = "http://10.20.77.27:8080/fornow";
-	//private final String baseUrl = "http://192.168.1.8:8080";
+	private final String baseUrl = "http://1.93.28.198:8080";
+	//private final String baseUrl = "http://192.168.1.9:8080";
 	private static final String AUTOLOGIN = "isAutoLogin";
 	private static final String LOGIN_NAME = "loginName";
 	private static final String LOGIN_PASS = "loginPass";
@@ -84,6 +81,12 @@ public class CacheData {
 
 	public void setLoginPass(String data) {
 		share.edit().putString(LOGIN_PASS, data).commit();
+	}
+
+	public void cleanCache() {
+		setAutologin(false);
+		setLoginName(null);
+		setLoginPass(null);
 	}
 
 }

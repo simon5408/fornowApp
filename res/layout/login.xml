@@ -2,8 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#000000"
-    android:orientation="vertical" >
+    android:background="#ffffff" >
 
     <ScrollView
         style="@style/home_pullToRefresh_style"
@@ -20,85 +19,123 @@
             android:orientation="vertical"
             android:padding="8dip" >
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="fill_parent"
                 android:layout_height="50dip"
                 android:layout_marginTop="10dip"
-                android:background="@drawable/block_bg"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="8"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="@string/str_zhanghao"
-                    android:textColor="#333333"
-                    android:textSize="20sp" />
-
-                <EditText
-                    android:id="@+id/login_user_name"
-                    style="@style/input_style"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="3"
-                    android:hint="@string/str_qsrndzh" />
+                android:background="@drawable/main_border" >
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_weight="9" >
+                    android:orientation="horizontal" >
 
-                    <ImageButton
-                        style="@style/del_input_in_area"
-                        android:clickable="true"
-                        android:onClick="clearUserName" />
+                    <TextView
+                        style="@style/goods_name_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="8"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="@string/str_zhanghao"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/login_user_name"
+                        style="@style/input_style"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="3"
+                        android:digits="1234567890."
+                        android:hint="@string/str_qsrndzh"
+                        android:imeOptions="actionDone"
+                        android:textColorHint="#b9b9b9" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="9" >
+
+                        <ImageButton
+                            style="@style/del_input_in_area"
+                            android:clickable="true"
+                            android:onClick="clearUserName" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
-            <LinearLayout
+                <TextView
+                    android:id="@+id/username_error_msg"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@color/green"
+                    android:gravity="center"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp"
+                    android:typeface="sans"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+            <FrameLayout
                 android:layout_width="fill_parent"
                 android:layout_height="50dip"
                 android:layout_marginTop="8dip"
-                android:background="@drawable/block_bg"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="8"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:text="@string/str_mima"
-                    android:textColor="#333333"
-                    android:textSize="20sp" />
-
-                <EditText
-                    android:id="@+id/login_user_password"
-                    style="@style/input_style"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="3"
-                    android:hint="@string/str_qsrndmm"
-                    android:inputType="textPassword" />
+                android:background="@drawable/main_border" >
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_weight="9" >
+                    android:orientation="horizontal" >
 
-                    <ImageButton
-                        style="@style/del_input_in_area"
-                        android:clickable="true"
-                        android:onClick="clearPassword" />
+                    <TextView
+                        style="@style/goods_name_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="8"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="@string/str_mima"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/login_user_password"
+                        style="@style/input_style"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="3"
+                        android:hint="@string/str_qsrndmm"
+                        android:inputType="textPassword"
+                        android:textColorHint="#b9b9b9" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="9" >
+
+                        <ImageButton
+                            style="@style/del_input_in_area"
+                            android:clickable="true"
+                            android:onClick="clearPassword" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
+
+                <TextView
+                    android:id="@+id/password_error_msg"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@color/green"
+                    android:gravity="center"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp"
+                    android:typeface="sans"
+                    android:visibility="gone" />
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dip"
+                android:layout_marginTop="15dip"
                 android:orientation="horizontal" >
 
                 <ImageButton
@@ -112,41 +149,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="8"
+                    android:layout_marginLeft="2dip"
                     android:gravity="center_vertical"
                     android:text="@string/str_zddl"
-                    android:textColor="#666666"
+                    android:textColor="#1f1f1f"
                     android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="50dip"
-                android:layout_marginTop="15dip"
+                android:layout_height="40dip"
+                android:layout_marginTop="20dip"
                 android:orientation="horizontal" >
 
                 <Button
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:layout_marginRight="4dip"
                     android:layout_weight="1"
-                    android:background="@drawable/button_green"
+                    android:background="@drawable/btn_origin_bg"
                     android:gravity="center_vertical|center_horizontal"
                     android:onClick="login"
                     android:text="@string/str_denglu"
                     android:textColor="#ffffff"
-                    android:textSize="20sp" />
-
-                <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginLeft="4dip"
-                    android:layout_weight="1"
-                    android:background="@drawable/button_gray"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:onClick="register"
-                    android:text="@string/str_zhuce"
-                    android:textColor="#333333"
                     android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
@@ -157,7 +181,6 @@
         android:background="@drawable/header_bg" >
 
         <TextView
-            android:id="@+id/channel_category"
             style="@style/header_text_style"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -166,16 +189,34 @@
             android:text="@string/str_yhdl" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent" >
+            android:layout_width="60dip"
+            android:layout_height="fill_parent"
+            android:layout_gravity="right"
+            android:background="@drawable/top_back__btn_bg"
+            android:onClick="register" >
+
+            <TextView
+                style="@style/header_text_style"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:text="@string/str_zhuce" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="60dip"
+            android:layout_height="fill_parent"
+            android:background="@drawable/top_back__btn_bg"
+            android:gravity="center"
+            android:onClick="softBack" >
 
             <ImageButton
                 android:id="@+id/header_back"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_width="20dip"
+                android:layout_height="20dip"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/top_back_green_btn"
-                android:onClick="softBack"
+                android:background="@drawable/left_arrow"
+                android:clickable="false"
                 android:scaleType="fitXY" />
         </LinearLayout>
     </FrameLayout>

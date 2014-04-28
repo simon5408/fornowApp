@@ -18,40 +18,49 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ImageItemId"
-        android:singleLine="true"
-        android:textColor="#333333" >
+        android:paddingLeft="5dip"
+        android:paddingRight="5dip"
+        android:singleLine="true" >
     </TextView>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/TextItemName"
-        android:orientation="horizontal" >
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="5dip"
+        android:paddingRight="5dip" >
+
+        <ImageView
+            android:layout_width="20dip"
+            android:layout_height="20dip"
+            android:src="@drawable/rmb" />
 
         <TextView
             android:id="@+id/TextItemPrice"
             style="@style/goods_unit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#eb7803" >
+            android:paddingLeft="5dip" >
         </TextView>
 
         <TextView
-            style="@style/goods_name_text"
+            style="@style/goods_unit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:text="@string/sell_unit"
-            android:textColor="#eb7803" >
+            android:text="@string/sell_unit" >
         </TextView>
 
         <TextView
             android:id="@+id/TextItemOriginPrice"
-            style="@style/goods_name_text"
+            style="@style/cart_introduce_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:textColor="#333333" >
+            android:layout_gravity="bottom"
+            android:paddingLeft="5dip"
+            android:singleLine="true" >
         </TextView>
     </LinearLayout>
 

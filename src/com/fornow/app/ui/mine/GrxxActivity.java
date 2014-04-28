@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -14,61 +14,86 @@ package com.fornow.app.ui.mine;
 
 import java.util.Calendar;
 
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.datapool.ClientData;
+import com.fornow.app.model.UserInfo;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.ui.LoadingAnim;
+import com.fornow.app.ui.customdialog.LoginDialog;
+import com.fornow.app.utils.CheckMobileAndEmailAndPost;
+import com.fornow.app.utils.GsonTool;
+import com.fornow.app.R;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Selection;
+import android.text.Spannable;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.fornow.app.R;
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.datapool.ClientData;
-import com.fornow.app.model.UserInfo;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.service.IViewListener;
-import com.fornow.app.util.GsonTool;
+import android.widget.TextView.OnEditorActionListener;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-11-5
  */
-public class GrxxActivity extends Activity {
+public class GrxxActivity extends Activity implements OnFocusChangeListener {
 
 	private TextView zhanghaoView, phoneView, emailView, nameView, sexView,
-			birthdayView;
+			birthdayView, phoneError, nameError, emailError;
 	private UserInfo user;
-//	private static final int START_UPDATE = 0x00, NET_ERROR = 0x01;
-	private static final int NET_ERROR = 0x01;
+	private int CHARMAXLIMIT = 140, CHARMINLIMIT = 2;
+	private static final int START_UPDATE = 0x00, NET_ERROR = 0x01,
+			UUID_TIMEOUT = 0x02;
+	private LinearLayout afterEditProfilePhoneContainer,
+			afterEditProfileNameContainer, afterEditProfileEmailContainer;
+	private EditText editProfilePhone, editProfileName, editProfileEmail;
 	private Handler mHandler;
+	private Context mContext;
+	private Dialog dialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gerenxinxi);
-		zhanghaoView = (TextView) findViewById(R.id.grxx_zhanghao);
-		phoneView = (TextView) findViewById(R.id.grxx_phone);
-		emailView = (TextView) findViewById(R.id.grxx_email);
-		nameView = (TextView) findViewById(R.id.grxx_name);
-		sexView = (TextView) findViewById(R.id.grxx_sex);
-		birthdayView = (TextView) findViewById(R.id.grxx_age);
+		mContext = this.getApplicationContext();
+		initView();
 		initValue();
 
 		mHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
 				switch (msg.what) {
+				case UUID_TIMEOUT:
+					dialog.dismiss();
+					LoginDialog loginDialog = new LoginDialog(
+							GrxxActivity.this, mContext, mContext
+									.getResources().getString(
+											R.string.str_tishi), mContext
+									.getResources().getString(
+											R.string.str_uuid_timeout), 0);
+					loginDialog.build();
+					break;
 				case NET_ERROR:
+					dialog.dismiss();
 					View view = getLayoutInflater().inflate(R.layout.my_toast,
 							null);
 					TextView toastText = (TextView) view
@@ -88,21 +113,211 @@ public class GrxxActivity extends Activity {
 		};
 	}
 
+	private void initView() {
+		dialog = new LoadingAnim(GrxxActivity.this, R.style.my_dialog);
+		zhanghaoView = (TextView) findViewById(R.id.grxx_zhanghao);
+		phoneView = (TextView) findViewById(R.id.grxx_phone);
+		emailView = (TextView) findViewById(R.id.grxx_email);
+		nameView = (TextView) findViewById(R.id.grxx_name);
+		sexView = (TextView) findViewById(R.id.grxx_sex);
+		birthdayView = (TextView) findViewById(R.id.grxx_age);
+		phoneError = (TextView) findViewById(R.id.after_edit_profile_phone_error);
+		nameError = (TextView) findViewById(R.id.after_edit_profile_name_error);
+		emailError = (TextView) findViewById(R.id.after_edit_profile_email_error);
+		afterEditProfilePhoneContainer = (LinearLayout) findViewById(R.id.after_edit_profile_phone_container);
+		afterEditProfileNameContainer = (LinearLayout) findViewById(R.id.after_edit_profile_name_container);
+		afterEditProfileEmailContainer = (LinearLayout) findViewById(R.id.after_edit_profile_email_container);
+		editProfilePhone = (EditText) findViewById(R.id.edit_profile_phone);
+		editProfileName = (EditText) findViewById(R.id.edit_profile_name);
+		editProfileEmail = (EditText) findViewById(R.id.edit_profile_email);
+		editProfilePhone.setOnFocusChangeListener(this);
+		editProfileName.setOnFocusChangeListener(this);
+		editProfileEmail.setOnFocusChangeListener(this);
+		editProfilePhone
+				.setOnEditorActionListener(new OnEditorActionListener() {
+
+					@Override
+					public boolean onEditorAction(TextView v, int actionId,
+							KeyEvent event) {
+						// TODO Auto-generated method stub
+						if (actionId == EditorInfo.IME_ACTION_DONE) {
+							InputMethodManager imm = (InputMethodManager) v
+									.getContext().getSystemService(
+											Context.INPUT_METHOD_SERVICE);
+							imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+							storeData2Text(afterEditProfilePhoneContainer,
+									editProfilePhone, phoneView);
+							return true;
+						}
+						return false;
+					}
+				});
+
+		editProfileName.setOnEditorActionListener(new OnEditorActionListener() {
+
+			@Override
+			public boolean onEditorAction(TextView v, int actionId,
+					KeyEvent event) {
+				// TODO Auto-generated method stub
+				if (actionId == EditorInfo.IME_ACTION_DONE) {
+					InputMethodManager imm = (InputMethodManager) v
+							.getContext().getSystemService(
+									Context.INPUT_METHOD_SERVICE);
+					imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+					storeData2Text(afterEditProfileNameContainer,
+							editProfileName, nameView);
+					return true;
+				}
+				return false;
+			}
+		});
+		editProfileEmail
+				.setOnEditorActionListener(new OnEditorActionListener() {
+
+					@Override
+					public boolean onEditorAction(TextView v, int actionId,
+							KeyEvent event) {
+						// TODO Auto-generated method stub
+						if (actionId == EditorInfo.IME_ACTION_DONE) {
+							InputMethodManager imm = (InputMethodManager) v
+									.getContext().getSystemService(
+											Context.INPUT_METHOD_SERVICE);
+							imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+							storeData2Text(afterEditProfileEmailContainer,
+									editProfileEmail, emailView);
+							return true;
+						}
+						return false;
+					}
+				});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (resultCode) {
+		case RESULT_OK:
+			switch (requestCode) {
+			case 0:
+				break;
+			default:
+				break;
+			}
+
+			break;
+		default:
+			break;
+		}
+	}
+
 	@Override
 	protected void onStart() {
+		// TODO Auto-generated method stub
 		super.onStart();
 	}
 
 	@Override
 	protected void onResume() {
+		// TODO Auto-generated method stub
 		super.onResume();
+	}
+
+	public void editPhone(View v) {
+		getFoucus(v);
+		phoneError.setVisibility(View.GONE);
+		editProfilePhone.setInputType(EditorInfo.TYPE_CLASS_PHONE);
+		inputData2EditText(afterEditProfilePhoneContainer, phoneView,
+				editProfilePhone);
+	}
+
+	public void editEmail(View v) {
+		getFoucus(v);
+		emailError.setVisibility(View.GONE);
+		inputData2EditText(afterEditProfileEmailContainer, emailView,
+				editProfileEmail);
+	}
+
+	public void editName(View v) {
+		getFoucus(v);
+		nameError.setVisibility(View.GONE);
+		inputData2EditText(afterEditProfileNameContainer, nameView,
+				editProfileName);
+	}
+
+	public void getFoucus(View v) {
+		// InputMethodManager imm = (InputMethodManager) v
+		// .getContext().getSystemService(
+		// Context.INPUT_METHOD_SERVICE);
+		// imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+		// v.setFocusable(true);
+		// v.setFocusableInTouchMode(true);
+		v.requestFocus();
+	}
+
+	public void clearFoucus() {
+		editProfilePhone.clearFocus();
+		editProfileEmail.clearFocus();
+		editProfileName.clearFocus();
+	}
+
+	public void inputData2EditText(LinearLayout container, TextView from,
+			EditText to) {
+		container.setVisibility(View.GONE);
+		to.setVisibility(View.VISIBLE);
+		to.setText(from.getText() + "");
+		to.requestFocus();
+		Spannable spanText = (Spannable) to.getText();
+		Selection.setSelection(spanText, to.getText().length());
+	}
+
+	public void storeData2Text(LinearLayout container, EditText from,
+			TextView to) {
+		container.setVisibility(View.VISIBLE);
+		from.setVisibility(View.GONE);
+		to.setText(from.getText() + "");
+		if (to == phoneView) {
+			if (!to.getText().toString().equals("")
+					&& !CheckMobileAndEmailAndPost
+							.isMobileNO(to.getText() + "")) {
+				phoneError.setText(mContext.getResources().getString(
+						R.string.str_wrong_phone));
+				phoneError.setVisibility(View.VISIBLE);
+			} else {
+				phoneError.setVisibility(View.GONE);
+			}
+		} else if (to == nameView) {
+			if (!to.getText().toString().equals("")) {
+				if (nameView.getText().toString().length() > CHARMAXLIMIT
+						|| nameView.getText().toString().length() < CHARMINLIMIT) {
+					nameError.setText(mContext.getResources().getString(
+							R.string.str_wrong_address_name));
+					nameError.setVisibility(View.VISIBLE);
+				} else {
+					nameError.setVisibility(View.GONE);
+				}
+			} else {
+				nameError.setVisibility(View.GONE);
+			}
+
+		} else if (to == emailView) {
+			if (!to.getText().toString().equals("")
+					&& !CheckMobileAndEmailAndPost
+							.checkEmail(to.getText() + "")) {
+				emailError.setText(mContext.getResources().getString(
+						R.string.str_email_error));
+				emailError.setVisibility(View.VISIBLE);
+			} else {
+				emailError.setVisibility(View.GONE);
+			}
+		}
 	}
 
 	public void initValue() {
 		String userInfo = ClientData.getInstance().getUser();
 		if (userInfo != null) {
 			try {
-				user = GsonTool
+				user = GsonTool.getGsonTool()
 						.fromJson(userInfo, UserInfo.class);
 				if (user.getUser_account() != null) {
 					zhanghaoView.setText(user.getUser_account());
@@ -129,153 +344,49 @@ public class GrxxActivity extends Activity {
 
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode,
-			final Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		switch (resultCode) {
-		case RESULT_OK:
-			switch (requestCode) {
-			case 0:// editPhone
-				if (data.getExtras() != null
-						&& data.getExtras().get("data") != null) {
-					user.setPhone(data.getExtras().get("data").toString());
-					ControllerManager.getInstance().getLoginController()
-							.unRegisterAll();
-					ControllerManager.getInstance().getLoginController()
-							.registerNotification(new IViewListener() {
+	public void saveProfile(View v) {
+		getFoucus(v);
+		clearFoucus();
+		if (phoneError.getVisibility() == View.GONE
+				&& nameError.getVisibility() == View.GONE
+				&& emailError.getVisibility() == View.GONE) {
+			dialog.show();
+			user.setPhone(phoneView.getText() + "");
+			user.setEmail(emailView.getText() + "");
+			user.setUser_name(nameView.getText() + "");
+			user.setSex(sexView.getText() + "");
+			user.setBirthday(birthdayView.getText() + "");
 
-								@Override
-								public void updateView(ViewUpdateObj obj) {
-									if (obj.getCode() == 200) {
-										phoneView.post(new Runnable() {
+			ControllerManager.getInstance().getLoginController()
+					.unRegisterAll();
+			ControllerManager.getInstance().getLoginController()
+					.registerNotification(new ViewListener() {
 
-											@Override
-											public void run() {
-												// stub
-												phoneView
-														.setText(data
-																.getExtras()
-																.get("data")
-																.toString());
-											}
-										});
-									} else {
-										Message updateViewMsg = mHandler
-												.obtainMessage(NET_ERROR);
-										mHandler.sendMessage(updateViewMsg);
-									}
-								}
-							});
+						@Override
+						public void updateView(ViewUpdateObj obj) {
+							// TODO Auto-generated method stub
+							Message updateViewMsg;
+							switch (obj.getCode()) {
+							case 200:
+								dialog.dismiss();
+								break;
+							case 408:
+								updateViewMsg = mHandler
+										.obtainMessage(UUID_TIMEOUT);
+								mHandler.sendMessage(updateViewMsg);
+								break;
+							default:
+								updateViewMsg = mHandler
+										.obtainMessage(NET_ERROR);
+								mHandler.sendMessage(updateViewMsg);
+								break;
+							}
+						}
+					});
 
-					ControllerManager.getInstance().getLoginController()
-							.updateUser(user);
-				}
-				break;
-			case 1:// editEmail
-				if (data.getExtras() != null
-						&& data.getExtras().get("data") != null) {
-					user.setEmail(data.getExtras().get("data").toString());
-					ControllerManager.getInstance().getLoginController()
-							.unRegisterAll();
-					ControllerManager.getInstance().getLoginController()
-							.registerNotification(new IViewListener() {
-
-								@Override
-								public void updateView(ViewUpdateObj obj) {
-									if (obj.getCode() == 200) {
-										emailView.post(new Runnable() {
-
-											@Override
-											public void run() {
-												// stub
-												emailView
-														.setText(data
-																.getExtras()
-																.get("data")
-																.toString());
-											}
-										});
-									} else {
-										Message updateViewMsg = mHandler
-												.obtainMessage(NET_ERROR);
-										mHandler.sendMessage(updateViewMsg);
-									}
-								}
-							});
-
-					ControllerManager.getInstance().getLoginController()
-							.updateUser(user);
-				}
-				break;
-			case 2:// editName
-				if (data.getExtras() != null
-						&& data.getExtras().get("data") != null) {
-					user.setUser_name(data.getExtras().get("data").toString());
-					ControllerManager.getInstance().getLoginController()
-							.unRegisterAll();
-					ControllerManager.getInstance().getLoginController()
-							.registerNotification(new IViewListener() {
-
-								@Override
-								public void updateView(ViewUpdateObj obj) {
-									if (obj.getCode() == 200) {
-										nameView.post(new Runnable() {
-											@Override
-											public void run() {
-												// stub
-												nameView.setText(data
-														.getExtras()
-														.get("data").toString());
-											}
-										});
-									} else {
-										Message updateViewMsg = mHandler
-												.obtainMessage(NET_ERROR);
-										mHandler.sendMessage(updateViewMsg);
-									}
-								}
-							});
-
-					ControllerManager.getInstance().getLoginController()
-							.updateUser(user);
-				}
-				break;
-			default:
-				break;
-			}
-			break;
-		default:
-			break;
+			ControllerManager.getInstance().getLoginController()
+					.updateUser(user);
 		}
-	}
-
-	public void editPhone(View v) {
-		Intent intent = new Intent(GrxxActivity.this, EditGrxxActivity.class);
-		intent.putExtra("title", getResources().getString(R.string.str_sjhm));
-		if (user.getPhone() != null) {
-			intent.putExtra("data", user.getPhone());
-		}
-		startActivityForResult(intent, 0);
-	}
-
-	public void editEmail(View v) {
-		Intent intent = new Intent(GrxxActivity.this, EditGrxxActivity.class);
-		intent.putExtra("title", getResources().getString(R.string.str_dzyx));
-		if (user.getEmail() != null) {
-			intent.putExtra("data", user.getEmail());
-		}
-		startActivityForResult(intent, 1);
-	}
-
-	public void editName(View v) {
-		Intent intent = new Intent(GrxxActivity.this, EditGrxxActivity.class);
-		intent.putExtra("title", getResources()
-				.getString(R.string.str_xingming));
-		if (user.getUser_name() != null) {
-			intent.putExtra("data", user.getUser_name());
-		}
-		startActivityForResult(intent, 2);
 	}
 
 	public void editSex(View v) {
@@ -296,6 +407,7 @@ public class GrxxActivity extends Activity {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
+								// TODO Auto-generated method stub
 								final String sex = array[which];
 								user.setSex(sex);
 								ControllerManager.getInstance()
@@ -304,17 +416,21 @@ public class GrxxActivity extends Activity {
 										.getInstance()
 										.getLoginController()
 										.registerNotification(
-												new IViewListener() {
+												new ViewListener() {
 
 													@Override
 													public void updateView(
 															ViewUpdateObj obj) {
+														// TODO Auto-generated
 														// method stub
 														if (obj.getCode() == 200) {
 															sexView.post(new Runnable() {
 
 																@Override
 																public void run() {
+																	// TODO
+																	// Auto-generated
+																	// method
 																	// stub
 																	sexView.setText(sex);
 																}
@@ -348,15 +464,21 @@ public class GrxxActivity extends Activity {
 						ControllerManager.getInstance().getLoginController()
 								.unRegisterAll();
 						ControllerManager.getInstance().getLoginController()
-								.registerNotification(new IViewListener() {
+								.registerNotification(new ViewListener() {
 
 									@Override
 									public void updateView(ViewUpdateObj obj) {
+										// TODO Auto-generated
+										// method stub
 										if (obj.getCode() == 200) {
 											birthdayView.post(new Runnable() {
 
 												@Override
 												public void run() {
+													// TODO
+													// Auto-generated
+													// method
+													// stub
 													birthdayView
 															.setText(birthday);
 												}
@@ -378,6 +500,27 @@ public class GrxxActivity extends Activity {
 
 	public void softBack(View v) {
 		this.finish();
+	}
+
+	@Override
+	public void onFocusChange(View v, boolean hasFocus) {
+		// TODO Auto-generated method stub
+		if (v == editProfilePhone) {
+			if (!hasFocus) {
+				storeData2Text(afterEditProfilePhoneContainer,
+						editProfilePhone, phoneView);
+			}
+		} else if (v == editProfileName) {
+			if (!hasFocus) {
+				storeData2Text(afterEditProfileNameContainer, editProfileName,
+						nameView);
+			}
+		} else if (v == editProfileEmail) {
+			if (!hasFocus) {
+				storeData2Text(afterEditProfileEmailContainer,
+						editProfileEmail, emailView);
+			}
+		}
 	}
 
 }

@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -12,28 +12,23 @@
  *****************************************************************************/
 package com.fornow.app.ui;
 
-import android.app.Application;
-import android.content.Context;
-import android.os.Handler;
-import android.view.WindowManager;
-
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.dao.DaoManager;
 import com.fornow.app.datapool.CacheData;
-import com.fornow.app.util.LogUtils;
+
+import android.app.Application;
+import android.content.Context;
+import android.os.Handler;
+import android.util.Log;
+import android.view.WindowManager;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-8-18
  */
 public class AppClass extends Application {
-	private static final String TAG = AppClass.class.getName();
 	private static Context mContext;
 	public static Handler globalHandler;
-	public static final int UPDATE_CART_COUNT = 0xff;
-	public static final int LOGOUT = 0xfe;
+	public static final int UPDATE_CART_COUNT = 0xff, LOGOUT = 0xfe;
 
 	public static Context getContext() {
 		return mContext;
@@ -47,12 +42,12 @@ public class AppClass extends Application {
 
 	@Override
 	public void onCreate() {
+		// TODO Auto-generated method stub
 		super.onCreate();
 		mContext = this.getApplicationContext();
 		ControllerManager.getInstance().init();
 		DaoManager.getInstance().init();
 		CacheData.getInstance().init();
 		// AnimationsManager.getInstance().init();
-		LogUtils.d(TAG, "================on onCreate0");
 	}
 }

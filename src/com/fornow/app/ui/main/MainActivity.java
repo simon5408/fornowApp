@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -14,14 +14,14 @@ package com.fornow.app.ui.main;
 
 import java.util.List;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
+import android.annotation.SuppressLint;
 import android.app.TabActivity;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,45 +30,48 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.fornow.app.R;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.ShopCart;
 import com.fornow.app.ui.AppClass;
+import com.fornow.app.ui.customdialog.CommonMsgDialog;
+import com.fornow.app.ui.favorite.FavoriteActivity;
 import com.fornow.app.ui.groupbuy.GroupBuyActivity;
 import com.fornow.app.ui.home.HomeActivity;
-import com.fornow.app.ui.mine.LoginActivity;
+import com.fornow.app.ui.login.LoginActivity;
 import com.fornow.app.ui.mine.MineActivity;
-import com.fornow.app.ui.shopcart.CartDataHelper;
 import com.fornow.app.ui.shopcart.ShopCartActivity;
-import com.fornow.app.util.GsonTool;
-import com.fornow.app.util.LogUtils;
+import com.fornow.app.utils.GsonTool;
 import com.google.gson.reflect.TypeToken;
+import com.fornow.app.R;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-8-4
  */
+@SuppressLint("ResourceAsColor")
 public class MainActivity extends TabActivity implements OnClickListener {
-	private static final String TAG = MainActivity.class.getName();
 	public static String TAB_TAG = "tabTag";
+	private Context mContext;
 	public static String TAB_TAG_HOME = "home";
 	public static String TAB_TAG_GROUPBUY = "groupBuy";
 	public static String TAB_TAG_SHOPPING_CART = "shopCart";
+	public static String TAB_TAG_FAVORITE = "favorite";
 	public static String TAB_TAG_MINE = "mine";
 	private static TabHost mTabHost;
-	ImageView mBut1, mBut2, mBut3, mBut4;
-	TextView mCateText1, mCateText2, mCateText3, mCateText4, cartCornerMark;
-	Intent mHomeItent, mGroupBuyIntent, mShopCartIntent, mMineIntent;
+	ImageView mBut1, mBut2, mBut3, mBut4, mBut5;
+	TextView mCateText1, mCateText2, mCateText3, mCateText4, mCateText5,
+			cartCornerMark;
+	Intent mHomeItent, mGroupBuyIntent, mShopCartIntent, mFavorite,
+			mMineIntent;
 
 	int mCurTabId = R.id.channel1;
 
+	@SuppressLint("HandlerLeak")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		mContext = this.getApplicationContext();
 		prepareIntent();
 		prepareView();
 		setUpIntent();
@@ -80,10 +83,9 @@ public class MainActivity extends TabActivity implements OnClickListener {
 					updateCartCorner();
 					break;
 				case AppClass.LOGOUT:
-					CartDataHelper.syncCart();
-					ClientData.getInstance().recycle();
 					updateCartCorner();
 					stayOnWhichTab(TAB_TAG_HOME);
+					break;
 				default:
 					break;
 				}
@@ -93,11 +95,13 @@ public class MainActivity extends TabActivity implements OnClickListener {
 
 	@Override
 	protected void onStart() {
+		// TODO Auto-generated method stub
 		super.onStart();
 	}
 
 	@Override
 	protected void onResume() {
+		// TODO Auto-generated method stub
 		super.onResume();
 		Intent intent = getIntent();
 		if (intent.getExtras() != null
@@ -112,9 +116,9 @@ public class MainActivity extends TabActivity implements OnClickListener {
 		String cart = ClientData.getInstance().getmCart();
 		if (cart != null) {
 			try {
-				List<ShopCart> cartObj = GsonTool.fromJson(cart,
+				List<ShopCart> cartObj = GsonTool.getGsonTool().fromJson(cart,
 						new TypeToken<List<ShopCart>>() {
-						});
+						}.getType());
 				int count = cartObj.size();
 				if (count > 0) {
 					cartCornerMark.setText(count + "");
@@ -133,39 +137,47 @@ public class MainActivity extends TabActivity implements OnClickListener {
 
 	public void stayOnWhichTab(String tag) {
 		// clean the effects
-		findViewById(R.id.channel1).setBackgroundResource(0);
-		findViewById(R.id.channel2).setBackgroundResource(0);
-		findViewById(R.id.channel3).setBackgroundResource(0);
-		findViewById(R.id.channel4).setBackgroundResource(0);
+		clearFocusEffect();
 		if (tag.equals(TAB_TAG_HOME)) {
 			mCurTabId = R.id.channel1;
 			mTabHost.setCurrentTabByTag(TAB_TAG_HOME);
-			findViewById(R.id.channel1).setBackgroundResource(
-					R.drawable.footer_left_act_bg);
+			addTab1Effect();
 		} else if (tag.equals(TAB_TAG_GROUPBUY)) {
 			mCurTabId = R.id.channel2;
 			mTabHost.setCurrentTabByTag(TAB_TAG_GROUPBUY);
-			findViewById(R.id.channel2).setBackgroundResource(
-					R.drawable.footer_middle);
+			addTab2Effect();
 		} else if (tag.equals(TAB_TAG_SHOPPING_CART)) {
 			mCurTabId = R.id.channel3;
 			mTabHost.setCurrentTabByTag(TAB_TAG_SHOPPING_CART);
-			findViewById(R.id.channel3).setBackgroundResource(
-					R.drawable.footer_middle);
-		} else if (tag.equals(TAB_TAG_MINE)) {
+			addTab3Effect();
+		} else if (tag.equals(TAB_TAG_FAVORITE)) {
 			mCurTabId = R.id.channel4;
+			mTabHost.setCurrentTabByTag(TAB_TAG_FAVORITE);
+			addTab4Effect();
+		} else if (tag.equals(TAB_TAG_MINE)) {
+			mCurTabId = R.id.channel5;
 			mTabHost.setCurrentTabByTag(TAB_TAG_MINE);
-			findViewById(R.id.channel4).setBackgroundResource(
-					R.drawable.footer_right_act_bg);
+			addTab5Effect();
 		}
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case RESULT_OK:
-			stayOnWhichTab(TAB_TAG_MINE);
+			switch (requestCode) {
+			case R.id.btn_channel3:
+				stayOnWhichTab(TAB_TAG_SHOPPING_CART);
+				break;
+			case R.id.btn_channel4:
+				stayOnWhichTab(TAB_TAG_FAVORITE);
+				break;
+			case R.id.btn_channel5:
+				stayOnWhichTab(TAB_TAG_MINE);
+				break;
+			}
 			break;
 		default:
 			break;
@@ -174,51 +186,44 @@ public class MainActivity extends TabActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		LogUtils.v(TAG, "v.getId() is: " + v.getId());
 		int checkedId = v.getId();
 		if (mCurTabId == v.getId()) {
 			return;
 		}
 
-		if (checkedId == R.id.btn_channel4) {
+		if (checkedId == R.id.btn_channel3 || checkedId == R.id.btn_channel4
+				|| checkedId == R.id.btn_channel5) {
 
 			if (ClientData.getInstance().getmUUID() == null) {
 
 				Intent in = new Intent(MainActivity.this, LoginActivity.class);
 
-				startActivityForResult(in, 0);
-
+				startActivityForResult(in, checkedId);
 				return;
 
 			}
 		}
-
-		// clean the effects
-		findViewById(R.id.channel1).setBackgroundResource(0);
-		findViewById(R.id.channel2).setBackgroundResource(0);
-		findViewById(R.id.channel3).setBackgroundResource(0);
-		findViewById(R.id.channel4).setBackgroundResource(0);
-
+		clearFocusEffect();
 		switch (checkedId) {
 		case R.id.btn_channel1:
 			mTabHost.setCurrentTabByTag(TAB_TAG_HOME);
-			findViewById(R.id.channel1).setBackgroundResource(
-					R.drawable.footer_left_act_bg);
+			addTab1Effect();
 			break;
 		case R.id.btn_channel2:
 			mTabHost.setCurrentTabByTag(TAB_TAG_GROUPBUY);
-			findViewById(R.id.channel2).setBackgroundResource(
-					R.drawable.footer_middle);
+			addTab2Effect();
 			break;
 		case R.id.btn_channel3:
 			mTabHost.setCurrentTabByTag(TAB_TAG_SHOPPING_CART);
-			findViewById(R.id.channel3).setBackgroundResource(
-					R.drawable.footer_middle);
+			addTab3Effect();
 			break;
 		case R.id.btn_channel4:
+			mTabHost.setCurrentTabByTag(TAB_TAG_FAVORITE);
+			addTab4Effect();
+			break;
+		case R.id.btn_channel5:
 			mTabHost.setCurrentTabByTag(TAB_TAG_MINE);
-			findViewById(R.id.channel4).setBackgroundResource(
-					R.drawable.footer_right_act_bg);
+			addTab5Effect();
 			break;
 		default:
 			break;
@@ -232,7 +237,46 @@ public class MainActivity extends TabActivity implements OnClickListener {
 				getIntent().getBooleanExtra("success", false));
 		mGroupBuyIntent = new Intent(this, GroupBuyActivity.class);
 		mShopCartIntent = new Intent(this, ShopCartActivity.class);
+		mFavorite = new Intent(this, FavoriteActivity.class);
 		mMineIntent = new Intent(this, MineActivity.class);
+	}
+
+	private void clearFocusEffect() {
+		mBut1.setImageResource(R.drawable.menu_home);
+		mBut2.setImageResource(R.drawable.menu_group);
+		mBut3.setImageResource(R.drawable.menu_cart);
+		mBut4.setImageResource(R.drawable.menu_favorite);
+		mBut5.setImageResource(R.drawable.menu_mine);
+		mCateText1.setTextColor(R.color.green);
+		mCateText2.setTextColor(R.color.green);
+		mCateText3.setTextColor(R.color.green);
+		mCateText4.setTextColor(R.color.green);
+		mCateText5.setTextColor(R.color.green);
+	}
+
+	private void addTab1Effect() {
+		mBut1.setImageResource(R.drawable.menu_home_select);
+		mCateText1.setTextColor(R.color.manColor);
+	}
+
+	private void addTab2Effect() {
+		mBut2.setImageResource(R.drawable.menu_group_select);
+		mCateText2.setTextColor(R.color.manColor);
+	}
+
+	private void addTab3Effect() {
+		mBut3.setImageResource(R.drawable.menu_cart_select);
+		mCateText3.setTextColor(R.color.manColor);
+	}
+
+	private void addTab4Effect() {
+		mBut4.setImageResource(R.drawable.menu_favorite_select);
+		mCateText4.setTextColor(R.color.manColor);
+	}
+
+	private void addTab5Effect() {
+		mBut5.setImageResource(R.drawable.menu_mine_select);
+		mCateText5.setTextColor(R.color.manColor);
 	}
 
 	private void prepareView() {
@@ -240,15 +284,19 @@ public class MainActivity extends TabActivity implements OnClickListener {
 		mBut2 = (ImageView) findViewById(R.id.imageView2);
 		mBut3 = (ImageView) findViewById(R.id.imageView3);
 		mBut4 = (ImageView) findViewById(R.id.imageView4);
+		mBut5 = (ImageView) findViewById(R.id.imageView5);
 		findViewById(R.id.btn_channel1).setOnClickListener(this);
 		findViewById(R.id.btn_channel2).setOnClickListener(this);
 		findViewById(R.id.btn_channel3).setOnClickListener(this);
 		findViewById(R.id.btn_channel4).setOnClickListener(this);
+		findViewById(R.id.btn_channel5).setOnClickListener(this);
 		mCateText1 = (TextView) findViewById(R.id.textView1);
 		mCateText2 = (TextView) findViewById(R.id.textView2);
 		mCateText3 = (TextView) findViewById(R.id.textView3);
 		mCateText4 = (TextView) findViewById(R.id.textView4);
+		mCateText5 = (TextView) findViewById(R.id.textView5);
 		cartCornerMark = (TextView) findViewById(R.id.cart_conner_mark);
+		addTab1Effect();
 	}
 
 	private void setUpIntent() {
@@ -261,6 +309,8 @@ public class MainActivity extends TabActivity implements OnClickListener {
 		mTabHost.addTab(buildTabSpec(TAB_TAG_SHOPPING_CART,
 				R.string.category_shopcart, R.drawable.menu_cart,
 				mShopCartIntent));
+		mTabHost.addTab(buildTabSpec(TAB_TAG_FAVORITE,
+				R.string.category_favorite, R.drawable.menu_favorite, mFavorite));
 		mTabHost.addTab(buildTabSpec(TAB_TAG_MINE, R.string.category_mine,
 				R.drawable.menu_mine, mMineIntent));
 	}
@@ -276,43 +326,55 @@ public class MainActivity extends TabActivity implements OnClickListener {
 
 	@Override
 	protected void onDestroy() {
+		// TODO Auto-generated method stub
 		super.onDestroy();
-		CartDataHelper.syncCart();
 		ClientData.getInstance().recycle();
 	}
 
 	@Override
 	public void finish() {
+		// TODO Auto-generated method stub
 		super.finish();
 	}
 
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
-		if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){  
-            if (event.getAction() == KeyEvent.ACTION_DOWN && event.getRepeatCount() == 0) { 
-            	AlertDialog.Builder builder = new Builder(MainActivity.this);
-    			builder.setMessage("确定要退出吗?");
-    			builder.setTitle("提示");
-    			builder.setPositiveButton("确认",
-    					new android.content.DialogInterface.OnClickListener() {
-    						@Override
-    						public void onClick(DialogInterface dialog, int which) {
-    							dialog.dismiss();
-    							MainActivity.this.finish();
-    							android.os.Process.killProcess(android.os.Process
-    									.myPid());
-    						}
-    					});
-    			builder.setNegativeButton("取消",
-    					new android.content.DialogInterface.OnClickListener() {
-    						public void onClick(DialogInterface dialog, int which) {
-    							dialog.dismiss();
-    						}
-    					});
-    			builder.create().show();
-             }  
-            return true;  
-       }  
+		// TODO Auto-generated method stub
+		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+			if (event.getAction() == KeyEvent.ACTION_DOWN
+					&& event.getRepeatCount() == 0) {
+
+				final CommonMsgDialog dialogBuilder = new CommonMsgDialog(
+						MainActivity.this, R.style.Theme_Dialog);
+				dialogBuilder.setDialogTitle(mContext.getResources().getString(
+						R.string.str_tishi));
+				dialogBuilder.setDialogMsg(mContext.getResources().getString(
+						R.string.str_exit_msg));
+				dialogBuilder.setOnCancelBtnListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						dialogBuilder.dismiss();
+					}
+				});
+
+				dialogBuilder.setOnConfirmBtnListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						dialogBuilder.dismiss();
+						MainActivity.this.finish();
+						android.os.Process.killProcess(android.os.Process
+								.myPid());
+					}
+
+				});
+				dialogBuilder.show();
+			}
+			return true;
+		}
 		return super.dispatchKeyEvent(event);
 	}
 }

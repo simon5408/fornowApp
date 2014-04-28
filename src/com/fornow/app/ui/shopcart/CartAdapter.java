@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -15,37 +15,29 @@ package com.fornow.app.ui.shopcart;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.fornow.app.model.ShopCart;
+import com.fornow.app.ui.loadimg.AsyncImgLoader;
+import com.fornow.app.ui.loadimg.AsyncImgLoader.ImageCallback;
+import com.fornow.app.ui.shopcart.ShopCartActivity.ListStatus;
+import com.fornow.app.R;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.fornow.app.R;
-import com.fornow.app.model.ShopCart;
-import com.fornow.app.ui.loadImg.AsyncImgLoader;
-import com.fornow.app.ui.loadImg.AsyncImgLoader.ImageCallback;
-import com.fornow.app.ui.shopcart.ShopCartActivity.BoolShowDel;
-import com.fornow.app.ui.shopcart.ShopCartActivity.ListStatus;
-import com.fornow.app.util.GsonTool;
-
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-10-30
  */
 public class CartAdapter extends BaseAdapter {
 
@@ -53,19 +45,15 @@ public class CartAdapter extends BaseAdapter {
 	private Context mContext;
 	private List<ListStatus> listStatus;
 	private Handler mHandler;
-	private BoolShowDel boolShowDel;
-	private float x, ux;
-	private Button curDel_btn;
 	TranslateAnimation mShowAction, mHiddenAction;
 	private AsyncImgLoader imgLoader;
 
 	public CartAdapter(List<ShopCart> cart, List<ListStatus> listStatus,
-			Context context, BoolShowDel boolShowDel, Handler handler) {
+			Context context, Handler handler) {
 		this.cart = cart;
 		this.mContext = context;
 		this.listStatus = listStatus;
 		this.mHandler = handler;
-		this.boolShowDel = boolShowDel;
 		imgLoader = new AsyncImgLoader();
 		mShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 1.0f,
 				Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
@@ -80,21 +68,25 @@ public class CartAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
+		// TODO Auto-generated method stub
 		return cart.size();
 	}
 
 	@Override
 	public ShopCart getItem(int position) {
+		// TODO Auto-generated method stub
 		return cart.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
+		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
+		// TODO Auto-generated method stub
 		View rowView = convertView;
 		final ViewHolder holder;
 		if (rowView == null) {
@@ -107,33 +99,36 @@ public class CartAdapter extends BaseAdapter {
 		}
 
 		if (listStatus.get(position).isChecked()) {
-			holder.getCartItemSelect().setBackgroundDrawable(
+			holder.getCartItemCheckBox().setBackgroundDrawable(
 					mContext.getResources()
 							.getDrawable(R.drawable.checkbox_yes));
 		} else {
-			holder.getCartItemSelect()
+			holder.getCartItemCheckBox()
 					.setBackgroundDrawable(
 							mContext.getResources().getDrawable(
 									R.drawable.checkbox_no));
 		}
 
-		if (boolShowDel.isDisplayDel()) {
-			holder.getCartDel().setVisibility(View.VISIBLE);
-		} else {
-			holder.getCartDel().setVisibility(View.GONE);
-		}
-
-		holder.getCartItemName().setText(
-				mContext.getResources().getString(R.string.goods_name_tag)
-						+ getItem(position).getName());
-		holder.getCartItemInput().setText(getItem(position).getCount() + "");
+		holder.getCartItemName().setText(getItem(position).getName());
+		holder.getCartIntroduction().setText(
+				getItem(position).getIntroduction());
 		holder.getCartItemPrice().setText(
-				mContext.getResources().getString(R.string.goods_unit)
-						+ getItem(position).getCurrent_price());
-		holder.getCartItemCount().setText("*" + getItem(position).getCount());
-		holder.getCartItemTotalPrice().setText(
-				itemTotalPrice(getItem(position).getCurrent_price() + "",
-						getItem(position).getCount()));
+				getItem(position).getCurrent_price() + "");
+		holder.getCartItemCount().setText(getItem(position).getCount() + "");
+		holder.getCartItemCount().setOnClickListener(
+				new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+
+						Message updateViewMsg = mHandler
+								.obtainMessage(ShopCartActivity.CAER_COUNT_EDIT);
+						updateViewMsg.getData().putString("position",
+								position + "");
+						mHandler.sendMessage(updateViewMsg);
+					}
+				});
 		if (getItem(position).getIcon().getUrl() != null
 				&& getItem(position).getIcon().getId() != null) {
 			final ImageView imageView = holder.getCartItemImg();
@@ -144,9 +139,11 @@ public class CartAdapter extends BaseAdapter {
 						@Override
 						public void imageLoaded(final Drawable imageDrawable,
 								final String Tag) {
+							// TODO Auto-generated method stub
 							imageView.post(new Runnable() {
 								@Override
 								public void run() {
+									// TODO Auto-generated method stub
 									ImageView imageViewByTag = (ImageView) mView
 											.findViewWithTag(Tag);
 									if (imageViewByTag != null
@@ -167,147 +164,46 @@ public class CartAdapter extends BaseAdapter {
 					});
 		}
 
-		holder.getCartItemCountMinus().setOnClickListener(
-				new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						int currentCount = Integer.parseInt(holder
-								.getCartItemInput().getText().toString());
-						if (currentCount > 1) {
-							holder.getCartItemInput().setText(
-									--currentCount + "");
-							holder.getCartItemCount().setText(
-									"*" + currentCount);
-							holder.getCartItemTotalPrice().setText(
-									itemTotalPrice(getItem(position)
-											.getCurrent_price() + "",
-											currentCount));
-							getItem(position).setCount(currentCount);
-							CartDataHelper.updateCacheCart(cart);
-							if (listStatus.get(position).isChecked()) {
-								Message updateViewMsg = mHandler
-										.obtainMessage(ShopCartActivity.CART_MINUS);
-								updateViewMsg.getData().putString(
-										"data",
-										getItem(position).getCurrent_price()
-												+ "");
-								mHandler.sendMessage(updateViewMsg);
-							}
-						}
-					}
-				});
-		holder.getCartItemCountAdd().setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				int currentCount = Integer.parseInt(holder.getCartItemInput()
-						.getText().toString());
-				holder.getCartItemInput().setText(++currentCount + "");
-				holder.getCartItemCount().setText("*" + currentCount);
-				holder.getCartItemTotalPrice().setText(
-						itemTotalPrice(getItem(position).getCurrent_price()
-								+ "", currentCount));
-				getItem(position).setCount(currentCount);
-				CartDataHelper.updateCacheCart(cart);
-				if (listStatus.get(position).isChecked()) {
-					Message updateViewMsg = mHandler
-							.obtainMessage(ShopCartActivity.CART_ADD);
-					updateViewMsg.getData().putString("data",
-							getItem(position).getCurrent_price() + "");
-					mHandler.sendMessage(updateViewMsg);
-				}
-			}
-		});
-
 		holder.getCartItemSelect().setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+				// TODO Auto-generated method stub
 				if (!listStatus.get(position).isChecked()) {
-					holder.getCartItemSelect().setBackgroundDrawable(
+					holder.getCartItemCheckBox().setBackgroundDrawable(
 							mContext.getResources().getDrawable(
 									R.drawable.checkbox_yes));
 					listStatus.get(position).setChecked(true);
-
-					Message updateViewMsg = mHandler
-							.obtainMessage(ShopCartActivity.CART_SELECT);
-					updateViewMsg.getData()
-							.putString(
-									"data",
-									holder.getCartItemTotalPrice().getText()
-											.toString());
-					mHandler.sendMessage(updateViewMsg);
 				} else {
-					holder.getCartItemSelect().setBackgroundDrawable(
+					holder.getCartItemCheckBox().setBackgroundDrawable(
 							mContext.getResources().getDrawable(
 									R.drawable.checkbox_no));
 					listStatus.get(position).setChecked(false);
-
-					Message updateViewMsg = mHandler
-							.obtainMessage(ShopCartActivity.CART_UNSELECT);
-					updateViewMsg.getData()
-							.putString(
-									"data",
-									holder.getCartItemTotalPrice().getText()
-											.toString());
-					mHandler.sendMessage(updateViewMsg);
 				}
-			}
-		});
-		rowView.setOnTouchListener(new OnTouchListener() {
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				if (event.getAction() == MotionEvent.ACTION_DOWN) {
-					x = event.getX();
-					if (curDel_btn != null) {
-						curDel_btn.startAnimation(mHiddenAction);
-						curDel_btn.setVisibility(View.GONE);
-						curDel_btn = null;
-					}
-				} else if (event.getAction() == MotionEvent.ACTION_UP
-						|| event.getAction() == MotionEvent.ACTION_MOVE) {// 松开处理
-					ux = event.getX();
-					if (holder.getCartDel() != null) {
-						if (Math.abs(x - ux) > 50) {
-							holder.getCartDel().startAnimation(mShowAction);
-							holder.getCartDel().setVisibility(View.VISIBLE);
-							curDel_btn = holder.getCartDel();
-						}
-					}
-				}
-				if (event.getAction() == MotionEvent.ACTION_UP) {
-					ux = event.getX();
-					if (Math.abs(x - ux) < 50) {
-						try {
-							Message updateViewMsg = mHandler
-									.obtainMessage(ShopCartActivity.CART_CLICKED);
-							updateViewMsg.getData().putString(
-									"data",
-									GsonTool.toJson(
-											getItem(position)));
-							mHandler.sendMessage(updateViewMsg);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				}
-				return true;
+				notifyDataSetChanged();
 			}
 		});
 
-		holder.getCartDel().setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Message updateViewMsg = mHandler
-						.obtainMessage(ShopCartActivity.CART_DEL);
-				updateViewMsg.getData().putString("data",
-						holder.getCartItemTotalPrice().getText().toString());
-				updateViewMsg.getData().putString("position", position + "");
-				mHandler.sendMessage(updateViewMsg);
+		boolean flag = false;
+		Float totalPrice = 0.0f;
+		for (int i = 0; i < listStatus.size(); i++) {
+			if (listStatus.get(i).isChecked()) {
+				flag = true;
+				totalPrice += Float.valueOf(getItem(i).getCurrent_price() + "")
+						* Integer.valueOf(getItem(i).getCount());
 			}
-		});
+		}
+		if (!flag) {
+			Message updateViewMsg = mHandler
+					.obtainMessage(ShopCartActivity.CART_OVERVIEW_HIDE);
+			mHandler.sendMessage(updateViewMsg);
+		} else {
+			Message updateViewMsg = mHandler
+					.obtainMessage(ShopCartActivity.CART_OVERVIEW_SHOW);
+			updateViewMsg.getData().putString("data", totalPrice + "");
+			mHandler.sendMessage(updateViewMsg);
+		}
+
 		return rowView;
 	}
 
@@ -319,39 +215,29 @@ public class CartAdapter extends BaseAdapter {
 
 	public class ViewHolder {
 		private View baseView;
-		private ImageButton cartItemSelect, cartItemCountMinus,
-				cartItemCountAdd;
-		private ImageView cartItemImg;
-		private TextView cartItemName, cartItemInput, cartItemPrice,
-				cartItemCount, cartItemTotalPrice;
-		private Button cartDel;
+		private LinearLayout cartItemSelect;
+		private ImageView cartItemCheckBox, cartItemImg;
+		private TextView cartItemName, cartIntroduction, cartItemPrice,
+				cartItemCount;
 
 		public ViewHolder(View baseView) {
 			this.baseView = baseView;
 		}
 
-		public ImageButton getCartItemSelect() {
+		public LinearLayout getCartItemSelect() {
 			if (cartItemSelect == null) {
-				cartItemSelect = (ImageButton) baseView
+				cartItemSelect = (LinearLayout) baseView
 						.findViewById(R.id.cart_select);
 			}
 			return cartItemSelect;
 		}
 
-		public ImageButton getCartItemCountMinus() {
-			if (cartItemCountMinus == null) {
-				cartItemCountMinus = (ImageButton) baseView
-						.findViewById(R.id.cart_count_minus);
+		public ImageView getCartItemCheckBox() {
+			if (cartItemCheckBox == null) {
+				cartItemCheckBox = (ImageView) baseView
+						.findViewById(R.id.cart_checkbox);
 			}
-			return cartItemCountMinus;
-		}
-
-		public ImageButton getCartItemCountAdd() {
-			if (cartItemCountAdd == null) {
-				cartItemCountAdd = (ImageButton) baseView
-						.findViewById(R.id.cart_count_add);
-			}
-			return cartItemCountAdd;
+			return cartItemCheckBox;
 		}
 
 		public ImageView getCartItemImg() {
@@ -368,14 +254,6 @@ public class CartAdapter extends BaseAdapter {
 			return cartItemName;
 		}
 
-		public TextView getCartItemInput() {
-			if (cartItemInput == null) {
-				cartItemInput = (TextView) baseView
-						.findViewById(R.id.cart_input_area);
-			}
-			return cartItemInput;
-		}
-
 		public TextView getCartItemPrice() {
 			if (cartItemPrice == null) {
 				cartItemPrice = (TextView) baseView
@@ -384,27 +262,20 @@ public class CartAdapter extends BaseAdapter {
 			return cartItemPrice;
 		}
 
+		public TextView getCartIntroduction() {
+			if (cartIntroduction == null) {
+				cartIntroduction = (TextView) baseView
+						.findViewById(R.id.cart_introduction);
+			}
+			return cartIntroduction;
+		}
+
 		public TextView getCartItemCount() {
 			if (cartItemCount == null) {
 				cartItemCount = (TextView) baseView
-						.findViewById(R.id.cart_goods_count);
+						.findViewById(R.id.cart_item_count);
 			}
 			return cartItemCount;
-		}
-
-		public TextView getCartItemTotalPrice() {
-			if (cartItemTotalPrice == null) {
-				cartItemTotalPrice = (TextView) baseView
-						.findViewById(R.id.cart_item_total_price);
-			}
-			return cartItemTotalPrice;
-		}
-
-		public Button getCartDel() {
-			if (cartDel == null) {
-				cartDel = (Button) baseView.findViewById(R.id.cart_del);
-			}
-			return cartDel;
 		}
 	}
 

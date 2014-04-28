@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -12,26 +12,9 @@
  *****************************************************************************/
 package com.fornow.app.ui.shopcart;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.ConfirmData;
@@ -39,44 +22,73 @@ import com.fornow.app.model.GoodsDetailData;
 import com.fornow.app.model.SettlementGoods;
 import com.fornow.app.model.ShipAddressData;
 import com.fornow.app.model.ShopCart;
+import com.fornow.app.net.ViewListener;
 import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.service.IViewListener;
-import com.fornow.app.ui.mine.ShdzActivity;
-import com.fornow.app.ui.mine.ShdzActivity.CLICK_TYPE;
-import com.fornow.app.util.GsonTool;
+import com.fornow.app.ui.LoadingAnim;
+import com.fornow.app.ui.addressmanager.SelectShdzActivity;
+import com.fornow.app.ui.customdialog.EditCountDialog;
+import com.fornow.app.ui.customdialog.LoginDialog;
+import com.fornow.app.ui.goodsdetail.GoodDetailActivity;
+import com.fornow.app.utils.GsonTool;
 import com.google.gson.reflect.TypeToken;
 import com.haarman.listviewanimations.itemmanipulation.AnimateDismissAdapter;
-import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
+import com.fornow.app.R;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Selection;
+import android.text.Spannable;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-11-17
  */
 public class JieSuanActivity extends Activity {
-	private FrameLayout initShdz;
+	private LinearLayout initShdz;
 	private Button addShdz;
 	private TextView shdzShr, shdzPhone, shdzAddress, jiesuanTotalPriceView;
 	private EditText shdzLiuyan;
+	private FrameLayout jiesuanContent;
 	private ListView listView;
 	private Context mContext;
+	private Dialog dialog;
 	AnimateDismissAdapter<String> animateDismissAdapter;
 	private Handler mHandler;
 	private List<GoodsDetailData> mList;
 	private JiesuanAdapter mAdapter;
 	private ShipAddressData address;
-	public static final int JIESUAN_ADD = 0x00, JIESUAN_MINUS = 0x01,
-			JIESUAN_DEL = 0x02, NET_ERROR = 0x03, JIESUAN_SUCCESS = 0x04,
-			HAVE_NO_ADDRESS = 0x05, LIMIT_PRICE_ERROR = 0x06;
+	public static final int NET_ERROR = 0x03, JIESUAN_SUCCESS = 0x04,
+			HAVE_NO_ADDRESS = 0x05, LIMIT_PRICE_ERROR = 0x06,
+			COUNT_EDIT = 0x0a, GET_DATA_SUCCESS = 0x07, UUID_TIMEOUT = 0x08,
+			GOODS_NOT_SELL = 0x00, GOODS_SELL_OUT = 0x01, GOODS_TIMEOUT = 0x02,
+			GOODS_NOT_IN_AREA = 0x09;
 	private Float totalPrice = 0.0f;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.jiesuan);
 		mContext = this.getApplicationContext();
-		initShdz = (FrameLayout) findViewById(R.id.jiesuan_init_shdz);
+		dialog = new LoadingAnim(JieSuanActivity.this, R.style.my_dialog);
+		initShdz = (LinearLayout) findViewById(R.id.jiesuan_init_shdz);
 		addShdz = (Button) findViewById(R.id.jiesuan_add_shdz);
 		shdzShr = (TextView) findViewById(R.id.jiesuan_shdz_shr);
 		shdzPhone = (TextView) findViewById(R.id.jiesuan_shdz_phone);
@@ -84,6 +96,7 @@ public class JieSuanActivity extends Activity {
 		jiesuanTotalPriceView = (TextView) findViewById(R.id.jiesuan_total_price);
 		shdzLiuyan = (EditText) findViewById(R.id.jiesuan_liuyan);
 		listView = (ListView) findViewById(R.id.listView01);
+		jiesuanContent = (FrameLayout) findViewById(R.id.jiesuanContent);
 
 		mHandler = new Handler() {
 			@Override
@@ -94,105 +107,200 @@ public class JieSuanActivity extends Activity {
 				TextView toastText = (TextView) view
 						.findViewById(R.id.toast_text);
 				Toast toast = new Toast(JieSuanActivity.this);
+				toast.setGravity(Gravity.CENTER, 0, 0);
+				toast.setDuration(Toast.LENGTH_SHORT);
+				toast.setView(view);
 				switch (msg.what) {
-				case JIESUAN_ADD:
-					data = msg.getData().getString("data");
-					totalPrice += Float.valueOf(data);
-					jiesuanTotalPriceView.setText(new BigDecimal(totalPrice)
-							.setScale(1, BigDecimal.ROUND_HALF_UP) + "元");
-					break;
-				case JIESUAN_DEL:
-					int pos = Integer.valueOf(msg.getData().getString(
-							"position"));
-					animateDismissAdapter.animateDismiss(pos);
-					data = msg.getData().getString("data");
-					totalPrice -= Float.valueOf(data);
-					jiesuanTotalPriceView.setText(new BigDecimal(totalPrice)
-							.setScale(1, BigDecimal.ROUND_HALF_UP) + "元");
-					break;
-				case JIESUAN_MINUS:
-					data = msg.getData().getString("data");
-					totalPrice -= Float.valueOf(data);
-					jiesuanTotalPriceView.setText(new BigDecimal(totalPrice)
-							.setScale(1, BigDecimal.ROUND_HALF_UP) + "元");
-					break;
 				case NET_ERROR:
+					dialog.dismiss();
 					toastText.setText(getResources().getString(
 							R.string.str_net_error));
-					toast.setGravity(Gravity.CENTER, 0, 0);
-					toast.setDuration(Toast.LENGTH_SHORT);
-					toast.setView(view);
+					toast.show();
+					break;
+				case GOODS_NOT_SELL:
+					dialog.dismiss();
+					toastText.setText(getResources().getString(
+							R.string.str_goods_not_sell));
+					toast.show();
+					break;
+				case GOODS_SELL_OUT:
+					dialog.dismiss();
+					toastText.setText(getResources().getString(
+							R.string.str_goods_sell_out));
+					toast.show();
+					break;
+				case GOODS_TIMEOUT:
+					dialog.dismiss();
+					toastText.setText(getResources().getString(
+							R.string.str_goods_timeout));
+					toast.show();
+					break;
+				case GOODS_NOT_IN_AREA:
+					dialog.dismiss();
+					toastText.setText(getResources().getString(
+							R.string.str_goods_not_in_area));
 					toast.show();
 					break;
 				case JIESUAN_SUCCESS:
-					toastText.setText(getResources().getString(
-							R.string.jiesuan_success));
-					toast.setGravity(Gravity.CENTER, 0, 0);
-					toast.setDuration(Toast.LENGTH_SHORT);
-					toast.setView(view);
-					toast.show();
+					dialog.dismiss();
+					mAdapter.notifyDataSetChanged();
 					break;
 				case HAVE_NO_ADDRESS:
 					toastText.setText(getResources().getString(
 							R.string.str_have_no_address));
-					toast.setGravity(Gravity.CENTER, 0, 0);
-					toast.setDuration(Toast.LENGTH_SHORT);
-					toast.setView(view);
 					toast.show();
 					break;
 				case LIMIT_PRICE_ERROR:
 					toastText.setText(getResources().getString(
-							R.string.str_limit_error0) + ClientData.getInstance().getMinLimit() + getResources().getString(
+							R.string.str_limit_error0)
+							+ ClientData.getInstance().getMinLimit()
+							+ getResources().getString(
 									R.string.str_limit_error1));
-					toast.setGravity(Gravity.CENTER, 0, 0);
-					toast.setDuration(Toast.LENGTH_SHORT);
-					toast.setView(view);
 					toast.show();
+					break;
+				case GET_DATA_SUCCESS:
+					try {
+						data = msg.getData().getString("data");
+						String strDefaultAddress = null;
+						if (data != null) {
+							ShipAddressData defaultAddress = null;
+							List<ShipAddressData> addressData = GsonTool
+									.getGsonTool()
+									.fromJson(
+											data,
+											new TypeToken<List<ShipAddressData>>() {
+											}.getType());
+							for (ShipAddressData d : addressData) {
+								if (d.isIsdefault()) {
+									defaultAddress = d;
+									break;
+								}
+							}
+							if (defaultAddress != null) {
+								strDefaultAddress = GsonTool.getGsonTool()
+										.toJson(defaultAddress);
+							}
+						}
+						initData(strDefaultAddress);
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					break;
+				case COUNT_EDIT:
+					final int position = Integer.valueOf(msg.getData()
+							.getString("position"));
+
+					final EditCountDialog editDialogBuilder = new EditCountDialog(
+							JieSuanActivity.this, R.style.Theme_Dialog);
+					editDialogBuilder.setEditCount(mList.get(position)
+							.getSelect_count() + "");
+					Spannable spanText = (Spannable) editDialogBuilder
+							.getEditCount();
+					Selection.setSelection(spanText, editDialogBuilder
+							.getEditCount().length());
+					editDialogBuilder
+							.setOnCancelBtnListener(new OnClickListener() {
+
+								@Override
+								public void onClick(View v) {
+									// TODO Auto-generated method stub
+									editDialogBuilder.dismiss();
+								}
+							});
+
+					editDialogBuilder
+							.setOnConfirmBtnListener(new OnClickListener() {
+
+								@Override
+								public void onClick(View v) {
+									// TODO Auto-generated method stub
+									editDialogBuilder.dismiss();
+									if (editDialogBuilder.getEditCount()
+											.length() != 0) {
+										int count = Integer
+												.parseInt(editDialogBuilder
+														.getEditCount()
+														.toString());
+										mList.get(position).setSelect_count(
+												count);
+										mAdapter.notifyDataSetChanged();
+										totalPrice = 0.0f;
+										for (GoodsDetailData d : mList) {
+											totalPrice += Float.valueOf(JiesuanAdapter.itemTotalPrice(
+													d.getCurrent_price() + "",
+													d.getSelect_count()));
+										}
+										jiesuanTotalPriceView
+												.setText(totalPrice + "");
+									}
+								}
+							});
+
+					editDialogBuilder.show();
+					break;
+				case UUID_TIMEOUT:
+					dialog.dismiss();
+					LoginDialog loginDialog = new LoginDialog(
+							JieSuanActivity.this, mContext, mContext
+									.getResources().getString(
+											R.string.str_tishi), mContext
+									.getResources().getString(
+											R.string.str_uuid_timeout), 0);
+					loginDialog.build();
 					break;
 				default:
 					break;
 				}
 			}
 		};
-		initData();
+		getShdz();
 	}
 
 	@Override
 	protected void onStart() {
+		// TODO Auto-generated method stub
 		super.onStart();
 	}
 
 	@Override
 	protected void onResume() {
+		// TODO Auto-generated method stub
 		super.onResume();
 	}
 
-	public void initData() {
+	public void initData(String strAddress) {
+		dialog.dismiss();
 		Intent intent = getIntent();
 		try {
 			if (intent.getExtras() != null) {
 				if (intent.getExtras().get("data") != null) {
-					mList = GsonTool.fromJson(
+					mList = GsonTool.getGsonTool().fromJson(
 							intent.getExtras().get("data") + "",
 							new TypeToken<List<GoodsDetailData>>() {
-							});
+							}.getType());
+					totalPrice = 0.0f;
 					for (GoodsDetailData d : mList) {
 						totalPrice += Float.valueOf(JiesuanAdapter
 								.itemTotalPrice(d.getCurrent_price() + "",
 										d.getSelect_count()));
 					}
-					jiesuanTotalPriceView.setText(totalPrice + "元");
+					jiesuanTotalPriceView.setText(totalPrice + "");
 					mAdapter = new JiesuanAdapter(mList, mContext, mHandler);
-					animateDismissAdapter = new AnimateDismissAdapter<String>(
-							mAdapter, new MyOnDismissCallback());
-					animateDismissAdapter.setListView(listView);
-					listView.setAdapter(animateDismissAdapter);
+					listView.setAdapter(mAdapter);
+					listView.setOnItemClickListener(new OnItemClickListener() {
+
+						@Override
+						public void onItemClick(AdapterView<?> parent,
+								View view, int position, long id) {
+							// TODO Auto-generated method stub
+							go2detail(GsonTool.getGsonTool().toJson(
+									mList.get(position)));
+						}
+					});
 				}
-				if (intent.getExtras() != null
-						&& intent.getExtras().get("defaultAddress") != null) {
-					String strAddress = intent.getExtras()
-							.get("defaultAddress").toString();
-					address = GsonTool.fromJson(strAddress,
+				if (intent.getExtras() != null && strAddress != null) {
+					address = GsonTool.getGsonTool().fromJson(strAddress,
 							ShipAddressData.class);
 					initShdz.setVisibility(View.VISIBLE);
 					addShdz.setVisibility(View.GONE);
@@ -206,31 +314,70 @@ public class JieSuanActivity extends Activity {
 					initShdz.setVisibility(View.GONE);
 					addShdz.setVisibility(View.VISIBLE);
 				}
+
+				jiesuanContent.setVisibility(View.VISIBLE);
+			} else {
+				jiesuanContent.setVisibility(View.INVISIBLE);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			jiesuanContent.setVisibility(View.INVISIBLE);
 		}
 	}
 
-	private class MyOnDismissCallback implements OnDismissCallback {
+	public void getShdz() {
+		dialog.show();
+		ControllerManager.getInstance().getAddressManageController()
+				.unRegisterAll();
+		ControllerManager.getInstance().getAddressManageController()
+				.registerNotification(new ViewListener() {
 
-		@Override
-		public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-			for (int position : reverseSortedPositions) {
-				mList.remove(position);
-				mAdapter.notifyDataSetChanged();
-			}
-		}
+					@Override
+					public void updateView(ViewUpdateObj obj) {
+						// TODO Auto-generated method stub
+						Message updateViewMsg;
+						switch (obj.getCode()) {
+						case 200:
+							updateViewMsg = mHandler
+									.obtainMessage(GET_DATA_SUCCESS);
+							updateViewMsg.getData().putString("data",
+									obj.getData());
+							mHandler.sendMessage(updateViewMsg);
+							break;
+						case 408:
+							updateViewMsg = mHandler
+									.obtainMessage(UUID_TIMEOUT);
+							mHandler.sendMessage(updateViewMsg);
+							break;
+						default:
+							updateViewMsg = mHandler.obtainMessage(NET_ERROR);
+							mHandler.sendMessage(updateViewMsg);
+							break;
+						}
+					}
+				});
+		ControllerManager.getInstance().getAddressManageController()
+				.getShippingAddress();
 	}
 
 	public void selectShdz(View v) {
-		Intent intent = new Intent(JieSuanActivity.this, ShdzActivity.class);
-		intent.putExtra("type", CLICK_TYPE.SELECT);
+		Intent intent = new Intent(JieSuanActivity.this,
+				SelectShdzActivity.class);
 		startActivityForResult(intent, 0);
+	}
+
+	public void go2detail(String detail) {
+		if (detail != null) {
+			Intent intent = new Intent(JieSuanActivity.this,
+					GoodDetailActivity.class);
+			intent.putExtra("data", detail);
+			startActivity(intent);
+		}
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case RESULT_OK:
@@ -238,11 +385,12 @@ public class JieSuanActivity extends Activity {
 					&& data.getExtras().getString("addressData") != null) {
 				String strAddress = data.getExtras().getString("addressData");
 				try {
-					address = GsonTool.fromJson(strAddress,
+					address = GsonTool.getGsonTool().fromJson(strAddress,
 							ShipAddressData.class);
 					initShdz.post(new Runnable() {
 						@Override
 						public void run() {
+							// TODO Auto-generated method stub
 							initShdz.setVisibility(View.VISIBLE);
 							addShdz.setVisibility(View.GONE);
 							shdzShr.setText(getResources().getString(
@@ -280,23 +428,56 @@ public class JieSuanActivity extends Activity {
 			ControllerManager.getInstance().getOrderController()
 					.unRegisterAll();
 			ControllerManager.getInstance().getOrderController()
-					.registerNotification(new IViewListener() {
+					.registerNotification(new ViewListener() {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {
-							if (obj.getCode() == 200) {
+							// TODO Auto-generated method stub
+							Message updateViewMsg;
+							switch (obj.getCode()) {
+							case 200:
 								removeInCart(goodsList);
-								Message updateViewMsg = mHandler
-										.obtainMessage(JIESUAN_SUCCESS);
+
+								Intent intent = new Intent(
+										JieSuanActivity.this,
+										JieSuanSuccessActivity.class);
+								startActivity(intent);
+								break;
+							case 408:
+								updateViewMsg = mHandler
+										.obtainMessage(UUID_TIMEOUT);
 								mHandler.sendMessage(updateViewMsg);
-							} else {
-								Message updateViewMsg = mHandler
+								break;
+							case 403:
+								updateViewMsg = mHandler
+										.obtainMessage(GOODS_NOT_SELL);
+								mHandler.sendMessage(updateViewMsg);
+								break;
+							case 406:
+								updateViewMsg = mHandler
+										.obtainMessage(GOODS_SELL_OUT);
+								mHandler.sendMessage(updateViewMsg);
+								break;
+							case 401:
+								updateViewMsg = mHandler
+										.obtainMessage(GOODS_TIMEOUT);
+								mHandler.sendMessage(updateViewMsg);
+								break;
+							case 404:
+								updateViewMsg = mHandler
+										.obtainMessage(GOODS_NOT_IN_AREA);
+								mHandler.sendMessage(updateViewMsg);
+								break;
+							default:
+								updateViewMsg = mHandler
 										.obtainMessage(NET_ERROR);
 								mHandler.sendMessage(updateViewMsg);
+								break;
 							}
 						}
 					});
-			if (totalPrice >= Float.valueOf(ClientData.getInstance().getMinLimit())) {
+			if (totalPrice >= Float.valueOf(ClientData.getInstance()
+					.getMinLimit())) {
 				ControllerManager.getInstance().getOrderController()
 						.confirmBuy(confirmData);
 			} else {
@@ -315,9 +496,9 @@ public class JieSuanActivity extends Activity {
 		String cartData = ClientData.getInstance().getmCart();
 		if (cartData != null) {
 			try {
-				List<ShopCart> cartObj = GsonTool.fromJson(
+				List<ShopCart> cartObj = GsonTool.getGsonTool().fromJson(
 						cartData, new TypeToken<List<ShopCart>>() {
-						});
+						}.getType());
 				int i, j;
 				for (i = 0; i < cartObj.size(); i++) {
 					for (j = 0; j < goodsList.size(); j++) {
@@ -327,7 +508,39 @@ public class JieSuanActivity extends Activity {
 						}
 					}
 				}
-				CartDataHelper.updateCacheCart(cartObj);
+				ControllerManager.getInstance().getShopCartController()
+						.unRegisterAll();
+				ControllerManager.getInstance().getShopCartController()
+						.registerNotification(new ViewListener() {
+
+							@Override
+							public void updateView(ViewUpdateObj obj) {
+								// TODO
+								// Auto-generated
+								// method stub
+								Message updateViewMsg;
+								switch (obj.getCode()) {
+								case 200:
+									updateViewMsg = mHandler
+											.obtainMessage(JIESUAN_SUCCESS);
+									mHandler.sendMessage(updateViewMsg);
+									break;
+								case 408:
+									updateViewMsg = mHandler
+											.obtainMessage(UUID_TIMEOUT);
+									mHandler.sendMessage(updateViewMsg);
+									break;
+								default:
+									updateViewMsg = mHandler
+											.obtainMessage(NET_ERROR);
+									mHandler.sendMessage(updateViewMsg);
+									break;
+								}
+							}
+						});
+
+				ControllerManager.getInstance().getShopCartController()
+						.updateCartData(cartObj);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

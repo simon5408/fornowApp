@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -14,25 +14,22 @@ package com.fornow.app.dao;
 
 import java.util.LinkedList;
 
+import android.util.Log;
+
 import com.fornow.app.datapool.CacheData;
+import com.fornow.app.net.ControllerListener;
+import com.fornow.app.net.DataCallback;
 import com.fornow.app.net.HttpHeader;
 import com.fornow.app.net.NetRequest;
 import com.fornow.app.net.NetResponse;
 import com.fornow.app.net.NetworkManager;
-import com.fornow.app.service.IControllerListener;
-import com.fornow.app.service.IDataCallback;
-import com.fornow.app.util.LogUtils;
 
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-11-21
  */
 public class OrderDao {
-	private static final String TAG = OrderDao.class.getName();
 	public void getOrder(String uuid, int offset, int length, String status,
-			final IControllerListener ctr) {
+			final ControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/getOrder?offset="
 				+ offset + "&length=" + length;
 		String postData = "{'status': " + status + "}";
@@ -42,14 +39,13 @@ public class OrderDao {
 
 		NetRequest netPostReq = NetRequest.createPostRequestWithHeaders(url,
 				postData.getBytes(), headers);
-		NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
+		NetworkManager.sendPostReq(netPostReq, new DataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
-				LogUtils.d(TAG, "[getOrder] Code:" + netRes.code);
-				// TODO
-				 netRes.code = 200;
-				 netRes.res =
-				 "[{'order_id': '389398047495963','status': 1,'address': '江苏省 南京市 雨花台区','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]},{'order_id': '389398047495963','status': 2,'address': '江苏省 南京市 雨花台区 软件大道 江苏润和软件外包园 三楼 欧美外包事业部','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]},{'order_id': '389398047495963','status': 0,'address': '江苏省 南京市 雨花台区 软件大道 江苏润和软件外包园 三楼 欧美外包事业部','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]},{'order_id': '389398047495963','status': 3,'address': '江苏省 南京市 雨花台区 软件大道 江苏润和软件外包园 三楼 欧美外包事业部','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]}]";
+				Log.d("getOrder", "Code:" + netRes.code);
+				// netRes.code = 200;
+				// netRes.res =
+				// "[{'order_id': '389398047495963','status': 1,'address': '江苏省 南京市 雨花台区','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]},{'order_id': '389398047495963','status': 2,'address': '江苏省 南京市 雨花台区 软件大道 江苏润和软件外包园 三楼 欧美外包事业部','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]},{'order_id': '389398047495963','status': 0,'address': '江苏省 南京市 雨花台区 软件大道 江苏润和软件外包园 三楼 欧美外包事业部','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]},{'order_id': '389398047495963','status': 3,'address': '江苏省 南京市 雨花台区 软件大道 江苏润和软件外包园 三楼 欧美外包事业部','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]}]";
 				ctr.callback(netRes);
 			}
 		});
@@ -63,7 +59,7 @@ public class OrderDao {
 	 * @param ctr
 	 */
 	public void settlement(String uuid, String requestData,
-			final IControllerListener ctr) {
+			final ControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/settlement";
 		LinkedList<HttpHeader> headers = new LinkedList<HttpHeader>();
 		headers.add(new HttpHeader("uuid", uuid));
@@ -71,12 +67,11 @@ public class OrderDao {
 
 		NetRequest netPostReq = NetRequest.createPostRequestWithHeaders(url,
 				requestData.getBytes(), headers);
-		NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
+		NetworkManager.sendPostReq(netPostReq, new DataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
-				LogUtils.d(TAG, "[getOrder] Code:" + netRes.code);
-				// TODO
-				 netRes.code = 200;
+				Log.d("getOrder", "Code:" + netRes.code);
+				// netRes.code = 200;
 				ctr.callback(netRes);
 			}
 		});

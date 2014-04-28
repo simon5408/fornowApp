@@ -1,5 +1,5 @@
 /*****************************************************************************
- *
+*
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -12,11 +12,29 @@
  *****************************************************************************/
 package com.fornow.app.ui.shopcart;
 
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.model.GoodsDetailData;
+import com.fornow.app.model.ShopCart;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.ui.MyListView;
+import com.fornow.app.ui.customdialog.EditCountDialog;
+import com.fornow.app.ui.customdialog.LoginDialog;
+import com.fornow.app.ui.goodsdetail.GoodDetailActivity;
+import com.fornow.app.ui.main.BaseMainActivity;
+import com.fornow.app.utils.GsonTool;
+import com.fornow.app.utils.pull2refresh.PullToRefreshBase;
+import com.fornow.app.utils.pull2refresh.PullToRefreshScrollView;
+import com.fornow.app.utils.pull2refresh.PullToRefreshBase.OnRefreshListener;
+import com.google.gson.reflect.TypeToken;
+import com.haarman.listviewanimations.itemmanipulation.AnimateDismissAdapter;
+import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
+import com.fornow.app.R;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -25,67 +43,253 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Selection;
+import android.text.Spannable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fornow.app.R;
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.datapool.ClientData;
-import com.fornow.app.model.GoodsDetailData;
-import com.fornow.app.model.ShipAddressData;
-import com.fornow.app.model.ShopCart;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.service.IViewListener;
-import com.fornow.app.ui.MyListView;
-import com.fornow.app.ui.main.BaseMainActivity;
-import com.fornow.app.ui.mine.LoginActivity;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase;
-import com.fornow.app.ui.pull2refresh.PullToRefreshBase.OnRefreshListener;
-import com.fornow.app.ui.pull2refresh.PullToRefreshScrollView;
-import com.fornow.app.ui.search.GoodDetailActivity;
-import com.fornow.app.util.GsonTool;
-import com.google.gson.reflect.TypeToken;
-import com.haarman.listviewanimations.itemmanipulation.AnimateDismissAdapter;
-import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
-
 /**
- * @author Jiafa Lv
- * @date Apr 24, 2014 10:52:20 AM
- * @email simon-jiafa@126.com
- * 
+ * @author Simon Lv 2013-8-4
  */
 public class ShopCartActivity extends BaseMainActivity {
 
 	private Context mContext;
 	private MyListView mListView;
 	private CartAdapter mAdapter;
-	private Handler mHandler;
 	public static final int LOADING_START = 0x00, LOADING_END = 0x01,
-			CART_SELECT = 0x02, CART_UNSELECT = 0x03, CART_ADD = 0x04,
-			CART_MINUS = 0x05, CART_DEL = 0x06, GET_ADDRESS_SUCCESS = 0x07,
-			CART_CLICKED = 0x08, NET_ERROR = 0x09;
+			CART_OVERVIEW_SHOW = 0x02, CART_OVERVIEW_HIDE = 0x03,
+			UUID_TIMEOUT = 0x04, NET_ERROR = 0x09, CAER_COUNT_EDIT = 0x0a,
+			UPDATECARTDATA = 0x05;
 	private List<ShopCart> cartData;
 	private List<ListStatus> listStatus;
-	private BoolShowDel boolShowDel;
 	private boolean selectAll = false;
-	private TextView totalPriceView;
 	private String jiesuanList;
 	private Float totalPrice = 0.0f;
 	private PullToRefreshScrollView mPullRefreshScrollView;
-//	private ScrollView mScrollView;
+	@SuppressWarnings("unused")
+	private ScrollView mScrollView;
 	AnimateDismissAdapter<String> animateDismissAdapter;
+	TextView cartTotalCount, cartOverviewTotalprice;
+	ImageButton cart_overview_delete, cart_select_all;
+	Button cart_jiesuan;
+	RelativeLayout cartOverView;
+	TranslateAnimation mShowAction, mHiddenAction;
+
+	@SuppressLint("HandlerLeak")
+	private Handler mHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			String data;
+			final int pos;
+			switch (msg.what) {
+			case LOADING_START:
+				selectAll = false;
+				totalPrice = 0.0f;
+				break;
+			case LOADING_END:
+				if (mPullRefreshScrollView != null) {
+					// Call onRefreshComplete when the list has been
+					// refreshed.
+					mPullRefreshScrollView.onRefreshComplete();
+				}
+				data = msg.getData().getString("data");
+				updateList(data);
+				break;
+			case CART_OVERVIEW_SHOW:
+				if (cartOverView.getVisibility() == View.GONE) {
+					cartOverView.startAnimation(mShowAction);
+					cartOverView.setVisibility(View.VISIBLE);
+				}
+				cartOverviewTotalprice.setText(msg.getData().getString("data"));
+				break;
+			case CART_OVERVIEW_HIDE:
+				if (cartOverView.getVisibility() == View.VISIBLE) {
+					cartOverView.startAnimation(mHiddenAction);
+					cartOverView.setVisibility(View.GONE);
+				}
+				break;
+			case UPDATECARTDATA:
+				mAdapter.notifyDataSetChanged();
+				break;
+			case NET_ERROR:
+				if (mPullRefreshScrollView != null) {
+					// Call onRefreshComplete when the list has been
+					// refreshed.
+					mPullRefreshScrollView.onRefreshComplete();
+				}
+				View view = getLayoutInflater()
+						.inflate(R.layout.my_toast, null);
+				TextView toastText = (TextView) view
+						.findViewById(R.id.toast_text);
+				toastText.setText(getResources().getString(
+						R.string.str_net_error));
+				Toast toast = new Toast(ShopCartActivity.this);
+				toast.setGravity(Gravity.CENTER, 0, 0);
+				toast.setDuration(Toast.LENGTH_SHORT);
+				toast.setView(view);
+				toast.show();
+				break;
+
+			case CAER_COUNT_EDIT:
+				pos = Integer.valueOf(msg.getData().getString("position"));
+
+				final EditCountDialog editDialogBuilder = new EditCountDialog(
+						ShopCartActivity.this, R.style.Theme_Dialog);
+				editDialogBuilder.setEditCount(cartData.get(pos).getCount()
+						+ "");
+				Spannable spanText = (Spannable) editDialogBuilder
+						.getEditCount();
+				Selection.setSelection(spanText, editDialogBuilder
+						.getEditCount().length());
+				editDialogBuilder.setOnCancelBtnListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						editDialogBuilder.dismiss();
+					}
+				});
+
+				editDialogBuilder
+						.setOnConfirmBtnListener(new OnClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+								editDialogBuilder.dismiss();
+								if (editDialogBuilder.getEditCount().length() != 0) {
+									int count = Integer
+											.parseInt(editDialogBuilder
+													.getEditCount().toString());
+									cartData.get(pos).setCount(count);
+									ControllerManager.getInstance()
+											.getShopCartController()
+											.unRegisterAll();
+									ControllerManager
+											.getInstance()
+											.getShopCartController()
+											.registerNotification(
+													new ViewListener() {
+
+														@Override
+														public void updateView(
+																ViewUpdateObj obj) {
+															// TODO
+															// Auto-generated
+															// method stub
+															Message updateViewMsg;
+															switch (obj
+																	.getCode()) {
+															case 200:
+																updateViewMsg = mHandler
+																		.obtainMessage(UPDATECARTDATA);
+																mHandler.sendMessage(updateViewMsg);
+																break;
+															case 408:
+																updateViewMsg = mHandler
+																		.obtainMessage(UUID_TIMEOUT);
+																mHandler.sendMessage(updateViewMsg);
+																break;
+															default:
+																updateViewMsg = mHandler
+																		.obtainMessage(NET_ERROR);
+																mHandler.sendMessage(updateViewMsg);
+																break;
+															}
+														}
+													});
+
+									ControllerManager.getInstance()
+											.getShopCartController()
+											.updateCartData(cartData);
+								}
+							}
+						});
+
+				editDialogBuilder.show();
+				break;
+			case UUID_TIMEOUT:
+				LoginDialog loginDialog = new LoginDialog(
+						ShopCartActivity.this, mContext, mContext
+								.getResources().getString(R.string.str_tishi),
+						mContext.getResources().getString(
+								R.string.str_uuid_timeout), 0);
+				loginDialog.build();
+				break;
+			default:
+				break;
+			}
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.shop_cart);
 		mContext = this.getApplicationContext();
-		totalPriceView = (TextView) findViewById(R.id.total_price);
+		mShowAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+				Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+				1.0f, Animation.RELATIVE_TO_SELF, 0.0f);
+		mShowAction.setDuration(300);
+		mHiddenAction = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+				0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+				Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+				1.0f);
+		mHiddenAction.setDuration(300);
+		prepareView();
+
+	}
+
+	@SuppressLint("HandlerLeak")
+	@Override
+	protected void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+
+	}
+
+	public void prepareView() {
 		mListView = (MyListView) findViewById(R.id.listView01);
+		cartTotalCount = (TextView) findViewById(R.id.cart_total_count);
+		cart_select_all = (ImageButton) findViewById(R.id.cart_select_all);
+		cartOverView = (RelativeLayout) this.getParent().findViewById(
+				R.id.cart_overview);
+		cartOverviewTotalprice = (TextView) this.getParent().findViewById(
+				R.id.cart_overview_totalprice);
+		cart_overview_delete = (ImageButton) this.getParent().findViewById(
+				R.id.cart_overview_delete);
+		cart_overview_delete.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				delShopCart();
+			}
+		});
+		cart_jiesuan = (Button) this.getParent()
+				.findViewById(R.id.cart_jiesuan);
+		cart_jiesuan.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				confirmBuy();
+			}
+		});
 		mPullRefreshScrollView = (PullToRefreshScrollView) findViewById(R.id.pull_refresh_scrollview);
 		mPullRefreshScrollView
 				.setOnRefreshListener(new OnRefreshListener<ScrollView>() {
@@ -94,6 +298,7 @@ public class ShopCartActivity extends BaseMainActivity {
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ScrollView> refreshView) {
+						// TODO Auto-generated method stub
 						Date date = new Date();
 						SimpleDateFormat formatter = new SimpleDateFormat(
 								"yyyy/MM/dd HH:mm");
@@ -107,139 +312,39 @@ public class ShopCartActivity extends BaseMainActivity {
 					}
 				});
 
-//		mScrollView = mPullRefreshScrollView.getRefreshableView();
-		mHandler = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				String data;
-				switch (msg.what) {
-				case GET_ADDRESS_SUCCESS:
-					data = msg.getData().getString("data");
-					String strDefaultAddress = null;
-					if (data != null) {
-						try {
-							ShipAddressData defaultAddress = null;
-							List<ShipAddressData> addressData = GsonTool
-									.fromJson(
-											data,
-											new TypeToken<List<ShipAddressData>>() {
-											});
-							for (ShipAddressData d : addressData) {
-								if (d.isIsdefault()) {
-									defaultAddress = d;
-									break;
-								}
-							}
-							if (defaultAddress != null) {
-								strDefaultAddress = GsonTool.toJson(defaultAddress);
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-
-					Intent intent = new Intent(ShopCartActivity.this,
-							JieSuanActivity.class);
-					intent.putExtra("data", jiesuanList);
-					intent.putExtra("defaultAddress", strDefaultAddress);
-					startActivity(intent);
-					break;
-				case LOADING_START:
-					selectAll = false;
-					totalPrice = 0.0f;
-					totalPriceView.setText(totalPrice + "元");
-					break;
-				case LOADING_END:
-					if (mPullRefreshScrollView != null) {
-						// Call onRefreshComplete when the list has been
-						// refreshed.
-						mPullRefreshScrollView.onRefreshComplete();
-					}
-					data = msg.getData().getString("data");
-					updateList(data);
-					break;
-				case CART_SELECT:
-				case CART_ADD:
-					data = msg.getData().getString("data");
-					totalPrice += Float.valueOf(data);
-					totalPriceView.setText(new BigDecimal(totalPrice).setScale(1,
-							BigDecimal.ROUND_HALF_UP) + "元");
-					break;
-				case CART_DEL:
-					int pos = Integer.valueOf(msg.getData().getString(
-							"position"));
-					animateDismissAdapter.animateDismiss(pos);
-					if (listStatus.get(pos).isChecked()) {
-						data = msg.getData().getString("data");
-						totalPrice -= Float.valueOf(data);
-						totalPriceView.setText(new BigDecimal(totalPrice).setScale(1,
-								BigDecimal.ROUND_HALF_UP) + "元");
-					}
-					break;
-				case CART_UNSELECT:
-				case CART_MINUS:
-					data = msg.getData().getString("data");
-					totalPrice -= Float.valueOf(data);
-					totalPriceView.setText(new BigDecimal(totalPrice).setScale(1,
-							BigDecimal.ROUND_HALF_UP) + "元");
-					break;
-				case CART_CLICKED:
-					data = msg.getData().getString("data");
-					go2detail(data);
-					break;
-				case NET_ERROR:
-					if (mPullRefreshScrollView != null) {
-						// Call onRefreshComplete when the list has been
-						// refreshed.
-						mPullRefreshScrollView.onRefreshComplete();
-					}
-					View view = getLayoutInflater().inflate(R.layout.my_toast,
-							null);
-					TextView toastText = (TextView) view
-							.findViewById(R.id.toast_text);
-					toastText.setText(getResources().getString(
-							R.string.str_net_error));
-					Toast toast = new Toast(ShopCartActivity.this);
-					toast.setGravity(Gravity.CENTER, 0, 0);
-					toast.setDuration(Toast.LENGTH_SHORT);
-					toast.setView(view);
-					toast.show();
-					break;
-				default:
-					break;
-				}
-			}
-		};
-	}
-
-	@SuppressLint("HandlerLeak")
-	@Override
-	protected void onStart() {
-		super.onStart();
-
+		mScrollView = mPullRefreshScrollView.getRefreshableView();
 	}
 
 	@Override
 	protected void onResume() {
+		// TODO Auto-generated method stub
 		super.onResume();
 		Message updateViewMsg = mHandler.obtainMessage(LOADING_START);
 		mHandler.sendMessage(updateViewMsg);
 		ControllerManager.getInstance().getShopCartController().unRegisterAll();
 		ControllerManager.getInstance().getShopCartController()
-				.registerNotification(new IViewListener() {
+				.registerNotification(new ViewListener() {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						if (obj.getCode() == 200) {
-							Message updateViewMsg = mHandler
-									.obtainMessage(LOADING_END);
+						// TODO Auto-generated method stub
+						Message updateViewMsg;
+						switch (obj.getCode()) {
+						case 200:
+							updateViewMsg = mHandler.obtainMessage(LOADING_END);
 							updateViewMsg.getData().putString("data",
 									obj.getData());
 							mHandler.sendMessage(updateViewMsg);
-						} else {
-							Message updateViewMsg = mHandler
-									.obtainMessage(NET_ERROR);
+							break;
+						case 408:
+							updateViewMsg = mHandler
+									.obtainMessage(UUID_TIMEOUT);
 							mHandler.sendMessage(updateViewMsg);
+							break;
+						default:
+							updateViewMsg = mHandler.obtainMessage(NET_ERROR);
+							mHandler.sendMessage(updateViewMsg);
+							break;
 						}
 					}
 				});
@@ -267,26 +372,42 @@ public class ShopCartActivity extends BaseMainActivity {
 		}
 	}
 
+	public void delShopCart() {
+		for (int i = 0; i < listStatus.size(); i++) {
+			if (listStatus.get(i).isChecked()) {
+				animateDismissAdapter.animateDismiss(i);
+			}
+		}
+	}
+
 	public void getCartFromBackend() {
 
 		Message updateViewMsg = mHandler.obtainMessage(LOADING_START);
 		mHandler.sendMessage(updateViewMsg);
 		ControllerManager.getInstance().getShopCartController().unRegisterAll();
 		ControllerManager.getInstance().getShopCartController()
-				.registerNotification(new IViewListener() {
+				.registerNotification(new ViewListener() {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						if (obj.getCode() == 200) {
-							Message updateViewMsg = mHandler
-									.obtainMessage(LOADING_END);
+						// TODO Auto-generated method stub
+						Message updateViewMsg;
+						switch (obj.getCode()) {
+						case 200:
+							updateViewMsg = mHandler.obtainMessage(LOADING_END);
 							updateViewMsg.getData().putString("data",
 									obj.getData());
 							mHandler.sendMessage(updateViewMsg);
-						} else {
-							Message updateViewMsg = mHandler
-									.obtainMessage(NET_ERROR);
+							break;
+						case 408:
+							updateViewMsg = mHandler
+									.obtainMessage(UUID_TIMEOUT);
 							mHandler.sendMessage(updateViewMsg);
+							break;
+						default:
+							updateViewMsg = mHandler.obtainMessage(NET_ERROR);
+							mHandler.sendMessage(updateViewMsg);
+							break;
 						}
 					}
 				});
@@ -297,20 +418,32 @@ public class ShopCartActivity extends BaseMainActivity {
 	public void updateList(String data) {
 		if (data != null) {
 			try {
-				cartData = GsonTool.fromJson(data,
-						new TypeToken<List<ShopCart>>(){});
+				cartData = GsonTool.getGsonTool().fromJson(data,
+						new TypeToken<List<ShopCart>>() {
+						}.getType());
+				cartTotalCount.setText(cartData.size() + "");
 				listStatus = new ArrayList<ListStatus>();
-				boolShowDel = new BoolShowDel();
 				for (int i = 0; i < cartData.size(); i++) {
 					ListStatus status = new ListStatus();
 					listStatus.add(status);
 				}
 				mAdapter = new CartAdapter(cartData, listStatus, mContext,
-						boolShowDel, mHandler);
+						mHandler);
 				animateDismissAdapter = new AnimateDismissAdapter<String>(
 						mAdapter, new MyOnDismissCallback());
 				animateDismissAdapter.setListView(mListView);
 				mListView.setAdapter(animateDismissAdapter);
+
+				mListView.setOnItemClickListener(new OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						// TODO Auto-generated method stub
+						go2detail(cartData.get(position));
+					}
+				});
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -318,9 +451,11 @@ public class ShopCartActivity extends BaseMainActivity {
 			if (cartData != null && listStatus != null) {
 				cartData.clear();
 				listStatus.clear();
-				mAdapter.notifyDataSetChanged();
-				animateDismissAdapter.notifyDataSetChanged();
 			}
+		}
+		cart_select_all.setImageResource(R.drawable.checkbox_no);
+		if (cartData != null) {
+			cartTotalCount.setText(cartData.size() + "");
 		}
 	}
 
@@ -331,9 +466,51 @@ public class ShopCartActivity extends BaseMainActivity {
 			for (int position : reverseSortedPositions) {
 				cartData.remove(position);
 				listStatus.remove(position);
-				mAdapter.notifyDataSetChanged();
-				CartDataHelper.updateCacheCart(cartData);
 			}
+			ControllerManager.getInstance().getShopCartController()
+					.unRegisterAll();
+			ControllerManager.getInstance().getShopCartController()
+					.registerNotification(new ViewListener() {
+
+						@Override
+						public void updateView(ViewUpdateObj obj) {
+							// TODO Auto-generated method stub
+							Message updateViewMsg;
+							switch (obj.getCode()) {
+							case 200:
+								updateViewMsg = mHandler
+										.obtainMessage(UPDATECARTDATA);
+								mHandler.sendMessage(updateViewMsg);
+								cartTotalCount.post(new Runnable() {
+
+									@Override
+									public void run() {
+										// TODO Auto-generated method stub
+										cartTotalCount.setText(cartData.size()
+												+ "");
+									}
+								});
+								break;
+							case 408:
+								updateViewMsg = mHandler
+										.obtainMessage(UUID_TIMEOUT);
+								mHandler.sendMessage(updateViewMsg);
+								break;
+							default:
+								updateViewMsg = mHandler
+										.obtainMessage(NET_ERROR);
+								mHandler.sendMessage(updateViewMsg);
+								break;
+							}
+						}
+					});
+
+			ControllerManager.getInstance().getShopCartController()
+					.updateCartData(cartData);
+
+			Message updateViewMsg = mHandler
+					.obtainMessage(ShopCartActivity.CART_OVERVIEW_HIDE);
+			mHandler.sendMessage(updateViewMsg);
 		}
 	}
 
@@ -352,72 +529,56 @@ public class ShopCartActivity extends BaseMainActivity {
 								* Integer.valueOf(cartData.get(i).getCount());
 					}
 					selectAll = true;
+					cart_select_all.setImageResource(R.drawable.checkbox_yes);
 				} else {
 					for (i = 0; i < listStatus.size(); i++) {
 						listStatus.get(i).setChecked(false);
 					}
 					totalPrice = 0.0f;
 					selectAll = false;
+					cart_select_all.setImageResource(R.drawable.checkbox_no);
 				}
-				totalPriceView.setText(totalPrice + "元");
-				mAdapter.notifyDataSetChanged();
+				Message updateViewMsg = mHandler.obtainMessage(UPDATECARTDATA);
+				mHandler.sendMessage(updateViewMsg);
 			}
 		}
 	}
 
-	public void go2detail(String detail) {
-		if (detail != null) {
-			try {
-				ShopCart cart = GsonTool.fromJson(detail,
-						ShopCart.class);
-				GoodsDetailData detialData = new GoodsDetailData();
-				if (cart.getGoods_id() != null) {
-					detialData.setId(cart.getGoods_id());
-				}
-				if (cart.getName() != null) {
-					detialData.setName(cart.getName());
-				}
-				if (cart.getCategory() != null) {
-					detialData.setCategory(cart.getCategory());
-				}
-				if (cart.getIcon() != null) {
-					detialData.setIcon(cart.getIcon());
-				}
-				if (cart.getImage() != null) {
-					detialData.setImage(cart.getImage());
-				}
-				if (cart.getOriginal_price() != null) {
-					detialData.setOriginal_price(cart.getOriginal_price());
-				}
-				if (cart.getCurrent_price() != null) {
-					detialData.setCurrent_price(cart.getCurrent_price());
-				}
-				if (cart.getIntroduction() != null) {
-					detialData.setIntroduction(cart.getIntroduction());
-				}
-				if (cart.getDeliver_area() != null) {
-					detialData.setDeliver_area(cart.getDeliver_area());
-				}
-
-				String strDetail = GsonTool.toJson(detialData);
-				Intent intent = new Intent(ShopCartActivity.this,
-						GoodDetailActivity.class);
-				intent.putExtra("data", strDetail);
-				startActivity(intent);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+	public void go2detail(ShopCart cart) {
+		GoodsDetailData detialData = new GoodsDetailData();
+		if (cart.getGoods_id() != null) {
+			detialData.setId(cart.getGoods_id());
+		}
+		if (cart.getName() != null) {
+			detialData.setName(cart.getName());
+		}
+		if (cart.getCategory() != null) {
+			detialData.setCategory(cart.getCategory());
+		}
+		if (cart.getIcon() != null) {
+			detialData.setIcon(cart.getIcon());
+		}
+		if (cart.getImage() != null) {
+			detialData.setImage(cart.getImage());
+		}
+		if (cart.getOriginal_price() != null) {
+			detialData.setOriginal_price(cart.getOriginal_price());
+		}
+		if (cart.getCurrent_price() != null) {
+			detialData.setCurrent_price(cart.getCurrent_price());
+		}
+		if (cart.getIntroduction() != null) {
+			detialData.setIntroduction(cart.getIntroduction());
+		}
+		if (cart.getDeliver_area() != null) {
+			detialData.setDeliver_area(cart.getDeliver_area());
 		}
 
-	}
-
-	public void disPlayDelBtn(View v) {
-		if (boolShowDel.isDisplayDel()) {
-			boolShowDel.setDisplayDel(false);
-		} else {
-			boolShowDel.setDisplayDel(true);
-		}
-		mAdapter.notifyDataSetChanged();
+		String strDetail = GsonTool.getGsonTool().toJson(detialData);
+		Intent intent = new Intent(ShopCartActivity.this,
+				GoodDetailActivity.class);
+		intent.putExtra("data", strDetail);
+		startActivity(intent);
 	}
 
 	public class ListStatus {
@@ -432,19 +593,7 @@ public class ShopCartActivity extends BaseMainActivity {
 		}
 	}
 
-	public class BoolShowDel {
-		private boolean displayDel = false;
-
-		public boolean isDisplayDel() {
-			return displayDel;
-		}
-
-		public void setDisplayDel(boolean displayDel) {
-			this.displayDel = displayDel;
-		}
-	}
-
-	public void confirmBuy(View v) {
+	public void confirmBuy() {
 		if (cartData != null && cartData.size() > 0) {
 			int i, length = cartData.size();
 			List<GoodsDetailData> goodsList = new ArrayList<GoodsDetailData>();
@@ -488,57 +637,16 @@ public class ShopCartActivity extends BaseMainActivity {
 				}
 			}
 			if (goodsList.size() > 0) {
-				try {
-					jiesuanList = GsonTool.toJson(goodsList);
-					if (ClientData.getInstance().getmUUID() == null) {
-						Intent in = new Intent(ShopCartActivity.this,
-								LoginActivity.class);
-						startActivityForResult(in, 0);
-						return;
-					} else {
-						jiesuan();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				String strGoodsList = GsonTool.getGsonTool().toJson(goodsList);
+
+				Intent intent = new Intent(ShopCartActivity.this,
+						JieSuanActivity.class);
+				intent.putExtra("data", strGoodsList);
+				startActivity(intent);
 			}
 		}
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		switch (resultCode) {
-		case RESULT_OK:
-			jiesuan();
-			break;
-		default:
-			break;
-		}
-	}
-
-	public void jiesuan() {
-		ControllerManager.getInstance().getAddressManageController()
-				.unRegisterAll();
-		ControllerManager.getInstance().getAddressManageController()
-				.registerNotification(new IViewListener() {
-
-					@Override
-					public void updateView(ViewUpdateObj obj) {
-						if (obj.getCode() == 200) {
-							Message updateViewMsg = mHandler
-									.obtainMessage(GET_ADDRESS_SUCCESS);
-							updateViewMsg.getData().putString("data",
-									obj.getData());
-							mHandler.sendMessage(updateViewMsg);
-						} else {
-							Message updateViewMsg = mHandler
-									.obtainMessage(NET_ERROR);
-							mHandler.sendMessage(updateViewMsg);
-						}
-					}
-				});
-		ControllerManager.getInstance().getAddressManageController()
-				.getShippingAddress();
+		Message updateViewMsg = mHandler
+				.obtainMessage(ShopCartActivity.CART_OVERVIEW_HIDE);
+		mHandler.sendMessage(updateViewMsg);
 	}
 }
