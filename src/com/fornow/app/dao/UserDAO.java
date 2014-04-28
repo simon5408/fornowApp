@@ -41,7 +41,7 @@ public class UserDAO {
 
 	public void login(LoginData request, final ControllerListener ctr) {
 		String url = "";
-		url = CacheData.getInstance().getBaseUrl() + "/login";
+		url = CacheData.getInstance().getBaseUrl() + "/user/app/login";
 		try {
 			String requestBody = GsonTool.getGsonTool().toJson(request,
 					LoginData.class);
@@ -52,8 +52,8 @@ public class UserDAO {
 				public void updateData(NetResponse netRes) {
 					Log.d("sendLogin", "Code:" + netRes.code);
 					// netRes.code = 200;
-					// netRes.res =
-					// "{'uuid':'4cdbc040657a4847b2667e31d9e2c3d9', 'userinfo':{'user_name':'张三', 'sex':'男','age':24,'is_marital':null,'birthday':null,'constellation':null,'blood_type':null,'phone':'1235345363','qq':null,'email':'12234523452@qq.com','home_town':null,'residence':null,'avatar':null,'interest':null,'college':null,'department':null,'profession':null,'company':null}}";
+					 netRes.res =
+					 "{'uuid':'4cdbc040657a4847b2667e31d9e2c3d9', 'userinfo':{'user_name':'张三', 'sex':'男','age':24,'is_marital':null,'birthday':null,'constellation':null,'blood_type':null,'phone':'1235345363','qq':null,'email':'12234523452@qq.com','home_town':null,'residence':null,'avatar':null,'interest':null,'college':null,'department':null,'profession':null,'company':null}}";
 					ctr.callback(netRes);
 				}
 			});

@@ -25,8 +25,8 @@ public class CacheData {
 	private static CacheData cacheData;
 
 	private final String BASE_URL = "base_url";
-	private final String baseUrl = "http://1.93.28.198:8080";
-	//private final String baseUrl = "http://192.168.1.9:8080";
+//	private final String baseUrl = "http://1.93.28.198:8080";
+	private final String baseUrl = "http://10.20.77.27:8080/fornow";
 	private static final String AUTOLOGIN = "isAutoLogin";
 	private static final String LOGIN_NAME = "loginName";
 	private static final String LOGIN_PASS = "loginPass";

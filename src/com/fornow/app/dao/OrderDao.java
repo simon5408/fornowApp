@@ -43,9 +43,9 @@ public class OrderDao {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("getOrder", "Code:" + netRes.code);
-				// netRes.code = 200;
-				// netRes.res =
-				// "[{'order_id': '389398047495963','status': 1,'address': '江苏省 南京市 雨花台区','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]},{'order_id': '389398047495963','status': 2,'address': '江苏省 南京市 雨花台区 软件大道 江苏润和软件外包园 三楼 欧美外包事业部','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]},{'order_id': '389398047495963','status': 0,'address': '江苏省 南京市 雨花台区 软件大道 江苏润和软件外包园 三楼 欧美外包事业部','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]},{'order_id': '389398047495963','status': 3,'address': '江苏省 南京市 雨花台区 软件大道 江苏润和软件外包园 三楼 欧美外包事业部','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]}]";
+				 netRes.code = 200;
+				 netRes.res =
+				 "[{'order_id': '389398047495963','status': 1,'address': '江苏省 南京市 雨花台区','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]},{'order_id': '389398047495963','status': 2,'address': '江苏省 南京市 雨花台区 软件大道 江苏润和软件外包园 三楼 欧美外包事业部','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]},{'order_id': '389398047495963','status': 0,'address': '江苏省 南京市 雨花台区 软件大道 江苏润和软件外包园 三楼 欧美外包事业部','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]},{'order_id': '389398047495963','status': 3,'address': '江苏省 南京市 雨花台区 软件大道 江苏润和软件外包园 三楼 欧美外包事业部','take_out': true,'deal_price': 5.5,'deal_date': '1385561958634','goods_list':[{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}},{'goods_id': '123','name': '麻辣豆腐盖浇饭','unit_price': 5.5,'count': 1,'icon':{'id':'123','url':'http://diancanwang.vicp.cc/images/2.png'}}]}]";
 				ctr.callback(netRes);
 			}
 		});
@@ -71,7 +71,7 @@ public class OrderDao {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("getOrder", "Code:" + netRes.code);
-				// netRes.code = 200;
+				 netRes.code = 200;
 				ctr.callback(netRes);
 			}
 		});
