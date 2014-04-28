@@ -14,9 +14,9 @@ package com.fornow.app.controller;
 
 import com.fornow.app.dao.DaoManager;
 import com.fornow.app.datapool.ClientData;
-import com.fornow.app.net.ControllerListener;
+import com.fornow.app.net.IControllerListener;
 import com.fornow.app.net.NetResponse;
-import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
 
 /**
@@ -24,12 +24,12 @@ import com.fornow.app.net.ViewUpdateObj;
  * 
  */
 public class FavoritesController extends
-		AbstractController<ViewListener, String> {
-	public void registerNotification(ViewListener notification) {
+		AbstractController<IViewListener, String> {
+	public void registerNotification(IViewListener notification) {
 		super.register(notification);
 	}
 
-	public void unRegisterNotification(ViewListener notification) {
+	public void unRegisterNotification(IViewListener notification) {
 		super.unRegister(notification);
 	}
 
@@ -40,7 +40,7 @@ public class FavoritesController extends
 	public void getData() {
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
-			ControllerListener ctr = new ControllerListener() {
+			IControllerListener ctr = new IControllerListener() {
 
 				@Override
 				public void callback(NetResponse response) {
@@ -64,7 +64,7 @@ public class FavoritesController extends
 	public void add2Fav(String goodsId) {
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
-			ControllerListener ctr = new ControllerListener() {
+			IControllerListener ctr = new IControllerListener() {
 
 				@Override
 				public void callback(NetResponse response) {
@@ -89,7 +89,7 @@ public class FavoritesController extends
 	public void delFromFav(String goodsId) {
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
-			ControllerListener ctr = new ControllerListener() {
+			IControllerListener ctr = new IControllerListener() {
 
 				@Override
 				public void callback(NetResponse response) {

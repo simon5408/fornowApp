@@ -15,9 +15,9 @@ package com.fornow.app.controller;
 import com.fornow.app.dao.DaoManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.ShipAddressData;
-import com.fornow.app.net.ControllerListener;
+import com.fornow.app.net.IControllerListener;
 import com.fornow.app.net.NetResponse;
-import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.utils.GsonTool;
 
@@ -25,12 +25,12 @@ import com.fornow.app.utils.GsonTool;
  * @author Simon Lv 2013-11-6
  */
 public class AddressManageController extends
-		AbstractController<ViewListener, String> {
-	public void registerNotification(ViewListener notification) {
+		AbstractController<IViewListener, String> {
+	public void registerNotification(IViewListener notification) {
 		super.register(notification);
 	}
 
-	public void unRegisterNotification(ViewListener notification) {
+	public void unRegisterNotification(IViewListener notification) {
 		super.unRegister(notification);
 	}
 
@@ -47,7 +47,7 @@ public class AddressManageController extends
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
 			DaoManager.getInstance().getAddressDao()
-					.getShipAddress(uuid, new ControllerListener() {
+					.getShipAddress(uuid, new IControllerListener() {
 
 						@Override
 						public void callback(NetResponse response) {
@@ -84,7 +84,7 @@ public class AddressManageController extends
 						.getInstance()
 						.getAddressDao()
 						.updateShipAddress(uuid, address,
-								new ControllerListener() {
+								new IControllerListener() {
 
 									@Override
 									public void callback(NetResponse response) {
@@ -107,7 +107,7 @@ public class AddressManageController extends
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
 			DaoManager.getInstance().getAddressDao()
-					.delShipAddress(uuid, addressId, new ControllerListener() {
+					.delShipAddress(uuid, addressId, new IControllerListener() {
 
 						@Override
 						public void callback(NetResponse response) {

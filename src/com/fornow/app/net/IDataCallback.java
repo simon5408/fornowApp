@@ -17,7 +17,7 @@ package com.fornow.app.net;
  * Aug 30, 2013
  * @author Simon Lv
  */
-public interface DataCallback {
+public interface IDataCallback {
 	
 	public void updateData(NetResponse netRes);
 

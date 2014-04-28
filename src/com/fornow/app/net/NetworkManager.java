@@ -44,7 +44,7 @@ public class NetworkManager {
 	 *            : DataCallback
 	 */
 	public static void sendGetReq(final NetRequest netReq,
-			final DataCallback callback) {
+			final IDataCallback callback) {
 
 		new Thread() {
 
@@ -92,7 +92,7 @@ public class NetworkManager {
 	 *            :DataCallback
 	 */
 	public static void sendPostReq(final NetRequest netReq,
-			final DataCallback callback) {
+			final IDataCallback callback) {
 
 		new Thread() {
 

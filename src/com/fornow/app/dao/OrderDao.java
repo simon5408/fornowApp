@@ -17,8 +17,8 @@ import java.util.LinkedList;
 import android.util.Log;
 
 import com.fornow.app.datapool.CacheData;
-import com.fornow.app.net.ControllerListener;
-import com.fornow.app.net.DataCallback;
+import com.fornow.app.net.IControllerListener;
+import com.fornow.app.net.IDataCallback;
 import com.fornow.app.net.HttpHeader;
 import com.fornow.app.net.NetRequest;
 import com.fornow.app.net.NetResponse;
@@ -29,7 +29,7 @@ import com.fornow.app.net.NetworkManager;
  */
 public class OrderDao {
 	public void getOrder(String uuid, int offset, int length, String status,
-			final ControllerListener ctr) {
+			final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/getOrder?offset="
 				+ offset + "&length=" + length;
 		String postData = "{'status': " + status + "}";
@@ -39,7 +39,7 @@ public class OrderDao {
 
 		NetRequest netPostReq = NetRequest.createPostRequestWithHeaders(url,
 				postData.getBytes(), headers);
-		NetworkManager.sendPostReq(netPostReq, new DataCallback() {
+		NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("getOrder", "Code:" + netRes.code);
@@ -59,7 +59,7 @@ public class OrderDao {
 	 * @param ctr
 	 */
 	public void settlement(String uuid, String requestData,
-			final ControllerListener ctr) {
+			final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/settlement";
 		LinkedList<HttpHeader> headers = new LinkedList<HttpHeader>();
 		headers.add(new HttpHeader("uuid", uuid));
@@ -67,7 +67,7 @@ public class OrderDao {
 
 		NetRequest netPostReq = NetRequest.createPostRequestWithHeaders(url,
 				requestData.getBytes(), headers);
-		NetworkManager.sendPostReq(netPostReq, new DataCallback() {
+		NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("getOrder", "Code:" + netRes.code);

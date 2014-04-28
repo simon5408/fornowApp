@@ -36,7 +36,7 @@ import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.GoodsDetailData;
-import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.ui.MyListView;
 import com.fornow.app.ui.customdialog.LoginDialog;
@@ -213,7 +213,7 @@ public class FavoriteActivity extends Activity {
 		ControllerManager.getInstance().getFavoritesController()
 				.unRegisterAll();
 		ControllerManager.getInstance().getFavoritesController()
-				.registerNotification(new ViewListener() {
+				.registerNotification(new IViewListener() {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
@@ -252,7 +252,7 @@ public class FavoriteActivity extends Activity {
 		ControllerManager.getInstance().getFavoritesController()
 				.unRegisterAll();
 		ControllerManager.getInstance().getFavoritesController()
-				.registerNotification(new ViewListener() {
+				.registerNotification(new IViewListener() {
 					@Override
 					public void updateView(ViewUpdateObj obj) {
 						

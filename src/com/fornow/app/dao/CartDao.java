@@ -17,8 +17,8 @@ import java.util.LinkedList;
 import android.util.Log;
 
 import com.fornow.app.datapool.CacheData;
-import com.fornow.app.net.ControllerListener;
-import com.fornow.app.net.DataCallback;
+import com.fornow.app.net.IControllerListener;
+import com.fornow.app.net.IDataCallback;
 import com.fornow.app.net.HttpHeader;
 import com.fornow.app.net.NetRequest;
 import com.fornow.app.net.NetResponse;
@@ -29,14 +29,14 @@ import com.fornow.app.net.NetworkManager;
  */
 public class CartDao {
 
-	public void getCart(String uuid, final ControllerListener ctr) {
+	public void getCart(String uuid, final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/getMyCart";
 		LinkedList<HttpHeader> headers = new LinkedList<HttpHeader>();
 		headers.add(new HttpHeader("uuid", uuid));
 		headers.add(HttpHeader.CONTENT_JSON);
 		NetRequest netGetReq = NetRequest.createGetRequestWithHeaders(url,
 				headers);
-		NetworkManager.sendGetReq(netGetReq, new DataCallback() {
+		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("getCart", "Code:" + netRes.code);
@@ -47,14 +47,14 @@ public class CartDao {
 		});
 	}
 
-	public void updateCart(String uuid, String cartData, final ControllerListener ctr) {
+	public void updateCart(String uuid, String cartData, final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/updateCart";
 		LinkedList<HttpHeader> headers = new LinkedList<HttpHeader>();
 		headers.add(new HttpHeader("uuid", uuid));
 		headers.add(HttpHeader.CONTENT_JSON);
 		NetRequest netPostReq = NetRequest.createPostRequestWithHeaders(url,
 				cartData.getBytes(), headers);
-		NetworkManager.sendPostReq(netPostReq,  new DataCallback() {
+		NetworkManager.sendPostReq(netPostReq,  new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("updateCart", "Code:" + netRes.code);

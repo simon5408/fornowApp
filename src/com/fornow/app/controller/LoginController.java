@@ -18,25 +18,25 @@ import com.fornow.app.model.LoginData;
 import com.fornow.app.model.RegisterData;
 import com.fornow.app.model.User;
 import com.fornow.app.model.UserInfo;
-import com.fornow.app.net.ControllerListener;
+import com.fornow.app.net.IControllerListener;
 import com.fornow.app.net.NetResponse;
-import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.utils.GsonTool;
 
 /**
  * @author Simon Lv 2013-8-16
  */
-public class LoginController extends AbstractController<ViewListener, String> {
+public class LoginController extends AbstractController<IViewListener, String> {
 	public enum loginType {
 		LOGIN, REGISTER
 	};
 
-	public void registerNotification(ViewListener notification) {
+	public void registerNotification(IViewListener notification) {
 		super.register(notification);
 	}
 
-	public void unRegisterNotification(ViewListener notification) {
+	public void unRegisterNotification(IViewListener notification) {
 		super.unRegister(notification);
 	}
 
@@ -45,7 +45,7 @@ public class LoginController extends AbstractController<ViewListener, String> {
 	}
 
 	public void login(LoginData param) {
-		ControllerListener ctr = new ControllerListener() {
+		IControllerListener ctr = new IControllerListener() {
 
 			@Override
 			public void callback(NetResponse response) {
@@ -79,7 +79,7 @@ public class LoginController extends AbstractController<ViewListener, String> {
 	}
 
 	public void register(String deviceId, RegisterData param) {
-		ControllerListener ctr = new ControllerListener() {
+		IControllerListener ctr = new IControllerListener() {
 
 			@Override
 			public void callback(NetResponse response) {
@@ -113,7 +113,7 @@ public class LoginController extends AbstractController<ViewListener, String> {
 	}
 
 	public void logout() {
-		ControllerListener ctr = new ControllerListener() {
+		IControllerListener ctr = new IControllerListener() {
 
 			@Override
 			public void callback(NetResponse response) {
@@ -134,7 +134,7 @@ public class LoginController extends AbstractController<ViewListener, String> {
 	public void updateUser(UserInfo user) {
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
-			ControllerListener ctr = new ControllerListener() {
+			IControllerListener ctr = new IControllerListener() {
 
 				@Override
 				public void callback(NetResponse response) {
@@ -168,7 +168,7 @@ public class LoginController extends AbstractController<ViewListener, String> {
 	}
 
 	public void getCheckCode(String phone) {
-		ControllerListener ctr = new ControllerListener() {
+		IControllerListener ctr = new IControllerListener() {
 
 			@Override
 			public void callback(NetResponse response) {
@@ -189,7 +189,7 @@ public class LoginController extends AbstractController<ViewListener, String> {
 	public void sendSuggestion(String suggestion) {
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
-			ControllerListener ctr = new ControllerListener() {
+			IControllerListener ctr = new IControllerListener() {
 
 				@Override
 				public void callback(NetResponse response) {

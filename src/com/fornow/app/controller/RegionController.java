@@ -4,21 +4,21 @@
 package com.fornow.app.controller;
 
 import com.fornow.app.dao.DaoManager;
-import com.fornow.app.net.ControllerListener;
+import com.fornow.app.net.IControllerListener;
 import com.fornow.app.net.NetResponse;
-import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
 
 /**
  * @author Simon Lv
  * 
  */
-public class RegionController extends AbstractController<ViewListener, String> {
-	public void registerNotification(ViewListener notification) {
+public class RegionController extends AbstractController<IViewListener, String> {
+	public void registerNotification(IViewListener notification) {
 		super.register(notification);
 	}
 
-	public void unRegisterNotification(ViewListener notification) {
+	public void unRegisterNotification(IViewListener notification) {
 		super.unRegister(notification);
 	}
 
@@ -27,7 +27,7 @@ public class RegionController extends AbstractController<ViewListener, String> {
 	}
 
 	public void getRegions() {
-		ControllerListener ctr = new ControllerListener() {
+		IControllerListener ctr = new IControllerListener() {
 
 			@Override
 			public void callback(NetResponse response) {

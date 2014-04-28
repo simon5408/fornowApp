@@ -17,6 +17,6 @@ package com.fornow.app.net;
  * @param <T>
  * 
  */
-public interface ViewListener {
+public interface IViewListener {
 	void updateView(ViewUpdateObj obj);
 }

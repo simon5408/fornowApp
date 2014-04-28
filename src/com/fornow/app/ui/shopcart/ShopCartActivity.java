@@ -45,7 +45,7 @@ import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.model.GoodsDetailData;
 import com.fornow.app.model.ShopCart;
-import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.ui.MyListView;
 import com.fornow.app.ui.customdialog.EditCountDialog;
@@ -179,7 +179,7 @@ public class ShopCartActivity extends BaseMainActivity {
 											.getInstance()
 											.getShopCartController()
 											.registerNotification(
-													new ViewListener() {
+													new IViewListener() {
 
 														@Override
 														public void updateView(
@@ -311,7 +311,7 @@ public class ShopCartActivity extends BaseMainActivity {
 		mHandler.sendMessage(updateViewMsg);
 		ControllerManager.getInstance().getShopCartController().unRegisterAll();
 		ControllerManager.getInstance().getShopCartController()
-				.registerNotification(new ViewListener() {
+				.registerNotification(new IViewListener() {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
@@ -373,7 +373,7 @@ public class ShopCartActivity extends BaseMainActivity {
 		mHandler.sendMessage(updateViewMsg);
 		ControllerManager.getInstance().getShopCartController().unRegisterAll();
 		ControllerManager.getInstance().getShopCartController()
-				.registerNotification(new ViewListener() {
+				.registerNotification(new IViewListener() {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
@@ -455,7 +455,7 @@ public class ShopCartActivity extends BaseMainActivity {
 			ControllerManager.getInstance().getShopCartController()
 					.unRegisterAll();
 			ControllerManager.getInstance().getShopCartController()
-					.registerNotification(new ViewListener() {
+					.registerNotification(new IViewListener() {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {

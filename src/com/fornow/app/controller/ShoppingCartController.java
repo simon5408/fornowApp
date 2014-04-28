@@ -20,9 +20,9 @@ import android.os.Message;
 import com.fornow.app.dao.DaoManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.ShopCart;
-import com.fornow.app.net.ControllerListener;
+import com.fornow.app.net.IControllerListener;
 import com.fornow.app.net.NetResponse;
-import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.ui.AppClass;
 import com.fornow.app.utils.GsonTool;
@@ -32,12 +32,12 @@ import com.google.gson.reflect.TypeToken;
  * @author Simon Lv 2013-10-23
  */
 public class ShoppingCartController extends
-		AbstractController<ViewListener, String> {
-	public void registerNotification(ViewListener notification) {
+		AbstractController<IViewListener, String> {
+	public void registerNotification(IViewListener notification) {
 		super.register(notification);
 	}
 
-	public void unRegisterNotification(ViewListener notification) {
+	public void unRegisterNotification(IViewListener notification) {
 		super.unRegister(notification);
 	}
 
@@ -61,7 +61,7 @@ public class ShoppingCartController extends
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
 			// get cart
-			ControllerListener ctr = new ControllerListener() {
+			IControllerListener ctr = new IControllerListener() {
 				@Override
 				public void callback(NetResponse response) {
 					viewObj.setCode(response.code);
@@ -178,7 +178,7 @@ public class ShoppingCartController extends
 				ClientData.getInstance().setmCart(strCart);
 				String uuid = ClientData.getInstance().getmUUID();
 				if (uuid != null) {
-					ControllerListener ctr = new ControllerListener() {
+					IControllerListener ctr = new IControllerListener() {
 
 						@Override
 						public void callback(NetResponse response) {

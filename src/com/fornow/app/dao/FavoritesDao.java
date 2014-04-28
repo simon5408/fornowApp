@@ -17,8 +17,8 @@ import java.util.LinkedList;
 import android.util.Log;
 
 import com.fornow.app.datapool.CacheData;
-import com.fornow.app.net.ControllerListener;
-import com.fornow.app.net.DataCallback;
+import com.fornow.app.net.IControllerListener;
+import com.fornow.app.net.IDataCallback;
 import com.fornow.app.net.HttpHeader;
 import com.fornow.app.net.NetRequest;
 import com.fornow.app.net.NetResponse;
@@ -29,14 +29,14 @@ import com.fornow.app.net.NetworkManager;
  * 
  */
 public class FavoritesDao {
-	public void getFavorites(String uuid, final ControllerListener ctr) {
+	public void getFavorites(String uuid, final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/getFavorites";
 		LinkedList<HttpHeader> headers = new LinkedList<HttpHeader>();
 		headers.add(new HttpHeader("uuid", uuid));
 		headers.add(HttpHeader.CONTENT_JSON);
 		NetRequest netGetReq = NetRequest.createGetRequestWithHeaders(url,
 				headers);
-		NetworkManager.sendGetReq(netGetReq, new DataCallback() {
+		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("getFavorites", "Code:" + netRes.code);
@@ -49,7 +49,7 @@ public class FavoritesDao {
 	}
 
 	public void add2Favorites(String uuid, String goodsId,
-			final ControllerListener ctr) {
+			final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/add2favorites";
 		LinkedList<HttpHeader> headers = new LinkedList<HttpHeader>();
 		headers.add(new HttpHeader("uuid", uuid));
@@ -57,7 +57,7 @@ public class FavoritesDao {
 		String requestBody = "{'id': '" + goodsId + "'}";
 		NetRequest netPostReq = NetRequest.createPostRequestWithHeaders(url,
 				requestBody.getBytes(), headers);
-		NetworkManager.sendPostReq(netPostReq, new DataCallback() {
+		NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("add2Favorites", "Code:" + netRes.code);
@@ -68,7 +68,7 @@ public class FavoritesDao {
 	}
 
 	public void delFromFavorites(String uuid, String goodsId,
-			final ControllerListener ctr) {
+			final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/delFromfavorites";
 		LinkedList<HttpHeader> headers = new LinkedList<HttpHeader>();
 		headers.add(new HttpHeader("uuid", uuid));
@@ -76,7 +76,7 @@ public class FavoritesDao {
 		String requestBody = "{'id': '" + goodsId + "'}";
 		NetRequest netPostReq = NetRequest.createPostRequestWithHeaders(url,
 				requestBody.getBytes(), headers);
-		NetworkManager.sendPostReq(netPostReq, new DataCallback() {
+		NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("delFromFavorites", "Code:" + netRes.code);

@@ -19,8 +19,8 @@ import android.util.Log;
 import com.fornow.app.datapool.CacheData;
 import com.fornow.app.model.LoginData;
 import com.fornow.app.model.RegisterData;
-import com.fornow.app.net.ControllerListener;
-import com.fornow.app.net.DataCallback;
+import com.fornow.app.net.IControllerListener;
+import com.fornow.app.net.IDataCallback;
 import com.fornow.app.net.HttpHeader;
 import com.fornow.app.net.NetRequest;
 import com.fornow.app.net.NetResponse;
@@ -39,7 +39,7 @@ public class UserDAO {
 
 	}
 
-	public void login(LoginData request, final ControllerListener ctr) {
+	public void login(LoginData request, final IControllerListener ctr) {
 		String url = "";
 		url = CacheData.getInstance().getBaseUrl() + "/user/app/login";
 		try {
@@ -47,7 +47,7 @@ public class UserDAO {
 					LoginData.class);
 			NetRequest netPostReq = NetRequest.createPostRequest(url,
 					requestBody.getBytes());
-			NetworkManager.sendPostReq(netPostReq, new DataCallback() {
+			NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 				@Override
 				public void updateData(NetResponse netRes) {
 					Log.d("sendLogin", "Code:" + netRes.code);
@@ -63,7 +63,7 @@ public class UserDAO {
 	}
 
 	public void register(String deviceId, RegisterData request,
-			final ControllerListener ctr) {
+			final IControllerListener ctr) {
 		String url = "";
 		url = CacheData.getInstance().getBaseUrl() + "/registerUser";
 		try {
@@ -74,7 +74,7 @@ public class UserDAO {
 					RegisterData.class);
 			NetRequest netPostReq = NetRequest.createPostRequestWithHeaders(
 					url, requestBody.getBytes(), headers);
-			NetworkManager.sendPostReq(netPostReq, new DataCallback() {
+			NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 				@Override
 				public void updateData(NetResponse netRes) {
 					Log.d("updateUser", "Code:" + netRes.code);
@@ -89,10 +89,10 @@ public class UserDAO {
 		}
 	}
 
-	public void logout(final ControllerListener ctr) {
+	public void logout(final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/logout";
 		NetRequest netGetReq = NetRequest.createGetRequest(url);
-		NetworkManager.sendGetReq(netGetReq, new DataCallback() {
+		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("logout", "Code:" + netRes.code);
@@ -102,14 +102,14 @@ public class UserDAO {
 	}
 
 	public void updateUser(String uuid, String userInfo,
-			final ControllerListener ctr) {
+			final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/setUserInfo";
 		LinkedList<HttpHeader> headers = new LinkedList<HttpHeader>();
 		headers.add(new HttpHeader("uuid", uuid));
 		headers.add(HttpHeader.CONTENT_JSON);
 		NetRequest netPostReq = NetRequest.createPostRequestWithHeaders(url,
 				userInfo.getBytes(), headers);
-		NetworkManager.sendPostReq(netPostReq, new DataCallback() {
+		NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("updateUser", "Code:" + netRes.code);
@@ -121,11 +121,11 @@ public class UserDAO {
 		});
 	}
 
-	public void getCheckCode(String phone, final ControllerListener ctr) {
+	public void getCheckCode(String phone, final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl()
 				+ "/getCheckCode?phone=" + phone;
 		NetRequest netGetReq = NetRequest.createGetRequest(url);
-		NetworkManager.sendGetReq(netGetReq, new DataCallback() {
+		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("getBanner", "Code:" + netRes.code);
@@ -138,7 +138,7 @@ public class UserDAO {
 	}
 
 	public void sendSuggestion(String uuid, String suggestion,
-			final ControllerListener ctr) {
+			final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/userFeedback";
 		LinkedList<HttpHeader> headers = new LinkedList<HttpHeader>();
 		headers.add(new HttpHeader("uuid", uuid));
@@ -146,7 +146,7 @@ public class UserDAO {
 		String suggest = "{feedback: " + suggestion + "}";
 		NetRequest netPostReq = NetRequest.createPostRequestWithHeaders(url,
 				suggest.getBytes(), headers);
-		NetworkManager.sendPostReq(netPostReq, new DataCallback() {
+		NetworkManager.sendPostReq(netPostReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("userFeedback", "Code:" + netRes.code);

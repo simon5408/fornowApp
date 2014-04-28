@@ -14,7 +14,7 @@ package com.fornow.app.ui.home;
 
 import java.util.ArrayList;
 
-import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.R;
 
@@ -57,7 +57,7 @@ public class AutoPlayGallery extends RelativeLayout implements
 	private int height = 30; // base height ,can be modify by setHeight
 	private boolean flag = false; // switch for playing
 	private Thread autoPlayThread;
-	private ViewListener callBack;
+	private IViewListener callBack;
 
 	public AutoPlayGallery(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -299,7 +299,7 @@ public class AutoPlayGallery extends RelativeLayout implements
 		this.callBack.updateView(viewObj);
 	}
 
-	public void setCallBack(ViewListener callBack) {
+	public void setCallBack(IViewListener callBack) {
 		this.callBack = callBack;
 	}
 }

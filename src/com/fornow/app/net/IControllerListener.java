@@ -15,6 +15,6 @@ package com.fornow.app.net;
 /**
  * @author Simon Lv 2013-8-24
  */
-public abstract class ControllerListener {
+public abstract class IControllerListener {
 	abstract public void callback(NetResponse response);
 }

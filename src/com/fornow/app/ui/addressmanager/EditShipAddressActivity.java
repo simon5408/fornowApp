@@ -37,7 +37,7 @@ import android.widget.Toast;
 import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.model.ShipAddressData;
-import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.ui.LoadingAnim;
 import com.fornow.app.ui.customdialog.LoginDialog;
@@ -354,7 +354,7 @@ public class EditShipAddressActivity extends Activity implements
 		ControllerManager.getInstance().getAddressManageController()
 				.unRegisterAll();
 		ControllerManager.getInstance().getAddressManageController()
-				.registerNotification(new ViewListener() {
+				.registerNotification(new IViewListener() {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
@@ -406,7 +406,7 @@ public class EditShipAddressActivity extends Activity implements
 			ControllerManager.getInstance().getAddressManageController()
 					.unRegisterAll();
 			ControllerManager.getInstance().getAddressManageController()
-					.registerNotification(new ViewListener() {
+					.registerNotification(new IViewListener() {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {

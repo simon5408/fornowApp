@@ -43,7 +43,7 @@ import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.UserInfo;
-import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.ui.LoadingAnim;
 import com.fornow.app.ui.customdialog.LoginDialog;
@@ -359,7 +359,7 @@ public class GrxxActivity extends Activity implements OnFocusChangeListener {
 			ControllerManager.getInstance().getLoginController()
 					.unRegisterAll();
 			ControllerManager.getInstance().getLoginController()
-					.registerNotification(new ViewListener() {
+					.registerNotification(new IViewListener() {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {
@@ -415,7 +415,7 @@ public class GrxxActivity extends Activity implements OnFocusChangeListener {
 										.getInstance()
 										.getLoginController()
 										.registerNotification(
-												new ViewListener() {
+												new IViewListener() {
 
 													@Override
 													public void updateView(
@@ -463,7 +463,7 @@ public class GrxxActivity extends Activity implements OnFocusChangeListener {
 						ControllerManager.getInstance().getLoginController()
 								.unRegisterAll();
 						ControllerManager.getInstance().getLoginController()
-								.registerNotification(new ViewListener() {
+								.registerNotification(new IViewListener() {
 
 									@Override
 									public void updateView(ViewUpdateObj obj) {

@@ -32,7 +32,7 @@ import android.widget.Toast;
 import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.model.RegionData;
-import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.ui.LoadingAnim;
 import com.fornow.app.utils.GsonTool;
@@ -152,7 +152,7 @@ public class SelectProvince extends Activity {
 	public void getRegions() {
 		ControllerManager.getInstance().getRegionController().unRegisterAll();
 		ControllerManager.getInstance().getRegionController()
-				.registerNotification(new ViewListener() {
+				.registerNotification(new IViewListener() {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {

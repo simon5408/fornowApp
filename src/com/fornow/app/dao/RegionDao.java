@@ -15,8 +15,8 @@ package com.fornow.app.dao;
 import android.util.Log;
 
 import com.fornow.app.datapool.CacheData;
-import com.fornow.app.net.ControllerListener;
-import com.fornow.app.net.DataCallback;
+import com.fornow.app.net.IControllerListener;
+import com.fornow.app.net.IDataCallback;
 import com.fornow.app.net.NetRequest;
 import com.fornow.app.net.NetResponse;
 import com.fornow.app.net.NetworkManager;
@@ -30,10 +30,10 @@ public class RegionDao {
 
 	}
 
-	public void getRegions(final ControllerListener ctr) {
+	public void getRegions(final IControllerListener ctr) {
 		String url = CacheData.getInstance().getBaseUrl() + "/getRegions";
 		NetRequest netGetReq = NetRequest.createGetRequest(url);
-		NetworkManager.sendGetReq(netGetReq, new DataCallback() {
+		NetworkManager.sendGetReq(netGetReq, new IDataCallback() {
 			@Override
 			public void updateData(NetResponse netRes) {
 				Log.d("getRegions", "Code:" + netRes.code);

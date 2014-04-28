@@ -19,7 +19,7 @@ import java.util.List;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.model.GoodsDetailData;
 import com.fornow.app.model.GroupListData;
-import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.ui.MyListView;
 import com.fornow.app.ui.goodsdetail.GoodDetailActivity;
@@ -52,7 +52,7 @@ import android.widget.Toast;
 /**
  * @author Simon Lv 2013-11-11
  */
-public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
+public class GroupBuyActivity extends BaseMainActivity implements IViewListener {
 	private int offset = 0, length = 10;
 	private static final int LOADING_START = 0x00, LOADING_END = 0x01,
 			NET_ERROR = 0x02;
