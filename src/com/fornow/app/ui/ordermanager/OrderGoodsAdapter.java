@@ -12,21 +12,20 @@
  *****************************************************************************/
 package com.fornow.app.ui.ordermanager;
 
-import com.fornow.app.model.OrderGoodsList;
-import com.fornow.app.ui.AppClass;
-import com.fornow.app.ui.loadimg.AsyncImgLoader;
-import com.fornow.app.ui.loadimg.AsyncImgLoader.ImageCallback;
-import com.fornow.app.R;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.fornow.app.R;
+import com.fornow.app.model.OrderGoodsList;
+import com.fornow.app.ui.AppClass;
+import com.fornow.app.ui.loadimg.AsyncImgLoader;
+import com.fornow.app.ui.loadimg.AsyncImgLoader.ImageCallback;
 
 /**
  * @author Simon Lv 2013-11-21
@@ -44,25 +43,25 @@ public class OrderGoodsAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
+		
 		return mGoodsList.length;
 	}
 
 	@Override
 	public OrderGoodsList getItem(int position) {
-		// TODO Auto-generated method stub
+		
 		return mGoodsList[position];
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
+		
 		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
+		
 		View rowView = convertView;
 		final ViewHolder holder;
 		if (rowView == null) {
@@ -102,11 +101,11 @@ public class OrderGoodsAdapter extends BaseAdapter {
 						@Override
 						public void imageLoaded(final Drawable imageDrawable,
 								final String Tag) {
-							// TODO Auto-generated method stub
+							
 							imageView.post(new Runnable() {
 								@Override
 								public void run() {
-									// TODO Auto-generated method stub
+									
 									ImageView imageViewByTag = (ImageView) mView
 											.findViewWithTag(Tag);
 									if (imageViewByTag != null

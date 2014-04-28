@@ -5,21 +5,20 @@ package com.fornow.app.ui.addressmanager;
 
 import java.util.List;
 
-import com.fornow.app.model.RegionData;
-import com.fornow.app.ui.LoadingAnim;
-import com.fornow.app.utils.GsonTool;
-import com.google.gson.reflect.TypeToken;
-import com.fornow.app.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.fornow.app.R;
+import com.fornow.app.model.RegionData;
+import com.fornow.app.utils.GsonTool;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * @author Simon Lv
@@ -34,7 +33,7 @@ public class SelectCities extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.select_province);
 		mContext = this.getApplicationContext();
@@ -51,7 +50,7 @@ public class SelectCities extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
+		
 		super.onStart();
 		adapter = new ProvinceListAdapter(mContext, cities);
 		listView.setAdapter(adapter);
@@ -60,7 +59,7 @@ public class SelectCities extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO Auto-generated method stub
+				
 				Intent intent = new Intent(SelectCities.this,
 						SelectRegion.class);
 				if (cities.get(position).getSons().size() > 0) {
@@ -76,7 +75,7 @@ public class SelectCities extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
+		
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case Activity.RESULT_OK:
@@ -90,7 +89,7 @@ public class SelectCities extends Activity {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+		
 		super.onResume();
 	}
 

@@ -131,13 +131,13 @@ public class AutoPlayGallery extends RelativeLayout implements
 				@Override
 				public void onItemSelected(AdapterView<?> arg0, View view,
 						int position, long arg3) {
-					// TODO Auto-generated method stub
+					
 					indicatePoint(position);
 				}
 
 				@Override
 				public void onNothingSelected(AdapterView<?> arg0) {
-					// TODO Auto-generated method stub
+					
 
 				}
 			});
@@ -255,7 +255,7 @@ public class AutoPlayGallery extends RelativeLayout implements
 		final Handler handler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-				// TODO Auto-generated method stub
+				
 				if (mGallery.isTouched()) {
 					count = mGallery.getFirstVisiblePosition() + 1;
 					mGallery.setTouched(false);

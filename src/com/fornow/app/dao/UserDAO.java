@@ -16,7 +16,6 @@ import java.util.LinkedList;
 
 import android.util.Log;
 
-import com.fornow.app.controller.LoginController.loginType;
 import com.fornow.app.datapool.CacheData;
 import com.fornow.app.model.LoginData;
 import com.fornow.app.model.RegisterData;

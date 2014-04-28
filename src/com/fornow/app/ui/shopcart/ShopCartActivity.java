@@ -17,25 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.model.GoodsDetailData;
-import com.fornow.app.model.ShopCart;
-import com.fornow.app.net.ViewListener;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.ui.MyListView;
-import com.fornow.app.ui.customdialog.EditCountDialog;
-import com.fornow.app.ui.customdialog.LoginDialog;
-import com.fornow.app.ui.goodsdetail.GoodDetailActivity;
-import com.fornow.app.ui.main.BaseMainActivity;
-import com.fornow.app.utils.GsonTool;
-import com.fornow.app.utils.pull2refresh.PullToRefreshBase;
-import com.fornow.app.utils.pull2refresh.PullToRefreshScrollView;
-import com.fornow.app.utils.pull2refresh.PullToRefreshBase.OnRefreshListener;
-import com.google.gson.reflect.TypeToken;
-import com.haarman.listviewanimations.itemmanipulation.AnimateDismissAdapter;
-import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
-import com.fornow.app.R;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -45,7 +26,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Selection;
 import android.text.Spannable;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -60,6 +40,25 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.fornow.app.R;
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.model.GoodsDetailData;
+import com.fornow.app.model.ShopCart;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.ui.MyListView;
+import com.fornow.app.ui.customdialog.EditCountDialog;
+import com.fornow.app.ui.customdialog.LoginDialog;
+import com.fornow.app.ui.goodsdetail.GoodDetailActivity;
+import com.fornow.app.ui.main.BaseMainActivity;
+import com.fornow.app.utils.GsonTool;
+import com.fornow.app.utils.pull2refresh.PullToRefreshBase;
+import com.fornow.app.utils.pull2refresh.PullToRefreshBase.OnRefreshListener;
+import com.fornow.app.utils.pull2refresh.PullToRefreshScrollView;
+import com.google.gson.reflect.TypeToken;
+import com.haarman.listviewanimations.itemmanipulation.AnimateDismissAdapter;
+import com.haarman.listviewanimations.itemmanipulation.OnDismissCallback;
 
 /**
  * @author Simon Lv 2013-8-4
@@ -76,7 +75,7 @@ public class ShopCartActivity extends BaseMainActivity {
 	private List<ShopCart> cartData;
 	private List<ListStatus> listStatus;
 	private boolean selectAll = false;
-	private String jiesuanList;
+//	private String jiesuanList;
 	private Float totalPrice = 0.0f;
 	private PullToRefreshScrollView mPullRefreshScrollView;
 	@SuppressWarnings("unused")
@@ -158,7 +157,6 @@ public class ShopCartActivity extends BaseMainActivity {
 
 					@Override
 					public void onClick(View v) {
-						// TODO Auto-generated method stub
 						editDialogBuilder.dismiss();
 					}
 				});
@@ -168,7 +166,6 @@ public class ShopCartActivity extends BaseMainActivity {
 
 							@Override
 							public void onClick(View v) {
-								// TODO Auto-generated method stub
 								editDialogBuilder.dismiss();
 								if (editDialogBuilder.getEditCount().length() != 0) {
 									int count = Integer
@@ -187,9 +184,6 @@ public class ShopCartActivity extends BaseMainActivity {
 														@Override
 														public void updateView(
 																ViewUpdateObj obj) {
-															// TODO
-															// Auto-generated
-															// method stub
 															Message updateViewMsg;
 															switch (obj
 																	.getCode()) {
@@ -237,7 +231,6 @@ public class ShopCartActivity extends BaseMainActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.shop_cart);
 		mContext = this.getApplicationContext();
@@ -257,7 +250,6 @@ public class ShopCartActivity extends BaseMainActivity {
 	@SuppressLint("HandlerLeak")
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 
 	}
@@ -276,7 +268,6 @@ public class ShopCartActivity extends BaseMainActivity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				delShopCart();
 			}
 		});
@@ -286,7 +277,6 @@ public class ShopCartActivity extends BaseMainActivity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				confirmBuy();
 			}
 		});
@@ -298,7 +288,6 @@ public class ShopCartActivity extends BaseMainActivity {
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ScrollView> refreshView) {
-						// TODO Auto-generated method stub
 						Date date = new Date();
 						SimpleDateFormat formatter = new SimpleDateFormat(
 								"yyyy/MM/dd HH:mm");
@@ -317,7 +306,6 @@ public class ShopCartActivity extends BaseMainActivity {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		Message updateViewMsg = mHandler.obtainMessage(LOADING_START);
 		mHandler.sendMessage(updateViewMsg);
@@ -327,7 +315,6 @@ public class ShopCartActivity extends BaseMainActivity {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
 						Message updateViewMsg;
 						switch (obj.getCode()) {
 						case 200:
@@ -390,7 +377,6 @@ public class ShopCartActivity extends BaseMainActivity {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
 						Message updateViewMsg;
 						switch (obj.getCode()) {
 						case 200:
@@ -439,7 +425,6 @@ public class ShopCartActivity extends BaseMainActivity {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
-						// TODO Auto-generated method stub
 						go2detail(cartData.get(position));
 					}
 				});
@@ -474,7 +459,6 @@ public class ShopCartActivity extends BaseMainActivity {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {
-							// TODO Auto-generated method stub
 							Message updateViewMsg;
 							switch (obj.getCode()) {
 							case 200:
@@ -485,7 +469,6 @@ public class ShopCartActivity extends BaseMainActivity {
 
 									@Override
 									public void run() {
-										// TODO Auto-generated method stub
 										cartTotalCount.setText(cartData.size()
 												+ "");
 									}

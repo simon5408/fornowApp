@@ -60,12 +60,10 @@ public class ShoppingCartController extends
 		viewObj.setData(cacheCart);
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
-			// TODO get cart
+			// get cart
 			ControllerListener ctr = new ControllerListener() {
 				@Override
 				public void callback(NetResponse response) {
-					// TODO Auto-generated method stub
-
 					viewObj.setCode(response.code);
 					if (response.code == 200) {
 						List<ShopCart> newCart = null;
@@ -184,7 +182,6 @@ public class ShoppingCartController extends
 
 						@Override
 						public void callback(NetResponse response) {
-							// TODO Auto-generated method stub
 							ViewUpdateObj viewObj = new ViewUpdateObj();
 							viewObj.setCode(response.code);
 							if (response.code == 200) {

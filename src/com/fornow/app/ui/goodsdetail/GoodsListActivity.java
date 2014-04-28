@@ -78,7 +78,7 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.goods_list);
 		category = getIntent().getExtras().getString("type");
@@ -93,7 +93,7 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ScrollView> refreshView) {
-						// TODO Auto-generated method stub
+						
 						Date date = new Date();
 						SimpleDateFormat formatter = new SimpleDateFormat(
 								"yyyy/MM/dd HH:mm");
@@ -129,7 +129,7 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 	@SuppressLint("HandlerLeak")
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
+		
 		super.onStart();
 		if (category.equals("fruit")) {
 			channel.setText(R.string.fruit_channel);
@@ -264,7 +264,7 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		// TODO Auto-generated method stub
+		
 		String detailData = GsonTool.getGsonTool().toJson(
 				goodsData.get(position), GoodsListData.class);
 		if (detailData != null) {
@@ -349,7 +349,7 @@ public class GoodsListActivity extends Activity implements OnItemClickListener,
 
 	@Override
 	public void updateView(ViewUpdateObj obj) {
-		// TODO Auto-generated method stub
+		
 		if (obj.getCode() == 200) {
 			Message updateViewMsg = mHandler.obtainMessage(LOADING_END);
 			updateViewMsg.getData().putString("data", obj.getData());

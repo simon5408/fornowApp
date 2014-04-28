@@ -88,7 +88,7 @@ public class PreLoad extends Activity {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
+						
 						if (obj.getCode() == 200) {
 							switch (obj.getNotifyId()) {
 							case HOME_BANNER:
@@ -140,7 +140,7 @@ public class PreLoad extends Activity {
 
 									@Override
 									public void updateView(ViewUpdateObj obj) {
-										// TODO Auto-generated method stub
+										
 
 									}
 								});
@@ -154,7 +154,7 @@ public class PreLoad extends Activity {
 
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
-		// TODO Auto-generated method stub
+		
 		super.onWindowFocusChanged(hasFocus);
 		ImageView imgLoading = (ImageView) findViewById(R.id.preload_img);
 		imgLoading.setBackgroundResource(R.anim.pre_load_anim);

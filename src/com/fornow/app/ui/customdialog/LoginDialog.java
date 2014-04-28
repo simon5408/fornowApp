@@ -42,7 +42,7 @@ public class LoginDialog {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				dialogBuilder.dismiss();
 			}
 		});
@@ -51,7 +51,7 @@ public class LoginDialog {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				dialogBuilder.dismiss();
 				Intent in = new Intent(mContext, LoginActivity.class);
 				activity.startActivityForResult(in, resultcode);

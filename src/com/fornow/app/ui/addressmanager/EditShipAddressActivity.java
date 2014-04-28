@@ -12,16 +12,6 @@
  *****************************************************************************/
 package com.fornow.app.ui.addressmanager;
 
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.model.ShipAddressData;
-import com.fornow.app.net.ViewListener;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.ui.LoadingAnim;
-import com.fornow.app.ui.customdialog.LoginDialog;
-import com.fornow.app.utils.CheckMobileAndEmailAndPost;
-import com.fornow.app.utils.GsonTool;
-import com.fornow.app.R;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -31,7 +21,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Selection;
 import android.text.Spannable;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -44,6 +33,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
+
+import com.fornow.app.R;
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.model.ShipAddressData;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.ui.LoadingAnim;
+import com.fornow.app.ui.customdialog.LoginDialog;
+import com.fornow.app.utils.CheckMobileAndEmailAndPost;
+import com.fornow.app.utils.GsonTool;
 
 /**
  * @author Simon Lv 2013-11-7
@@ -72,7 +71,7 @@ public class EditShipAddressActivity extends Activity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 		mContext = this.getApplicationContext();
 		setContentView(R.layout.edit_address);
@@ -149,7 +148,7 @@ public class EditShipAddressActivity extends Activity implements
 					@Override
 					public boolean onEditorAction(TextView v, int actionId,
 							KeyEvent event) {
-						// TODO Auto-generated method stub
+						
 						if (actionId == EditorInfo.IME_ACTION_DONE) {
 							InputMethodManager imm = (InputMethodManager) v
 									.getContext().getSystemService(
@@ -167,7 +166,7 @@ public class EditShipAddressActivity extends Activity implements
 			@Override
 			public boolean onEditorAction(TextView v, int actionId,
 					KeyEvent event) {
-				// TODO Auto-generated method stub
+				
 				if (actionId == EditorInfo.IME_ACTION_DONE) {
 					InputMethodManager imm = (InputMethodManager) v
 							.getContext().getSystemService(
@@ -186,7 +185,7 @@ public class EditShipAddressActivity extends Activity implements
 					@Override
 					public boolean onEditorAction(TextView v, int actionId,
 							KeyEvent event) {
-						// TODO Auto-generated method stub
+						
 						if (actionId == EditorInfo.IME_ACTION_DONE) {
 							InputMethodManager imm = (InputMethodManager) v
 									.getContext().getSystemService(
@@ -205,7 +204,7 @@ public class EditShipAddressActivity extends Activity implements
 					@Override
 					public boolean onEditorAction(TextView v, int actionId,
 							KeyEvent event) {
-						// TODO Auto-generated method stub
+						
 						if (actionId == EditorInfo.IME_ACTION_DONE) {
 							InputMethodManager imm = (InputMethodManager) v
 									.getContext().getSystemService(
@@ -256,13 +255,13 @@ public class EditShipAddressActivity extends Activity implements
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
+		
 		super.onStart();
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+		
 		super.onResume();
 	}
 
@@ -274,7 +273,7 @@ public class EditShipAddressActivity extends Activity implements
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
+		
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case Activity.RESULT_OK:
@@ -359,7 +358,7 @@ public class EditShipAddressActivity extends Activity implements
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
+						
 						Message updateViewMsg;
 						switch (obj.getCode()) {
 						case 200:
@@ -411,7 +410,7 @@ public class EditShipAddressActivity extends Activity implements
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {
-							// TODO Auto-generated method stub
+							
 							Message updateViewMsg;
 							switch (obj.getCode()) {
 							case 200:
@@ -443,7 +442,7 @@ public class EditShipAddressActivity extends Activity implements
 
 	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
-		// TODO Auto-generated method stub
+		
 		if (v == editAddressDetail) {
 			if (!hasFocus) {
 				storeData2Text(afterEditAddressDetailContainer,

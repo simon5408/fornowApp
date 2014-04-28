@@ -15,6 +15,29 @@ package com.fornow.app.ui.shopcart;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Selection;
+import android.text.Spannable;
+import android.view.Gravity;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.ConfirmData;
@@ -32,30 +55,6 @@ import com.fornow.app.ui.goodsdetail.GoodDetailActivity;
 import com.fornow.app.utils.GsonTool;
 import com.google.gson.reflect.TypeToken;
 import com.haarman.listviewanimations.itemmanipulation.AnimateDismissAdapter;
-import com.fornow.app.R;
-
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.Selection;
-import android.text.Spannable;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * @author Simon Lv 2013-11-17
@@ -83,7 +82,7 @@ public class JieSuanActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.jiesuan);
 		mContext = this.getApplicationContext();
@@ -204,7 +203,7 @@ public class JieSuanActivity extends Activity {
 
 								@Override
 								public void onClick(View v) {
-									// TODO Auto-generated method stub
+									
 									editDialogBuilder.dismiss();
 								}
 							});
@@ -214,7 +213,7 @@ public class JieSuanActivity extends Activity {
 
 								@Override
 								public void onClick(View v) {
-									// TODO Auto-generated method stub
+									
 									editDialogBuilder.dismiss();
 									if (editDialogBuilder.getEditCount()
 											.length() != 0) {
@@ -259,13 +258,13 @@ public class JieSuanActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
+		
 		super.onStart();
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+		
 		super.onResume();
 	}
 
@@ -293,7 +292,7 @@ public class JieSuanActivity extends Activity {
 						@Override
 						public void onItemClick(AdapterView<?> parent,
 								View view, int position, long id) {
-							// TODO Auto-generated method stub
+							
 							go2detail(GsonTool.getGsonTool().toJson(
 									mList.get(position)));
 						}
@@ -334,7 +333,7 @@ public class JieSuanActivity extends Activity {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
+						
 						Message updateViewMsg;
 						switch (obj.getCode()) {
 						case 200:
@@ -377,7 +376,7 @@ public class JieSuanActivity extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
+		
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case RESULT_OK:
@@ -390,7 +389,7 @@ public class JieSuanActivity extends Activity {
 					initShdz.post(new Runnable() {
 						@Override
 						public void run() {
-							// TODO Auto-generated method stub
+							
 							initShdz.setVisibility(View.VISIBLE);
 							addShdz.setVisibility(View.GONE);
 							shdzShr.setText(getResources().getString(
@@ -432,7 +431,7 @@ public class JieSuanActivity extends Activity {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {
-							// TODO Auto-generated method stub
+							
 							Message updateViewMsg;
 							switch (obj.getCode()) {
 							case 200:

@@ -40,25 +40,25 @@ public class ShdzListAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
+		
 		return addressData.size();
 	}
 
 	@Override
 	public ShipAddressData getItem(int position) {
-		// TODO Auto-generated method stub
+		
 		return addressData.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
+		
 		return position;
 	}
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
+		
 		View rowView = convertView;
 		final ViewHolder holder;
 		if (rowView == null) {

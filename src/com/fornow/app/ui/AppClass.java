@@ -12,15 +12,14 @@
  *****************************************************************************/
 package com.fornow.app.ui;
 
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.dao.DaoManager;
-import com.fornow.app.datapool.CacheData;
-
 import android.app.Application;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 import android.view.WindowManager;
+
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.dao.DaoManager;
+import com.fornow.app.datapool.CacheData;
 
 /**
  * @author Simon Lv 2013-8-18
@@ -42,7 +41,7 @@ public class AppClass extends Application {
 
 	@Override
 	public void onCreate() {
-		// TODO Auto-generated method stub
+		
 		super.onCreate();
 		mContext = this.getApplicationContext();
 		ControllerManager.getInstance().init();

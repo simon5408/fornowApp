@@ -30,25 +30,25 @@ public class ProvinceListAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
+		
 		return this.list.size();
 	}
 
 	@Override
 	public RegionData getItem(int position) {
-		// TODO Auto-generated method stub
+		
 		return this.list.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
+		
 		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
+		
 		View rowView = convertView;
 		final ViewHolder holder;
 		if (rowView == null) {

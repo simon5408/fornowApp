@@ -12,6 +12,25 @@
  *****************************************************************************/
 package com.fornow.app.ui.login;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
+
+import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.model.DeviceData;
 import com.fornow.app.model.RegisterData;
@@ -22,26 +41,6 @@ import com.fornow.app.utils.CheckMobileAndEmailAndPost;
 import com.fornow.app.utils.GsonTool;
 import com.fornow.app.utils.MD5Utils;
 import com.fornow.app.utils.captcha.ConmentConfig;
-import com.fornow.app.R;
-
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.TextView.OnEditorActionListener;
 
 /**
  * @author Simon Lv 2013-11-3
@@ -57,7 +56,8 @@ public class RegisterActivity extends Activity {
 			PHONE_NUM_ERROR = 0x06;
 	private Dialog dialog;
 	private Context mContext;
-	private String username, password, checkCode;
+	private String username, password;
+	//, checkCode
 	int[] checkNum = { 0, 0, 0, 0 };
 	private String deviceId;
 	private Handler mHandler = new Handler() {
@@ -119,7 +119,6 @@ public class RegisterActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register);
 		mContext = this.getApplicationContext();
@@ -142,7 +141,6 @@ public class RegisterActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				phone_error_msg.setVisibility(View.GONE);
 			}
 		});
@@ -150,7 +148,6 @@ public class RegisterActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				pass_empty_msg.setVisibility(View.GONE);
 			}
 		});
@@ -158,7 +155,6 @@ public class RegisterActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				pass_error_msg.setVisibility(View.GONE);
 			}
 		});
@@ -166,7 +162,6 @@ public class RegisterActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				checkcode_error_msg.setVisibility(View.GONE);
 			}
 		});
@@ -175,7 +170,6 @@ public class RegisterActivity extends Activity {
 			@Override
 			public boolean onEditorAction(TextView v, int actionId,
 					KeyEvent event) {
-				// TODO Auto-generated method stub
 				if (actionId == EditorInfo.IME_ACTION_DONE) {
 					InputMethodManager imm = (InputMethodManager) v
 							.getContext().getSystemService(
@@ -193,7 +187,6 @@ public class RegisterActivity extends Activity {
 					@Override
 					public boolean onEditorAction(TextView v, int actionId,
 							KeyEvent event) {
-						// TODO Auto-generated method stub
 						if (actionId == EditorInfo.IME_ACTION_DONE) {
 							InputMethodManager imm = (InputMethodManager) v
 									.getContext().getSystemService(
@@ -209,13 +202,11 @@ public class RegisterActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		new Thread(new myThread()).start();
 		super.onResume();
 	}
@@ -271,7 +262,6 @@ public class RegisterActivity extends Activity {
 
 							@Override
 							public void updateView(ViewUpdateObj obj) {
-								// TODO Auto-generated method stub
 								Message updateViewMsg;
 								switch (obj.getCode()) {
 								case 200:
@@ -385,7 +375,6 @@ public class RegisterActivity extends Activity {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {
-							// TODO Auto-generated method stub
 							Message updateViewMsg;
 							switch (obj.getCode()) {
 							case 200:

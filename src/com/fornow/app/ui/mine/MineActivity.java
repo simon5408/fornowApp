@@ -36,7 +36,7 @@ public class MineActivity extends BaseMainActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mine);
 		mineNameView = (TextView) findViewById(R.id.mine_name);
@@ -45,7 +45,7 @@ public class MineActivity extends BaseMainActivity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
+		
 		super.onStart();
 		if (ClientData.getInstance().getUser() != null) {
 			String user = ClientData.getInstance().getUser();
@@ -61,7 +61,7 @@ public class MineActivity extends BaseMainActivity {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+		
 		super.onResume();
 	}
 

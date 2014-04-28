@@ -81,7 +81,7 @@ public class GoodDetailActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.detail);
 		mContext = this.getApplicationContext();
@@ -92,7 +92,7 @@ public class GoodDetailActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
+		
 		super.onStart();
 	}
 
@@ -174,7 +174,7 @@ public class GoodDetailActivity extends Activity {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+		
 		super.onResume();
 	}
 
@@ -184,7 +184,7 @@ public class GoodDetailActivity extends Activity {
 
 			@Override
 			public void updateView(ViewUpdateObj obj) {
-				// TODO Auto-generated method stub
+				
 
 			}
 		});
@@ -218,7 +218,7 @@ public class GoodDetailActivity extends Activity {
 								public void imageLoaded(
 										final Drawable imageDrawable,
 										final String Tag) {
-									// TODO Auto-generated method stub
+									
 
 									if (imageDrawable != null) {
 										drawables.add(imageDrawable);
@@ -321,7 +321,7 @@ public class GoodDetailActivity extends Activity {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {
-							// TODO Auto-generated method stub
+							
 							Message updateViewMsg;
 							switch (obj.getCode()) {
 							case 200:
@@ -357,7 +357,7 @@ public class GoodDetailActivity extends Activity {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {
-							// TODO Auto-generated method stub
+							
 							Message updateViewMsg;
 							switch (obj.getCode()) {
 							case 200:
@@ -419,7 +419,7 @@ public class GoodDetailActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				editDialogBuilder.dismiss();
 				detailData.setSelect_count(1);
 			}
@@ -429,7 +429,7 @@ public class GoodDetailActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				editDialogBuilder.dismiss();
 				if (editDialogBuilder.getEditCount().length() != 0) {
 					int count = Integer.parseInt(editDialogBuilder
@@ -453,7 +453,7 @@ public class GoodDetailActivity extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
+		
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case RESULT_OK:
@@ -485,7 +485,7 @@ public class GoodDetailActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				editDialogBuilder.dismiss();
 				detailData.setSelect_count(1);
 			}
@@ -495,7 +495,7 @@ public class GoodDetailActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				editDialogBuilder.dismiss();
 				if (editDialogBuilder.getEditCount().length() != 0) {
 					int count = Integer.parseInt(editDialogBuilder
@@ -541,7 +541,7 @@ public class GoodDetailActivity extends Activity {
 
 								@Override
 								public void updateView(ViewUpdateObj obj) {
-									// TODO Auto-generated method stub
+									
 									Message updateViewMsg;
 									switch (obj.getCode()) {
 									case 200:

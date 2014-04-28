@@ -46,26 +46,26 @@ public class GridViewImgAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
+		
 		return this.list.size();
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
 	public HashMap getItem(int position) {
-		// TODO Auto-generated method stub
+		
 		return this.list.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
+		
 		View rowView = convertView;
 		ViewHolder holder;
 		if (rowView == null) {
@@ -96,11 +96,11 @@ public class GridViewImgAdapter extends BaseAdapter {
 						@Override
 						public void imageLoaded(final Drawable imageDrawable,
 								final String Tag) {
-							// TODO Auto-generated method stub
+							
 							imageView.post(new Runnable() {
 								@Override
 								public void run() {
-									// TODO Auto-generated method stub
+									
 									ImageView imageViewByTag = (ImageView) mView
 											.findViewWithTag(Tag);
 									if (imageViewByTag != null

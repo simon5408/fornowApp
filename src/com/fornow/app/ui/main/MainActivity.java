@@ -21,7 +21,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.fornow.app.R;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.ShopCart;
 import com.fornow.app.ui.AppClass;
@@ -42,7 +42,6 @@ import com.fornow.app.ui.mine.MineActivity;
 import com.fornow.app.ui.shopcart.ShopCartActivity;
 import com.fornow.app.utils.GsonTool;
 import com.google.gson.reflect.TypeToken;
-import com.fornow.app.R;
 
 /**
  * @author Simon Lv 2013-8-4
@@ -95,13 +94,13 @@ public class MainActivity extends TabActivity implements OnClickListener {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
+		
 		super.onStart();
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+		
 		super.onResume();
 		Intent intent = getIntent();
 		if (intent.getExtras() != null
@@ -163,7 +162,7 @@ public class MainActivity extends TabActivity implements OnClickListener {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
+		
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case RESULT_OK:
@@ -326,20 +325,20 @@ public class MainActivity extends TabActivity implements OnClickListener {
 
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
+		
 		super.onDestroy();
 		ClientData.getInstance().recycle();
 	}
 
 	@Override
 	public void finish() {
-		// TODO Auto-generated method stub
+		
 		super.finish();
 	}
 
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
-		// TODO Auto-generated method stub
+		
 		if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
 			if (event.getAction() == KeyEvent.ACTION_DOWN
 					&& event.getRepeatCount() == 0) {
@@ -354,7 +353,7 @@ public class MainActivity extends TabActivity implements OnClickListener {
 
 					@Override
 					public void onClick(View v) {
-						// TODO Auto-generated method stub
+						
 						dialogBuilder.dismiss();
 					}
 				});
@@ -363,7 +362,7 @@ public class MainActivity extends TabActivity implements OnClickListener {
 
 					@Override
 					public void onClick(View v) {
-						// TODO Auto-generated method stub
+						
 						dialogBuilder.dismiss();
 						MainActivity.this.finish();
 						android.os.Process.killProcess(android.os.Process

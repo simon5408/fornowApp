@@ -14,6 +14,22 @@ package com.fornow.app.ui.addressmanager;
 
 import java.util.List;
 
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.model.ShipAddressData;
 import com.fornow.app.net.ViewListener;
@@ -22,23 +38,6 @@ import com.fornow.app.ui.LoadingAnim;
 import com.fornow.app.ui.shopcart.JieSuanActivity;
 import com.fornow.app.utils.GsonTool;
 import com.google.gson.reflect.TypeToken;
-import com.fornow.app.R;
-
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * @author Simon Lv 2014-3-15
@@ -54,7 +53,6 @@ public class SelectShdzActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.select_shdz);
 		mContext = this.getApplicationContext();
@@ -63,7 +61,7 @@ public class SelectShdzActivity extends Activity {
 		mHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-				int pos = 0;
+//				int pos = 0;
 				switch (msg.what) {
 				case GET_DATA_SUCCESS:
 					dialog.dismiss();
@@ -101,7 +99,6 @@ public class SelectShdzActivity extends Activity {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
 						Message updateViewMsg;
 						if (obj.getCode() == 200) {
 							updateViewMsg = mHandler
@@ -122,7 +119,6 @@ public class SelectShdzActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
 		getAddress();
 	}
@@ -140,7 +136,6 @@ public class SelectShdzActivity extends Activity {
 					@Override
 					public void onItemClick(AdapterView<?> arg0, View arg1,
 							int arg2, long arg3) {
-						// TODO Auto-generated method stub
 						try {
 							String selectAddress = GsonTool.getGsonTool()
 									.toJson(addressData.get(arg2));
@@ -162,7 +157,6 @@ public class SelectShdzActivity extends Activity {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 	}
 

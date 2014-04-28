@@ -84,7 +84,7 @@ public class HomeActivity extends BaseMainActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
 		mContext = this.getApplication();
@@ -102,7 +102,7 @@ public class HomeActivity extends BaseMainActivity implements
 	@SuppressLint("HandlerLeak")
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
+		
 		super.onStart();
 	}
 
@@ -163,7 +163,7 @@ public class HomeActivity extends BaseMainActivity implements
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+		
 		super.onResume();
 	}
 
@@ -183,7 +183,7 @@ public class HomeActivity extends BaseMainActivity implements
 							public void imageLoaded(
 									final Drawable imageDrawable,
 									final String Tag) {
-								// TODO Auto-generated method stub
+								
 
 								if (imageDrawable != null) {
 									drawables.add(imageDrawable);
@@ -205,7 +205,7 @@ public class HomeActivity extends BaseMainActivity implements
 
 			@Override
 			public void updateView(ViewUpdateObj obj) {
-				// TODO Auto-generated method stub
+				
 				String pos = obj.getData();
 				if (bannerData != null) {
 					Log.v(TAG, "TODO login complete code is: " + pos);
@@ -298,7 +298,7 @@ public class HomeActivity extends BaseMainActivity implements
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ScrollView> refreshView) {
-						// TODO Auto-generated method stub
+						
 						Date date = new Date();
 						SimpleDateFormat formatter = new SimpleDateFormat(
 								"yyyy/MM/dd HH:mm");
@@ -343,7 +343,7 @@ public class HomeActivity extends BaseMainActivity implements
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
+						
 						if (obj.getCode() == 200) {
 							Message updateViewMsg = mHandler
 									.obtainMessage(LOADING_END);
@@ -363,7 +363,7 @@ public class HomeActivity extends BaseMainActivity implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		// TODO Auto-generated method stub
+		
 		if (privilegeData != null) {
 			try {
 				String detailData = GsonTool.getGsonTool().toJson(
@@ -499,7 +499,7 @@ public class HomeActivity extends BaseMainActivity implements
 
 	@Override
 	public void updateView(ViewUpdateObj obj) {
-		// TODO Auto-generated method stub
+		
 		if (obj.getCode() == 200) {
 			if (obj.getData() != null) {
 				Message updateViewMsg = null;

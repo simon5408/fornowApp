@@ -16,6 +16,23 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.GoodsDetailData;
@@ -26,27 +43,9 @@ import com.fornow.app.ui.customdialog.LoginDialog;
 import com.fornow.app.ui.goodsdetail.GoodDetailActivity;
 import com.fornow.app.utils.GsonTool;
 import com.fornow.app.utils.pull2refresh.PullToRefreshBase;
-import com.fornow.app.utils.pull2refresh.PullToRefreshScrollView;
 import com.fornow.app.utils.pull2refresh.PullToRefreshBase.OnRefreshListener;
+import com.fornow.app.utils.pull2refresh.PullToRefreshScrollView;
 import com.google.gson.reflect.TypeToken;
-import com.fornow.app.R;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * @author Simon Lv 2013-11-5
@@ -66,7 +65,7 @@ public class FavoriteActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 		mContext = this.getApplicationContext();
 		setContentView(R.layout.favorite_list);
@@ -80,7 +79,7 @@ public class FavoriteActivity extends Activity {
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ScrollView> refreshView) {
-						// TODO Auto-generated method stub
+						
 						Date date = new Date();
 						SimpleDateFormat formatter = new SimpleDateFormat(
 								"yyyy/MM/dd HH:mm");
@@ -117,7 +116,7 @@ public class FavoriteActivity extends Activity {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
-						// TODO Auto-generated method stub
+						
 						go2detail(GsonTool.getGsonTool().toJson(
 								favoritesData.get(position)));
 					}
@@ -218,7 +217,7 @@ public class FavoriteActivity extends Activity {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
+						
 						Message updateViewMsg;
 						switch (obj.getCode()) {
 						case 200:
@@ -244,7 +243,7 @@ public class FavoriteActivity extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
+		
 		super.onStart();
 		loadData();
 	}
@@ -256,7 +255,7 @@ public class FavoriteActivity extends Activity {
 				.registerNotification(new ViewListener() {
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
+						
 						Message updateViewMsg;
 						switch (obj.getCode()) {
 						case 200:

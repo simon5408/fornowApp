@@ -33,7 +33,7 @@ public class SelectArea extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.select_province);
 		mContext = this.getApplicationContext();
@@ -50,7 +50,7 @@ public class SelectArea extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
+		
 		super.onStart();
 		adapter = new ProvinceListAdapter(mContext, areas);
 		listView.setAdapter(adapter);
@@ -59,7 +59,7 @@ public class SelectArea extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO Auto-generated method stub
+				
 				Intent it = new Intent();
 				it.putExtra("areaId", areas.get(position).getId());
 				setResult(Activity.RESULT_OK, it);
@@ -71,7 +71,7 @@ public class SelectArea extends Activity {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+		
 		super.onResume();
 	}
 

@@ -80,7 +80,7 @@ public class YjfkActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.yjfk);
 		mContext = this.getApplication();
@@ -102,7 +102,7 @@ public class YjfkActivity extends Activity {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {
-							// TODO Auto-generated method stub
+							
 							Message updateViewMsg;
 							switch (obj.getCode()) {
 							case 200:

@@ -12,8 +12,6 @@
  *****************************************************************************/
 package com.fornow.app.controller;
 
-import android.util.Log;
-
 import com.fornow.app.dao.DaoManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.LoginData;
@@ -51,7 +49,7 @@ public class LoginController extends AbstractController<ViewListener, String> {
 
 			@Override
 			public void callback(NetResponse response) {
-				// TODO Auto-generated method stub
+				
 				// cache the user data
 				ViewUpdateObj viewObj = new ViewUpdateObj();
 				viewObj.setCode(response.code);
@@ -85,7 +83,7 @@ public class LoginController extends AbstractController<ViewListener, String> {
 
 			@Override
 			public void callback(NetResponse response) {
-				// TODO Auto-generated method stub
+				
 				// cache the user data
 				ViewUpdateObj viewObj = new ViewUpdateObj();
 				viewObj.setCode(response.code);
@@ -119,7 +117,7 @@ public class LoginController extends AbstractController<ViewListener, String> {
 
 			@Override
 			public void callback(NetResponse response) {
-				// TODO Auto-generated method stub
+				
 				ViewUpdateObj viewObj = new ViewUpdateObj();
 				viewObj.setCode(response.code);
 				if (response.code == 200) {
@@ -140,7 +138,7 @@ public class LoginController extends AbstractController<ViewListener, String> {
 
 				@Override
 				public void callback(NetResponse response) {
-					// TODO Auto-generated method stub
+					
 					ViewUpdateObj viewObj = new ViewUpdateObj();
 					viewObj.setCode(response.code);
 					if (response.code == 200) {
@@ -174,7 +172,7 @@ public class LoginController extends AbstractController<ViewListener, String> {
 
 			@Override
 			public void callback(NetResponse response) {
-				// TODO Auto-generated method stub
+				
 				ViewUpdateObj viewObj = new ViewUpdateObj();
 				viewObj.setCode(response.code);
 				if (response.code == 200) {
@@ -195,7 +193,7 @@ public class LoginController extends AbstractController<ViewListener, String> {
 
 				@Override
 				public void callback(NetResponse response) {
-					// TODO Auto-generated method stub
+					
 					ViewUpdateObj viewObj = new ViewUpdateObj();
 					viewObj.setCode(response.code);
 					if (response.code == 200) {

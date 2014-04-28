@@ -76,7 +76,7 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 	@SuppressLint("HandlerLeak")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.group_list);
 		mContext = this.getApplicationContext();
@@ -171,7 +171,7 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
+				
 				try {
 					GroupListData data = groupData.get(arg2);
 					GoodsDetailData detail = new GoodsDetailData();
@@ -230,7 +230,7 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 					@Override
 					public void onRefresh(
 							PullToRefreshBase<ScrollView> refreshView) {
-						// TODO Auto-generated method stub
+						
 						Date date = new Date();
 						SimpleDateFormat formatter = new SimpleDateFormat(
 								"yyyy/MM/dd HH:mm");
@@ -258,14 +258,14 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
+		
 		super.onStart();
 
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+		
 		super.onResume();
 	}
 
@@ -332,7 +332,7 @@ public class GroupBuyActivity extends BaseMainActivity implements ViewListener {
 
 	@Override
 	public void updateView(ViewUpdateObj obj) {
-		// TODO Auto-generated method stub
+		
 		if (obj.getCode() == 200) {
 			if (obj.getData() != null) {
 				Message updateViewMsg = mHandler.obtainMessage(LOADING_END);

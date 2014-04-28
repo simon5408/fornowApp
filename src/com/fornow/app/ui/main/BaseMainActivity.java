@@ -48,7 +48,7 @@ public class BaseMainActivity extends Activity {
 
 	// @Override
 	// public boolean onKeyDown(int keyCode, KeyEvent event) {
-	// // TODO Auto-generated method stub
+	// 
 	// if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 	// CustomDialog.Builder customBuilder = new CustomDialog.Builder(
 	// BaseMainActivity.this);
@@ -80,13 +80,13 @@ public class BaseMainActivity extends Activity {
 
 	@Override
 	public void finish() {
-		// TODO Auto-generated method stub
+		
 		super.finish();
 	}
 
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
+		
 		super.onDestroy();
 	}
 

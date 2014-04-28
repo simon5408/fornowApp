@@ -14,15 +14,6 @@ package com.fornow.app.ui.addressmanager;
 
 import java.util.List;
 
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.model.RegionData;
-import com.fornow.app.net.ViewListener;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.ui.LoadingAnim;
-import com.fornow.app.utils.GsonTool;
-import com.google.gson.reflect.TypeToken;
-import com.fornow.app.R;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -30,21 +21,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.fornow.app.R;
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.model.RegionData;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.ui.LoadingAnim;
+import com.fornow.app.utils.GsonTool;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * @author Simon Lv 2014-3-20
  */
 public class SelectProvince extends Activity {
-	private ExpandableListView elistview;
+//	private ExpandableListView elistview;
 	private ProvinceListAdapter adapter;
 	private Context mContext;
 	private ListView listView;
@@ -55,7 +53,7 @@ public class SelectProvince extends Activity {
 	private Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
-			int pos = 0;
+//			int pos = 0;
 			switch (msg.what) {
 			case GET_DATA_SUCCESS:
 				dialog.dismiss();
@@ -84,7 +82,7 @@ public class SelectProvince extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.select_province);
 		mContext = this.getApplicationContext();
@@ -98,7 +96,7 @@ public class SelectProvince extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO Auto-generated method stub
+				
 				Intent intent = new Intent(SelectProvince.this,
 						SelectCities.class);
 				if (groups.get(position).getSons().size() > 0) {
@@ -139,7 +137,7 @@ public class SelectProvince extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
+		
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case Activity.RESULT_OK:
@@ -158,7 +156,7 @@ public class SelectProvince extends Activity {
 
 					@Override
 					public void updateView(ViewUpdateObj obj) {
-						// TODO Auto-generated method stub
+						
 						Message updateViewMsg;
 						switch (obj.getCode()) {
 						case 200:
@@ -180,13 +178,13 @@ public class SelectProvince extends Activity {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
+		
 		super.onStart();
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+		
 		super.onResume();
 	}
 

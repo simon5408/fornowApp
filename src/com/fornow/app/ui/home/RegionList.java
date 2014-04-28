@@ -37,7 +37,7 @@ public class RegionList extends Dialog {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 	}
 }

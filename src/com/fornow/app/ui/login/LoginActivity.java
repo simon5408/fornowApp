@@ -12,17 +12,6 @@
  *****************************************************************************/
 package com.fornow.app.ui.login;
 
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.datapool.CacheData;
-import com.fornow.app.model.LoginData;
-import com.fornow.app.net.ViewListener;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.ui.LoadingAnim;
-import com.fornow.app.ui.main.MainActivity;
-import com.fornow.app.utils.CheckMobileAndEmailAndPost;
-import com.fornow.app.utils.MD5Utils;
-import com.fornow.app.R;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -44,6 +33,16 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+import com.fornow.app.R;
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.datapool.CacheData;
+import com.fornow.app.model.LoginData;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.ui.LoadingAnim;
+import com.fornow.app.ui.main.MainActivity;
+import com.fornow.app.utils.MD5Utils;
+
 /**
  * @author Simon Lv 2013-11-2
  */
@@ -59,7 +58,7 @@ public class LoginActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 		mContext = this.getApplicationContext();
@@ -73,7 +72,7 @@ public class LoginActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				userNameErrorMsg.setVisibility(View.GONE);
 			}
 		});
@@ -81,7 +80,7 @@ public class LoginActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				passWordErrorMsg.setVisibility(View.GONE);
 			}
 		});
@@ -90,7 +89,7 @@ public class LoginActivity extends Activity {
 			@Override
 			public boolean onEditorAction(TextView v, int actionId,
 					KeyEvent event) {
-				// TODO Auto-generated method stub
+				
 				if (actionId == EditorInfo.IME_ACTION_DONE) {
 					InputMethodManager imm = (InputMethodManager) v
 							.getContext().getSystemService(
@@ -112,7 +111,7 @@ public class LoginActivity extends Activity {
 	@SuppressLint("HandlerLeak")
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
+		
 		super.onStart();
 
 		mHandler = new Handler() {
@@ -182,7 +181,7 @@ public class LoginActivity extends Activity {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+		
 		super.onResume();
 	}
 
@@ -224,7 +223,7 @@ public class LoginActivity extends Activity {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {
-							// TODO Auto-generated method stub
+							
 							Message updateViewMsg;
 							switch (obj.getCode()) {
 							case 200:
@@ -272,7 +271,7 @@ public class LoginActivity extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
+		
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case RESULT_OK:
@@ -293,7 +292,7 @@ public class LoginActivity extends Activity {
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// TODO Auto-generated method stub
+		
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 			softBack(null);
 			return true;

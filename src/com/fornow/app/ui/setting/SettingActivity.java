@@ -47,7 +47,7 @@ public class SettingActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				dialogBuilder.dismiss();
 			}
 		});
@@ -56,7 +56,7 @@ public class SettingActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				dialogBuilder.dismiss();
 				ClientData.getInstance().recycle();
 				CacheData.getInstance().setLoginPass(null);
@@ -81,7 +81,7 @@ public class SettingActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				dialogBuilder.dismiss();
 			}
 		});
@@ -90,7 +90,7 @@ public class SettingActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				dialogBuilder.dismiss();
 				CacheData.getInstance().cleanCache();
 			}

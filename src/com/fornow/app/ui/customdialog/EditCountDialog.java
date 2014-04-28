@@ -49,7 +49,7 @@ public class EditCountDialog extends Dialog {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				if (getEditCount().length() != 0) {
 					int count = Integer.parseInt(getEditCount().toString());
 					if (count > 1) {
@@ -67,7 +67,7 @@ public class EditCountDialog extends Dialog {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				
 				int count = Integer.parseInt(getEditCount().toString());
 				count++;
 				setEditCount(count + "");

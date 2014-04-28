@@ -14,17 +14,6 @@ package com.fornow.app.ui.mine;
 
 import java.util.Calendar;
 
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.datapool.ClientData;
-import com.fornow.app.model.UserInfo;
-import com.fornow.app.net.ViewListener;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.ui.LoadingAnim;
-import com.fornow.app.ui.customdialog.LoginDialog;
-import com.fornow.app.utils.CheckMobileAndEmailAndPost;
-import com.fornow.app.utils.GsonTool;
-import com.fornow.app.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -37,7 +26,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.Selection;
 import android.text.Spannable;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -48,8 +36,19 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
+
+import com.fornow.app.R;
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.datapool.ClientData;
+import com.fornow.app.model.UserInfo;
+import com.fornow.app.net.ViewListener;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.ui.LoadingAnim;
+import com.fornow.app.ui.customdialog.LoginDialog;
+import com.fornow.app.utils.CheckMobileAndEmailAndPost;
+import com.fornow.app.utils.GsonTool;
 
 /**
  * @author Simon Lv 2013-11-5
@@ -60,7 +59,8 @@ public class GrxxActivity extends Activity implements OnFocusChangeListener {
 			birthdayView, phoneError, nameError, emailError;
 	private UserInfo user;
 	private int CHARMAXLIMIT = 140, CHARMINLIMIT = 2;
-	private static final int START_UPDATE = 0x00, NET_ERROR = 0x01,
+	//START_UPDATE = 0x00, 
+	private static final int NET_ERROR = 0x01,
 			UUID_TIMEOUT = 0x02;
 	private LinearLayout afterEditProfilePhoneContainer,
 			afterEditProfileNameContainer, afterEditProfileEmailContainer;
@@ -71,7 +71,6 @@ public class GrxxActivity extends Activity implements OnFocusChangeListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gerenxinxi);
 		mContext = this.getApplicationContext();
@@ -139,7 +138,7 @@ public class GrxxActivity extends Activity implements OnFocusChangeListener {
 					@Override
 					public boolean onEditorAction(TextView v, int actionId,
 							KeyEvent event) {
-						// TODO Auto-generated method stub
+						
 						if (actionId == EditorInfo.IME_ACTION_DONE) {
 							InputMethodManager imm = (InputMethodManager) v
 									.getContext().getSystemService(
@@ -158,7 +157,7 @@ public class GrxxActivity extends Activity implements OnFocusChangeListener {
 			@Override
 			public boolean onEditorAction(TextView v, int actionId,
 					KeyEvent event) {
-				// TODO Auto-generated method stub
+				
 				if (actionId == EditorInfo.IME_ACTION_DONE) {
 					InputMethodManager imm = (InputMethodManager) v
 							.getContext().getSystemService(
@@ -177,7 +176,7 @@ public class GrxxActivity extends Activity implements OnFocusChangeListener {
 					@Override
 					public boolean onEditorAction(TextView v, int actionId,
 							KeyEvent event) {
-						// TODO Auto-generated method stub
+						
 						if (actionId == EditorInfo.IME_ACTION_DONE) {
 							InputMethodManager imm = (InputMethodManager) v
 									.getContext().getSystemService(
@@ -194,7 +193,7 @@ public class GrxxActivity extends Activity implements OnFocusChangeListener {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
+		
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (resultCode) {
 		case RESULT_OK:
@@ -213,13 +212,13 @@ public class GrxxActivity extends Activity implements OnFocusChangeListener {
 
 	@Override
 	protected void onStart() {
-		// TODO Auto-generated method stub
+		
 		super.onStart();
 	}
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
+		
 		super.onResume();
 	}
 
@@ -364,7 +363,7 @@ public class GrxxActivity extends Activity implements OnFocusChangeListener {
 
 						@Override
 						public void updateView(ViewUpdateObj obj) {
-							// TODO Auto-generated method stub
+							
 							Message updateViewMsg;
 							switch (obj.getCode()) {
 							case 200:
@@ -407,7 +406,7 @@ public class GrxxActivity extends Activity implements OnFocusChangeListener {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
-								// TODO Auto-generated method stub
+								
 								final String sex = array[which];
 								user.setSex(sex);
 								ControllerManager.getInstance()
@@ -504,7 +503,7 @@ public class GrxxActivity extends Activity implements OnFocusChangeListener {
 
 	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
-		// TODO Auto-generated method stub
+		
 		if (v == editProfilePhone) {
 			if (!hasFocus) {
 				storeData2Text(afterEditProfilePhoneContainer,

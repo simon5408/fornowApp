@@ -31,7 +31,7 @@ public class RegionController extends AbstractController<ViewListener, String> {
 
 			@Override
 			public void callback(NetResponse response) {
-				// TODO Auto-generated method stub
+				
 				ViewUpdateObj viewObj = new ViewUpdateObj();
 				viewObj.setCode(response.code);
 				if (response.code == 200) {

@@ -12,35 +12,32 @@
  *****************************************************************************/
 package com.fornow.app.ui;
 
-import com.fornow.app.R;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.fornow.app.R;
+
 /**
  * @author Simon Lv 2013-9-7
  */
 public class LoadingAnim extends Dialog {
-	private Context mContext;
+//	private Context mContext;
 
 	public LoadingAnim(Context context) {
 		super(context);
-		// TODO Auto-generated constructor stub
-		this.mContext = context;
+//		this.mContext = context;
 	}
 
 	public LoadingAnim(Context context, int theme) {
 		super(context, theme);
-		// TODO Auto-generated constructor stub
-		this.mContext = context;
+//		this.mContext = context;
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.common_loading);
 
@@ -48,7 +45,6 @@ public class LoadingAnim extends Dialog {
 
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
-		// TODO Auto-generated method stub
 		super.onWindowFocusChanged(hasFocus);
 		ImageView imgLoading = (ImageView) findViewById(R.id.loading_img);
 		imgLoading.setBackgroundResource(R.anim.loading_anim);
@@ -59,7 +55,6 @@ public class LoadingAnim extends Dialog {
 
 	@Override
 	public void dismiss() {
-		// TODO Auto-generated method stub
 		super.dismiss();
 	}
 
