@@ -10,11 +10,15 @@
  *            Copyright (c) 2014 by ForNow.  All rights reserved.
  *
  *****************************************************************************/
-package com.fornow.app.net;
+package com.fornow.app.service;
+
+import com.fornow.app.net.ViewUpdateObj;
 
 /**
- * @author Simon Lv 2013-8-24
+ * @author Simon Lv 2013-8-21
+ * @param <T>
+ * 
  */
-public abstract class IControllerListener {
-	abstract public void callback(NetResponse response);
+public interface IViewListener {
+	void updateView(ViewUpdateObj obj);
 }

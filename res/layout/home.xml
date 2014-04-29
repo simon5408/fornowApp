@@ -69,7 +69,8 @@
             android:layout_width="75dip"
             android:layout_height="45dip"
             android:layout_gravity="center"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo"
+            android:contentDescription="@string/image_tag_desc" />
     </LinearLayout>
 
 </FrameLayout>

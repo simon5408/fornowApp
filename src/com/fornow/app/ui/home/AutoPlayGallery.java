@@ -14,8 +14,8 @@ package com.fornow.app.ui.home;
 
 import java.util.ArrayList;
 
-import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.R;
 
 import android.annotation.SuppressLint;

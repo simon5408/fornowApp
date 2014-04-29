@@ -19,11 +19,7 @@ public class DaoManager {
 	private static DaoManager daoManager;
 	private UserDAO userDao;
 	private RegionDao regionDao;
-	private SearchDataDao searchDataDao;
-	private CartDao cartDao;
-	private AddressDao addressDao;
-	private OrderDao orderDao;
-	private FavoritesDao favoritesDao;
+//	private SearchDataDao searchDataDao;
 
 	private DaoManager() {
 
@@ -32,11 +28,7 @@ public class DaoManager {
 	public void init() {
 		userDao = new UserDAO();
 		regionDao = new RegionDao();
-		searchDataDao = new SearchDataDao();
-		cartDao = new CartDao();
-		addressDao = new AddressDao();
-		orderDao = new OrderDao();
-		favoritesDao = new FavoritesDao();
+//		searchDataDao = new SearchDataDao();
 	}
 
 	public static DaoManager getInstance() {
@@ -57,25 +49,8 @@ public class DaoManager {
 	public RegionDao getRegionDao() {
 		return regionDao;
 	}
-
-	public SearchDataDao getSearchDataDao() {
-		return searchDataDao;
-	}
-
-	public CartDao getCartDao() {
-		return cartDao;
-	}
-
-	public AddressDao getAddressDao() {
-		return addressDao;
-	}
-
-	public OrderDao getOrderDao() {
-		return orderDao;
-	}
-
-	public FavoritesDao getFavoritesDao() {
-		return favoritesDao;
-	}
-
+	
+//	public SearchDataDao getSearchDataDao() {
+//		return searchDataDao;
+//	}
 }

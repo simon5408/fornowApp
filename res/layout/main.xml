@@ -44,7 +44,8 @@
                         <ImageView
                             android:id="@+id/imageView1"
                             style="@style/main_menu_icon"
-                            android:src="@drawable/menu_home" />
+                            android:src="@drawable/menu_home"
+                            android:contentDescription="@string/image_tag_desc" />
 
                         <TextView
                             android:id="@+id/textView1"
@@ -72,7 +73,8 @@
                         <ImageView
                             android:id="@+id/imageView2"
                             style="@style/main_menu_icon"
-                            android:src="@drawable/menu_group" />
+                            android:src="@drawable/menu_group"
+                            android:contentDescription="@string/image_tag_desc" />
 
                         <TextView
                             android:id="@+id/textView2"
@@ -100,7 +102,8 @@
                         <ImageView
                             android:id="@+id/imageView3"
                             style="@style/main_menu_icon"
-                            android:src="@drawable/menu_cart" />
+                            android:src="@drawable/menu_cart"
+                            android:contentDescription="@string/image_tag_desc" />
 
                         <TextView
                             android:id="@+id/textView3"
@@ -139,7 +142,8 @@
                         <ImageView
                             android:id="@+id/imageView4"
                             style="@style/main_menu_icon"
-                            android:src="@drawable/menu_favorite" />
+                            android:src="@drawable/menu_favorite"
+                            android:contentDescription="@string/image_tag_desc" />
 
                         <TextView
                             android:id="@+id/textView4"
@@ -167,7 +171,8 @@
                         <ImageView
                             android:id="@+id/imageView5"
                             style="@style/main_menu_icon"
-                            android:src="@drawable/menu_mine" />
+                            android:src="@drawable/menu_mine"
+                            android:contentDescription="@string/image_tag_desc" />
 
                         <TextView
                             android:id="@+id/textView5"
@@ -201,7 +206,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/delete_btn"
-                    android:onClick="deleteCart" />
+                    android:onClick="deleteCart"
+                    android:contentDescription="@string/image_tag_desc" />
 
                 <TextView
                     android:id="@+id/cart_overview_pricelab"
@@ -220,7 +226,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8dip"
                     android:layout_toRightOf="@+id/cart_overview_pricelab"
-                    android:src="@drawable/rmb" />
+                    android:src="@drawable/rmb"
+                    android:contentDescription="@string/image_tag_desc" />
 
                 <TextView
                     android:id="@+id/cart_overview_totalprice"

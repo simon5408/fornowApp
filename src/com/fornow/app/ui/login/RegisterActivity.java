@@ -34,13 +34,13 @@ import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.model.DeviceData;
 import com.fornow.app.model.RegisterData;
-import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.LoadingAnim;
-import com.fornow.app.utils.CheckMobileAndEmailAndPost;
+import com.fornow.app.utils.CheckUtils;
 import com.fornow.app.utils.GsonTool;
 import com.fornow.app.utils.MD5Utils;
-import com.fornow.app.utils.captcha.ConmentConfig;
+import com.fornow.app.utils.captcha.ICaptchaCheck;
 
 /**
  * @author Simon Lv 2013-11-3
@@ -304,7 +304,7 @@ public class RegisterActivity extends Activity {
 	}
 
 	public void checkPhone() {
-		if (!CheckMobileAndEmailAndPost.isMobileNO(userNameView.getText() + "")) {
+		if (!CheckUtils.isMobileNO(userNameView.getText() + "")) {
 			phone_error_msg.setText(mContext.getResources().getString(
 					R.string.str_wrong_phone));
 			phone_error_msg.setVisibility(View.VISIBLE);
@@ -356,7 +356,7 @@ public class RegisterActivity extends Activity {
 				Message updateViewMsg = mHandler.obtainMessage(UPDATA_CHECKNUM);
 				mHandler.sendMessage(updateViewMsg);
 				try {
-					Thread.sleep(ConmentConfig.PTEDE_TIME);
+					Thread.sleep(ICaptchaCheck.PTEDE_TIME);
 				} catch (InterruptedException e) {
 					Thread.currentThread().interrupt();
 				}

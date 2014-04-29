@@ -13,8 +13,8 @@
 package com.fornow.app.ui.setting;
 
 import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.LoadingAnim;
 import com.fornow.app.ui.customdialog.LoginDialog;
 import com.fornow.app.R;

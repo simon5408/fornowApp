@@ -43,11 +43,11 @@ import com.fornow.app.R;
 import com.fornow.app.controller.ControllerManager;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.UserInfo;
-import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.LoadingAnim;
 import com.fornow.app.ui.customdialog.LoginDialog;
-import com.fornow.app.utils.CheckMobileAndEmailAndPost;
+import com.fornow.app.utils.CheckUtils;
 import com.fornow.app.utils.GsonTool;
 
 /**
@@ -277,7 +277,7 @@ public class GrxxActivity extends Activity implements OnFocusChangeListener {
 		to.setText(from.getText() + "");
 		if (to == phoneView) {
 			if (!to.getText().toString().equals("")
-					&& !CheckMobileAndEmailAndPost
+					&& !CheckUtils
 							.isMobileNO(to.getText() + "")) {
 				phoneError.setText(mContext.getResources().getString(
 						R.string.str_wrong_phone));
@@ -301,7 +301,7 @@ public class GrxxActivity extends Activity implements OnFocusChangeListener {
 
 		} else if (to == emailView) {
 			if (!to.getText().toString().equals("")
-					&& !CheckMobileAndEmailAndPost
+					&& !CheckUtils
 							.checkEmail(to.getText() + "")) {
 				emailError.setText(mContext.getResources().getString(
 						R.string.str_email_error));

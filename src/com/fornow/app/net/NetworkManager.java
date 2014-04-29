@@ -27,6 +27,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 
+import com.fornow.app.service.IDataCallback;
+
 /**
  * Aug 30, 2013
  * 

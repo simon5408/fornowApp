@@ -4,10 +4,10 @@
 package com.fornow.app.controller;
 
 import com.fornow.app.dao.DaoManager;
-import com.fornow.app.net.IControllerListener;
 import com.fornow.app.net.NetResponse;
-import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IControllerListener;
+import com.fornow.app.service.IViewListener;
 
 /**
  * @author Simon Lv

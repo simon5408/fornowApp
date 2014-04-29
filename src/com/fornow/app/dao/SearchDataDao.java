@@ -15,11 +15,11 @@ package com.fornow.app.dao;
 import android.util.Log;
 
 import com.fornow.app.datapool.CacheData;
-import com.fornow.app.net.IControllerListener;
-import com.fornow.app.net.IDataCallback;
 import com.fornow.app.net.NetRequest;
 import com.fornow.app.net.NetResponse;
 import com.fornow.app.net.NetworkManager;
+import com.fornow.app.service.IControllerListener;
+import com.fornow.app.service.IDataCallback;
 
 /**
  * @author Simon Lv 2013-8-24

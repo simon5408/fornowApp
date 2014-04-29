@@ -10,13 +10,17 @@
  *            Copyright (c) 2014 by ForNow.  All rights reserved.
  *
  *****************************************************************************/
-package com.fornow.app.net;
+package com.fornow.app.service;
+
+import com.fornow.app.net.NetResponse;
 
 /**
- * @author Simon Lv 2013-8-21
- * @param <T>
  * 
+ * Aug 30, 2013
+ * @author Simon Lv
  */
-public interface IViewListener {
-	void updateView(ViewUpdateObj obj);
+public interface IDataCallback {
+	
+	public void updateData(NetResponse netRes);
+
 }

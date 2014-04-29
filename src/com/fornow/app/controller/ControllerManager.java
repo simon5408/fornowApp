@@ -18,12 +18,8 @@ package com.fornow.app.controller;
 public class ControllerManager {
 	private static ControllerManager controllerManager;
 	private LoginController loginController;
-	private SearchController searchController;
-	private ShoppingCartController shopCartController;
-	private AddressManageController addressManageController;
-	private OrderController orderController;
-	private FavoritesController favoritesController;
 	private RegionController regionController;
+//	private SearchController searchController;
 
 	private ControllerManager() {
 
@@ -31,12 +27,8 @@ public class ControllerManager {
 
 	public void init() {
 		loginController = new LoginController();
-		searchController = new SearchController();
-		shopCartController = new ShoppingCartController();
-		addressManageController = new AddressManageController();
-		orderController = new OrderController();
-		favoritesController = new FavoritesController();
 		regionController = new RegionController();
+//		searchController = new SearchController();
 	}
 
 	public static ControllerManager getInstance() {
@@ -54,28 +46,11 @@ public class ControllerManager {
 		return loginController;
 	}
 
-	public SearchController getSearchController() {
-		return searchController;
-	}
-
-	public ShoppingCartController getShopCartController() {
-		return shopCartController;
-	}
-
-	public AddressManageController getAddressManageController() {
-		return addressManageController;
-	}
-
-	public OrderController getOrderController() {
-		return orderController;
-	}
-
-	public FavoritesController getFavoritesController() {
-		return favoritesController;
-	}
-
 	public RegionController getRegionController() {
 		return regionController;
 	}
-
+	
+//	public SearchController getSearchController() {
+//		return searchController;
+//	}
 }

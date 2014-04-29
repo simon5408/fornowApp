@@ -12,15 +12,6 @@
  *****************************************************************************/
 package com.fornow.app.ui.preload;
 
-import com.fornow.app.controller.ControllerManager;
-import com.fornow.app.datapool.CacheData;
-import com.fornow.app.model.LoginData;
-import com.fornow.app.net.IViewListener;
-import com.fornow.app.net.ViewUpdateObj;
-import com.fornow.app.ui.home.HomeActivity.BoolLoadComplete;
-import com.fornow.app.ui.main.MainActivity;
-import com.fornow.app.R;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -35,11 +26,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fornow.app.R;
+import com.fornow.app.controller.ControllerManager;
+import com.fornow.app.datapool.CacheData;
+import com.fornow.app.model.LoginData;
+import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IViewListener;
+import com.fornow.app.ui.main.MainActivity;
+
 /**
  * @author Simon Lv 2013-8-16
  */
 public class PreLoad extends Activity {
-	private BoolLoadComplete boolLoadComplete;
+//	private BoolLoadComplete boolLoadComplete;
 	private Handler mHandler;
 	private static final int LOADING_END = 0x00, NET_ERROR = 0x01;
 
@@ -81,50 +80,53 @@ public class PreLoad extends Activity {
 			}
 		};
 
-		boolLoadComplete = new BoolLoadComplete();
-		ControllerManager.getInstance().getSearchController().unRegisterAll();
-		ControllerManager.getInstance().getSearchController()
-				.registerNotification(new IViewListener() {
-
-					@Override
-					public void updateView(ViewUpdateObj obj) {
-						
-						if (obj.getCode() == 200) {
-							switch (obj.getNotifyId()) {
-							case HOME_BANNER:
-								boolLoadComplete.setGetBanner(true);
-								break;
-							case HOME_PRIVILEGE:
-								boolLoadComplete.setGetPrivilege(true);
-								break;
-							case VERSION:
-								boolLoadComplete.setGetVersion(true);
-								break;
-							case MIN_LIMIT:
-								boolLoadComplete.setGetMinLimit(true);
-								break;
-							default:
-								break;
-							}
-							if (boolLoadComplete.boolComplete()) {
-								Message updateViewMsg = mHandler
-										.obtainMessage(LOADING_END);
-								mHandler.sendMessage(updateViewMsg);
-							}
-						} else {
-							Message updateViewMsg = mHandler
-									.obtainMessage(NET_ERROR);
-							mHandler.sendMessage(updateViewMsg);
-						}
-
-					}
-				});
+//		boolLoadComplete = new BoolLoadComplete();
+//		ControllerManager.getInstance().getSearchController().unRegisterAll();
+//		ControllerManager.getInstance().getSearchController()
+//				.registerNotification(new IViewListener() {
+//
+//					@Override
+//					public void updateView(ViewUpdateObj obj) {
+//						
+//						if (obj.getCode() == 200) {
+//							switch (obj.getNotifyId()) {
+//							case HOME_BANNER:
+//								boolLoadComplete.setGetBanner(true);
+//								break;
+//							case HOME_PRIVILEGE:
+//								boolLoadComplete.setGetPrivilege(true);
+//								break;
+//							case VERSION:
+//								boolLoadComplete.setGetVersion(true);
+//								break;
+//							case MIN_LIMIT:
+//								boolLoadComplete.setGetMinLimit(true);
+//								break;
+//							default:
+//								break;
+//							}
+//							if (boolLoadComplete.boolComplete()) {
+//								Message updateViewMsg = mHandler
+//										.obtainMessage(LOADING_END);
+//								mHandler.sendMessage(updateViewMsg);
+//							}
+//						} else {
+//							Message updateViewMsg = mHandler
+//									.obtainMessage(NET_ERROR);
+//							mHandler.sendMessage(updateViewMsg);
+//						}
+//
+//					}
+//				});
 
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				ControllerManager.getInstance().getSearchController()
-						.getHomeData();
+				Message updateViewMsg = mHandler
+						.obtainMessage(LOADING_END);
+				mHandler.sendMessage(updateViewMsg);
+//				ControllerManager.getInstance().getSearchController()
+//						.getHomeData();
 				boolean isAutoLogin = CacheData.getInstance().getAutologin();
 				if (isAutoLogin) {
 					String userName = CacheData.getInstance().getLoginName();

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">米购</string>
+    <string name="app_name">APP</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="introduce">让每一个人足不出户都能吃上物美价廉的水果</string>
@@ -19,7 +19,7 @@
     <string name="search_shop">商家</string>
     <string name="search_goods">商品</string>
     <string name="header_group_text">团购水果</string>
-    <string name="header_mine_text">我的米购</string>
+    <string name="header_mine_text">我的APP</string>
     <string name="header_detail_text">商品详情</string>
     <string name="edit_count_dialog_title">修改购买数量</string>
     <string name="pull_to_refresh_pull_label">下拉即可刷新…</string>
@@ -28,8 +28,8 @@
     <string name="str_whole_goods_left">全部商品(</string>
     <string name="str_whole_goods_right">)</string>
     <string name="str_total_price_lab">商品总价:</string>
-    <string name="pull_to_refresh_from_bottom_pull_label">上拉即可加载更多...</string>
-    <string name="pull_to_refresh_from_bottom_release_label">松开即可加载更多...</string>
+    <string name="pull_to_refresh_from_bottom_pull_label">上拉即可加载更多\.\.\.</string>
+    <string name="pull_to_refresh_from_bottom_release_label">松开即可加载更多\.\.\.</string>
     <string name="pull_to_refresh_from_bottom_refreshing_label">@string/pull_to_refresh_refreshing_label</string>
     <string name="shop_icon_desc">This is the icon for shop</string>
     <string name="search_by_goods_hit">输入商品名称</string>
@@ -38,11 +38,11 @@
     <string name="search_shop_title">@string/home_menu_02</string>
     <string name="select_by_shop">搜索商家</string>
     <string name="select_by_goods">搜索商品</string>
-    <string name="load_text">加载中...</string>
+    <string name="load_text">加载中\.\.\.</string>
     <string name="shangpinliebiao">商品列表</string>
     <string name="more">更多</string>
     <string name="remaishuiguo">热卖水果</string>
-    <string name="goods_name_tag">【一米生活】</string>
+    <string name="goods_name_tag">【APP生活】</string>
     <string name="goods_unit">￥</string>
     <string name="sell_unit">/斤</string>
     <string name="fruit_channel">水果频道</string>
@@ -173,4 +173,5 @@
 	<string name="str_submit">提交</string>
 	<string name="str_suggest_sbtitle">欢迎您提出宝贵的意见。</string>
 	<string name="str_suggest_success">建议发送成功</string>
+	<string name="image_tag_desc">This is image tag</string>
 </resources>

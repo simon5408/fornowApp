@@ -34,7 +34,6 @@ public class HttpUtils {
 				in = connection.getInputStream();
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return in;

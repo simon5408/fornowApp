@@ -10,15 +10,13 @@
  *            Copyright (c) 2014 by ForNow.  All rights reserved.
  *
  *****************************************************************************/
-package com.fornow.app.net;
+package com.fornow.app.service;
+
+import com.fornow.app.net.NetResponse;
 
 /**
- * 
- * Aug 30, 2013
- * @author Simon Lv
+ * @author Simon Lv 2013-8-24
  */
-public interface IDataCallback {
-	
-	public void updateData(NetResponse netRes);
-
+public abstract class IControllerListener {
+	abstract public void callback(NetResponse response);
 }

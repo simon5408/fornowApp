@@ -18,11 +18,12 @@ import com.fornow.app.model.LoginData;
 import com.fornow.app.model.RegisterData;
 import com.fornow.app.model.User;
 import com.fornow.app.model.UserInfo;
-import com.fornow.app.net.IControllerListener;
 import com.fornow.app.net.NetResponse;
-import com.fornow.app.net.IViewListener;
 import com.fornow.app.net.ViewUpdateObj;
+import com.fornow.app.service.IControllerListener;
+import com.fornow.app.service.IViewListener;
 import com.fornow.app.utils.GsonTool;
+import com.fornow.app.utils.StringUtils;
 
 /**
  * @author Simon Lv 2013-8-16
@@ -62,10 +63,6 @@ public class LoginController extends AbstractController<IViewListener, String> {
 						ClientData.getInstance().setmUUID(user.getUuid());
 						ClientData.getInstance().setUser(userInfo);
 						viewObj.setData(response.res);
-						ControllerManager.getInstance().getShopCartController()
-								.getCartData();
-						ControllerManager.getInstance()
-								.getFavoritesController().getData();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -96,10 +93,6 @@ public class LoginController extends AbstractController<IViewListener, String> {
 						ClientData.getInstance().setmUUID(user.getUuid());
 						ClientData.getInstance().setUser(userInfo);
 						viewObj.setData(response.res);
-						ControllerManager.getInstance().getShopCartController()
-								.getCartData();
-						ControllerManager.getInstance()
-								.getFavoritesController().getData();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -133,7 +126,7 @@ public class LoginController extends AbstractController<IViewListener, String> {
 
 	public void updateUser(UserInfo user) {
 		String uuid = ClientData.getInstance().getmUUID();
-		if (uuid != null) {
+		if (StringUtils.isNoEmpty(uuid)) {
 			IControllerListener ctr = new IControllerListener() {
 
 				@Override
@@ -188,7 +181,7 @@ public class LoginController extends AbstractController<IViewListener, String> {
 
 	public void sendSuggestion(String suggestion) {
 		String uuid = ClientData.getInstance().getmUUID();
-		if (uuid != null) {
+		if (StringUtils.isNoEmpty(uuid)) {
 			IControllerListener ctr = new IControllerListener() {
 
 				@Override

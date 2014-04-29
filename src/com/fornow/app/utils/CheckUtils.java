@@ -1,5 +1,5 @@
 /*****************************************************************************
-*
+ *
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -18,7 +18,11 @@ import java.util.regex.Pattern;
 /**
  * @author Simon Lv 2013-12-22
  */
-public class CheckMobileAndEmailAndPost {
+public class CheckUtils {
+	public static final String EMAIL_PATTERN = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+	public static final String MOBILE_PATTERN = "^((13[0-9])|(15[^4,\\D])|(18[0,1,5-9]))\\d{8}$";
+	public static final String NUMBER_PATTERN = "^[0-9]{5}$";
+	public static final String POST_PATTERN = "^[1-9]\\d{5}(?!\\d)$";
 
 	/**
 	 * 验证邮箱地址是否正确
@@ -27,17 +31,10 @@ public class CheckMobileAndEmailAndPost {
 	 * @return
 	 */
 	public static boolean checkEmail(String email) {
-		boolean flag = false;
-		try {
-			String check = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
-			Pattern regex = Pattern.compile(check);
-			Matcher matcher = regex.matcher(email);
-			flag = matcher.matches();
-		} catch (Exception e) {
-			flag = false;
-		}
+		Pattern regex = Pattern.compile(EMAIL_PATTERN);
+		Matcher matcher = regex.matcher(email);
+		return matcher.matches();
 
-		return flag;
 	}
 
 	/**
@@ -47,28 +44,15 @@ public class CheckMobileAndEmailAndPost {
 	 * @return [0-9]{5,9}
 	 */
 	public static boolean isMobileNO(String mobiles) {
-		boolean flag = false;
-		try {
-			Pattern p = Pattern
-					.compile("^((13[0-9])|(15[^4,\\D])|(18[0,1,5-9]))\\d{8}$");
-			Matcher m = p.matcher(mobiles);
-			flag = m.matches();
-		} catch (Exception e) {
-			flag = false;
-		}
-		return flag;
+		Pattern p = Pattern.compile(MOBILE_PATTERN);
+		Matcher m = p.matcher(mobiles);
+		return m.matches();
 	}
 
 	public static boolean isNum(String number) {
-		boolean flag = false;
-		try {
-			Pattern p = Pattern.compile("^[0-9]{5}$");
-			Matcher m = p.matcher(number);
-			flag = m.matches();
-		} catch (Exception e) {
-			flag = false;
-		}
-		return flag;
+		Pattern p = Pattern.compile(NUMBER_PATTERN);
+		Matcher m = p.matcher(number);
+		return m.matches();
 	}
 
 	/**
@@ -78,10 +62,13 @@ public class CheckMobileAndEmailAndPost {
 	 * @return
 	 */
 	public static boolean checkPost(String post) {
-		if (post.matches("[1-9]\\d{5}(?!\\d)")) {
-			return true;
-		} else {
-			return false;
-		}
+		Pattern p = Pattern.compile(POST_PATTERN);
+		Matcher m = p.matcher(post);
+		return m.matches();
+		// if (post.matches("[1-9]\\d{5}(?!\\d)")) {
+		// return true;
+		// } else {
+		// return false;
+		// }
 	}
 }

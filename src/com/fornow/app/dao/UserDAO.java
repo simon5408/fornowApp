@@ -19,12 +19,12 @@ import android.util.Log;
 import com.fornow.app.datapool.CacheData;
 import com.fornow.app.model.LoginData;
 import com.fornow.app.model.RegisterData;
-import com.fornow.app.net.IControllerListener;
-import com.fornow.app.net.IDataCallback;
 import com.fornow.app.net.HttpHeader;
 import com.fornow.app.net.NetRequest;
 import com.fornow.app.net.NetResponse;
 import com.fornow.app.net.NetworkManager;
+import com.fornow.app.service.IControllerListener;
+import com.fornow.app.service.IDataCallback;
 import com.fornow.app.utils.GsonTool;
 
 /**

@@ -1,6 +1,25 @@
+/*****************************************************************************
+ *
+ *                      FORNOW PROPRIETARY INFORMATION
+ *
+ *          The information contained herein is proprietary to ForNow
+ *           and shall not be reproduced or disclosed in whole or in part
+ *                    or used for any design or manufacture
+ *              without direct written authorization from ForNow.
+ *
+ *            Copyright (c) 2014 by ForNow.  All rights reserved.
+ *
+ *****************************************************************************/
 package com.fornow.app.utils.captcha;
 
-public class CheckGetUtil {
+import com.fornow.app.utils.LogUtils;
+
+/**
+ * @author Jiafa Lv
+ * @email simon-jiafa@126.com
+ * @date Apr 29, 2014 9:40:02 AM
+ */
+public class CaptchaCore {
 	public static int[] getCheckNum() {
 		int[] tempCheckNum = { 0, 0, 0, 0 };
 		for (int i = 0; i < 4; i++) {
@@ -27,7 +46,7 @@ public class CheckGetUtil {
 
 	public static boolean checkNum(String userCheck, int[] checkNum) {
 		if (userCheck.length() != 4) {
-			System.out.println("te.checkNum()return falsess");
+			LogUtils.d("CheckGetUtil", "te.checkNum()return falsess");
 			return false;
 		}
 		String checkString = "";
