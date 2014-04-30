@@ -43,6 +43,7 @@
                         android:padding="10dip" >
 
                         <TextView
+                             android:id="@+id/after_edit_area_detail"
                             style="@style/green_text"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"

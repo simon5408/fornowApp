@@ -27,7 +27,9 @@ import com.fornow.app.model.RegionData;
 import com.fornow.app.ui.MyExpandableListView;
 
 /**
- * @author Simon Lv 2014-3-28
+ * @author Jiafa Lv
+ * @email simon-jiafa@126.com
+ * @date Apr 29, 2014 9:40:02 AM
  */
 public class ProvinceAdapter extends BaseExpandableListAdapter {
 	private List<RegionData> mGoup;

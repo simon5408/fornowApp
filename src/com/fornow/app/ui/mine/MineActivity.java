@@ -1,5 +1,5 @@
 /*****************************************************************************
-*
+ *
  *                      FORNOW PROPRIETARY INFORMATION
  *
  *          The information contained herein is proprietary to ForNow
@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.fornow.app.R;
 import com.fornow.app.datapool.ClientData;
 import com.fornow.app.model.UserInfo;
+import com.fornow.app.ui.addressmanager.ShdzActivity;
 import com.fornow.app.ui.main.BaseMainActivity;
 import com.fornow.app.ui.setting.SettingActivity;
 import com.fornow.app.ui.setting.YjfkActivity;
@@ -33,7 +34,7 @@ public class MineActivity extends BaseMainActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.mine);
 		mineNameView = (TextView) findViewById(R.id.mine_name);
@@ -42,7 +43,7 @@ public class MineActivity extends BaseMainActivity {
 
 	@Override
 	protected void onStart() {
-		
+
 		super.onStart();
 		if (ClientData.getInstance().getUser() != null) {
 			String user = ClientData.getInstance().getUser();
@@ -58,7 +59,7 @@ public class MineActivity extends BaseMainActivity {
 
 	@Override
 	protected void onResume() {
-		
+
 		super.onResume();
 	}
 
@@ -77,6 +78,12 @@ public class MineActivity extends BaseMainActivity {
 	// 意见反馈
 	public void getInYjfk(View v) {
 		Intent intent = new Intent(MineActivity.this, YjfkActivity.class);
+		startActivity(intent);
+	}
+
+	// 收货地址
+	public void getInShdz(View v) {
+		Intent intent = new Intent(MineActivity.this, ShdzActivity.class);
 		startActivity(intent);
 	}
 }

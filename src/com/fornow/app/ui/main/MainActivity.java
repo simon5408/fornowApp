@@ -263,10 +263,15 @@ public class MainActivity extends TabActivity implements OnClickListener {
 
 	private void setUpIntent() {
 		mTabHost = getTabHost();
+		// If tab home, go to home activity
 		mTabHost.addTab(buildTabSpec(TAB_TAG_HOME, R.string.category_home,
 				R.drawable.menu_home, mHomeItent));
+		// If tab mine, go to mine activity
 		mTabHost.addTab(buildTabSpec(TAB_TAG_MINE, R.string.category_mine,
 				R.drawable.menu_mine, mMineIntent));
+		// If tab favorite, go to mine activity
+		mTabHost.addTab(buildTabSpec(TAB_TAG_FAVORITE, R.string.category_favorite,
+				R.drawable.menu_favorite, mMineIntent));
 	}
 
 	private TabHost.TabSpec buildTabSpec(String tag, int resLabel, int resIcon,

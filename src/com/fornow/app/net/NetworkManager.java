@@ -30,9 +30,9 @@ import org.apache.http.params.CoreConnectionPNames;
 import com.fornow.app.service.IDataCallback;
 
 /**
- * Aug 30, 2013
- * 
- * @author Simon Lv
+ * @author Jiafa Lv
+ * @email simon-jiafa@126.com
+ * @date Apr 29, 2014 9:40:02 AM
  */
 public class NetworkManager {
 	private static final int TIMEOUT = 10000;

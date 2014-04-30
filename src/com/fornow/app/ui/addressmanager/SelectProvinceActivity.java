@@ -39,9 +39,11 @@ import com.fornow.app.utils.GsonTool;
 import com.google.gson.reflect.TypeToken;
 
 /**
- * @author Simon Lv 2014-3-20
+ * @author Jiafa Lv
+ * @email simon-jiafa@126.com
+ * @date Apr 29, 2014 9:40:02 AM
  */
-public class SelectProvince extends Activity {
+public class SelectProvinceActivity extends Activity {
 //	private ExpandableListView elistview;
 	private ProvinceListAdapter adapter;
 	private Context mContext;
@@ -68,7 +70,7 @@ public class SelectProvince extends Activity {
 						.findViewById(R.id.toast_text);
 				toastText.setText(getResources().getString(
 						R.string.str_net_error));
-				Toast toast = new Toast(SelectProvince.this);
+				Toast toast = new Toast(SelectProvinceActivity.this);
 				toast.setGravity(Gravity.CENTER, 0, 0);
 				toast.setDuration(Toast.LENGTH_SHORT);
 				toast.setView(view);
@@ -86,7 +88,7 @@ public class SelectProvince extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.select_province);
 		mContext = this.getApplicationContext();
-		dialog = new LoadingAnim(SelectProvince.this, R.style.my_dialog);
+		dialog = new LoadingAnim(SelectProvinceActivity.this, R.style.my_dialog);
 		listView = (ListView) findViewById(R.id.provinceList);
 		headerTitle = (TextView) findViewById(R.id.heade_title);
 		headerTitle.setText(getResources().getString(
@@ -97,8 +99,8 @@ public class SelectProvince extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				
-				Intent intent = new Intent(SelectProvince.this,
-						SelectCities.class);
+				Intent intent = new Intent(SelectProvinceActivity.this,
+						SelectCitiesActivity.class);
 				if (groups.get(position).getSons().size() > 0) {
 					String cities = GsonTool.getGsonTool().toJson(
 							groups.get(position).getSons());
@@ -142,7 +144,7 @@ public class SelectProvince extends Activity {
 		switch (resultCode) {
 		case Activity.RESULT_OK:
 			setResult(Activity.RESULT_OK, data);
-			SelectProvince.this.finish();
+			SelectProvinceActivity.this.finish();
 			break;
 		default:
 			break;

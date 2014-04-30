@@ -63,19 +63,31 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.fornow.app.ui.addressmanager.SelectProvince"
+            android:name="com.fornow.app.ui.addressmanager.ShdzActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.fornow.app.ui.addressmanager.SelectCities"
+            android:name="com.fornow.app.ui.addressmanager.SelectShdzActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.fornow.app.ui.addressmanager.SelectArea"
+            android:name="com.fornow.app.ui.addressmanager.SelectProvinceActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.fornow.app.ui.addressmanager.SelectRegion"
+            android:name="com.fornow.app.ui.addressmanager.EditShipAddressActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.fornow.app.ui.addressmanager.SelectCitiesActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.fornow.app.ui.addressmanager.SelectAreaActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.fornow.app.ui.addressmanager.SelectRegionActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity

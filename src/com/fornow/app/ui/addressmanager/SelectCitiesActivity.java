@@ -1,6 +1,15 @@
-/**
- * 
- */
+/*****************************************************************************
+*
+ *                      FORNOW PROPRIETARY INFORMATION
+ *
+ *          The information contained herein is proprietary to ForNow
+ *           and shall not be reproduced or disclosed in whole or in part
+ *                    or used for any design or manufacture
+ *              without direct written authorization from ForNow.
+ *
+ *            Copyright (c) 2014 by ForNow.  All rights reserved.
+ *
+ *****************************************************************************/
 package com.fornow.app.ui.addressmanager;
 
 import java.util.List;
@@ -11,23 +20,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
+import com.fornow.app.R;
 import com.fornow.app.model.RegionData;
 import com.fornow.app.utils.GsonTool;
 import com.google.gson.reflect.TypeToken;
-import com.fornow.app.R;
 
 /**
- * @author Simon Lv
- * 
+ * @author Jiafa Lv
+ * @email simon-jiafa@126.com
+ * @date Apr 29, 2014 9:40:02 AM
  */
-public class SelectRegion extends Activity {
+public class SelectCitiesActivity extends Activity {
 	private Context mContext;
 	private ListView listView;
-	private List<RegionData> regions;
+	private List<RegionData> cities;
 	private TextView headerTitle;
 	private ProvinceListAdapter adapter;
 
@@ -40,9 +50,9 @@ public class SelectRegion extends Activity {
 		listView = (ListView) findViewById(R.id.provinceList);
 		headerTitle = (TextView) findViewById(R.id.heade_title);
 		headerTitle.setText(getResources().getString(
-				R.string.select_region_header));
-		String data = getIntent().getExtras().getString("regions");
-		regions = GsonTool.getGsonTool().fromJson(data,
+				R.string.select_city_header));
+		String data = getIntent().getExtras().getString("cities");
+		cities = GsonTool.getGsonTool().fromJson(data,
 				new TypeToken<List<RegionData>>() {
 				}.getType());
 
@@ -52,7 +62,7 @@ public class SelectRegion extends Activity {
 	protected void onStart() {
 		
 		super.onStart();
-		adapter = new ProvinceListAdapter(mContext, regions);
+		adapter = new ProvinceListAdapter(mContext, cities);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -60,12 +70,12 @@ public class SelectRegion extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				
-				Intent intent = new Intent(SelectRegion.this,
-						SelectArea.class);
-				if (regions.get(position).getSons().size() > 0) {
-					String data = GsonTool.getGsonTool().toJson(
-							regions.get(position).getSons());
-					intent.putExtra("areas", data);
+				Intent intent = new Intent(SelectCitiesActivity.this,
+						SelectRegionActivity.class);
+				if (cities.get(position).getSons().size() > 0) {
+					String regions = GsonTool.getGsonTool().toJson(
+							cities.get(position).getSons());
+					intent.putExtra("regions", regions);
 					startActivityForResult(intent, 0);
 				}
 			}
@@ -80,7 +90,7 @@ public class SelectRegion extends Activity {
 		switch (resultCode) {
 		case Activity.RESULT_OK:
 			setResult(Activity.RESULT_OK, data);
-			SelectRegion.this.finish();
+			SelectCitiesActivity.this.finish();
 			break;
 		default:
 			break;

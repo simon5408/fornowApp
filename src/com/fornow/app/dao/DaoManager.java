@@ -13,12 +13,15 @@
 package com.fornow.app.dao;
 
 /**
- * @author Simon Lv 2013-8-18
+ * @author Jiafa Lv
+ * @email simon-jiafa@126.com
+ * @date Apr 29, 2014 9:40:02 AM
  */
 public class DaoManager {
 	private static DaoManager daoManager;
 	private UserDAO userDao;
 	private RegionDao regionDao;
+	private AddressDao addressDao;
 //	private SearchDataDao searchDataDao;
 
 	private DaoManager() {
@@ -28,7 +31,7 @@ public class DaoManager {
 	public void init() {
 		userDao = new UserDAO();
 		regionDao = new RegionDao();
-//		searchDataDao = new SearchDataDao();
+		addressDao = new AddressDao();
 	}
 
 	public static DaoManager getInstance() {
@@ -50,7 +53,7 @@ public class DaoManager {
 		return regionDao;
 	}
 	
-//	public SearchDataDao getSearchDataDao() {
-//		return searchDataDao;
-//	}
+	public AddressDao getAddressDao() {
+		return addressDao;
+	}
 }

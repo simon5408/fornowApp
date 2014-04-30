@@ -13,12 +13,15 @@
 package com.fornow.app.controller;
 
 /**
- * @author Simon Lv 2013-8-16
+ * @author Jiafa Lv
+ * @email simon-jiafa@126.com
+ * @date Apr 29, 2014 9:40:02 AM
  */
 public class ControllerManager {
 	private static ControllerManager controllerManager;
 	private LoginController loginController;
 	private RegionController regionController;
+	private AddressManageController addressManageController;
 //	private SearchController searchController;
 
 	private ControllerManager() {
@@ -28,6 +31,7 @@ public class ControllerManager {
 	public void init() {
 		loginController = new LoginController();
 		regionController = new RegionController();
+		addressManageController = new AddressManageController();
 //		searchController = new SearchController();
 	}
 
@@ -48,6 +52,10 @@ public class ControllerManager {
 
 	public RegionController getRegionController() {
 		return regionController;
+	}
+	
+	public AddressManageController getAddressManageController() {
+		return addressManageController;
 	}
 	
 //	public SearchController getSearchController() {

@@ -43,7 +43,6 @@
                     android:gravity="left|center_vertical"
                     android:textSize="20sp" />
             </LinearLayout>
-			<!-- 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="60dip"
@@ -66,7 +65,6 @@
                     android:textColor="@color/origin"
                     android:textSize="16sp" />
             </LinearLayout>
-             -->
         </RelativeLayout>
 
         <!-- 
