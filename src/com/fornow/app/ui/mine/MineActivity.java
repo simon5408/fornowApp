@@ -24,7 +24,7 @@ import com.fornow.app.ui.addressmanager.ShdzActivity;
 import com.fornow.app.ui.main.BaseMainActivity;
 import com.fornow.app.ui.setting.SettingActivity;
 import com.fornow.app.ui.setting.YjfkActivity;
-import com.fornow.app.utils.GsonTool;
+import com.fornow.app.utils.JSONHelper;
 
 /**
  * @author Simon Lv 2013-8-4
@@ -47,7 +47,7 @@ public class MineActivity extends BaseMainActivity {
 		super.onStart();
 		if (ClientData.getInstance().getUser() != null) {
 			String user = ClientData.getInstance().getUser();
-			UserInfo userInfo = GsonTool.getGsonTool().fromJson(user,
+			UserInfo userInfo = JSONHelper.fromJson(user,
 					UserInfo.class);
 			if (userInfo.getUser_name() != null) {
 				mineNameView.setText(userInfo.getUser_name());

@@ -25,7 +25,7 @@ import com.fornow.app.net.NetResponse;
 import com.fornow.app.net.NetworkManager;
 import com.fornow.app.service.IControllerListener;
 import com.fornow.app.service.IDataCallback;
-import com.fornow.app.utils.GsonTool;
+import com.fornow.app.utils.JSONHelper;
 
 /**
  * @name UserDAO
@@ -43,7 +43,7 @@ public class UserDAO {
 		String url = "";
 		url = CacheData.getInstance().getBaseUrl() + "/user/app/login";
 		try {
-			String requestBody = GsonTool.getGsonTool().toJson(request,
+			String requestBody = JSONHelper.toJson(request,
 					LoginData.class);
 			NetRequest netPostReq = NetRequest.createPostRequest(url,
 					requestBody.getBytes());
@@ -70,7 +70,7 @@ public class UserDAO {
 			LinkedList<HttpHeader> headers = new LinkedList<HttpHeader>();
 			headers.add(new HttpHeader("uuid", deviceId));
 			headers.add(HttpHeader.CONTENT_JSON);
-			String requestBody = GsonTool.getGsonTool().toJson(request,
+			String requestBody = JSONHelper.toJson(request,
 					RegisterData.class);
 			NetRequest netPostReq = NetRequest.createPostRequestWithHeaders(
 					url, requestBody.getBytes(), headers);

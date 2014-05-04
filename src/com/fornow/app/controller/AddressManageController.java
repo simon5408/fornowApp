@@ -19,7 +19,7 @@ import com.fornow.app.net.NetResponse;
 import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.service.IControllerListener;
 import com.fornow.app.service.IViewListener;
-import com.fornow.app.utils.GsonTool;
+import com.fornow.app.utils.JSONHelper;
 
 /**
  * @author Jiafa Lv
@@ -80,7 +80,7 @@ public class AddressManageController extends
 		String uuid = ClientData.getInstance().getmUUID();
 		if (uuid != null) {
 			try {
-				String address = GsonTool.getGsonTool().toJson(data);
+				String address = JSONHelper.toJson(data);
 				DaoManager
 						.getInstance()
 						.getAddressDao()

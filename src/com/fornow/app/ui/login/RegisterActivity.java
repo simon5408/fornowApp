@@ -38,7 +38,7 @@ import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.LoadingAnim;
 import com.fornow.app.utils.CheckUtils;
-import com.fornow.app.utils.GsonTool;
+import com.fornow.app.utils.JSONHelper;
 import com.fornow.app.utils.MD5Utils;
 import com.fornow.app.utils.captcha.ICaptchaCheck;
 
@@ -378,7 +378,7 @@ public class RegisterActivity extends Activity {
 							Message updateViewMsg;
 							switch (obj.getCode()) {
 							case 200:
-								DeviceData deviceData = GsonTool.getGsonTool()
+								DeviceData deviceData = JSONHelper
 										.fromJson(obj.getData(),
 												DeviceData.class);
 								deviceId = deviceData.getUuid();

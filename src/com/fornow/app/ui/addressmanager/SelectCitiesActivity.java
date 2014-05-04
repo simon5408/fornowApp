@@ -26,7 +26,7 @@ import android.widget.TextView;
 
 import com.fornow.app.R;
 import com.fornow.app.model.RegionData;
-import com.fornow.app.utils.GsonTool;
+import com.fornow.app.utils.JSONHelper;
 import com.google.gson.reflect.TypeToken;
 
 /**
@@ -52,9 +52,9 @@ public class SelectCitiesActivity extends Activity {
 		headerTitle.setText(getResources().getString(
 				R.string.select_city_header));
 		String data = getIntent().getExtras().getString("cities");
-		cities = GsonTool.getGsonTool().fromJson(data,
+		cities = JSONHelper.fromJson(data,
 				new TypeToken<List<RegionData>>() {
-				}.getType());
+				});
 
 	}
 
@@ -73,7 +73,7 @@ public class SelectCitiesActivity extends Activity {
 				Intent intent = new Intent(SelectCitiesActivity.this,
 						SelectRegionActivity.class);
 				if (cities.get(position).getSons().size() > 0) {
-					String regions = GsonTool.getGsonTool().toJson(
+					String regions = JSONHelper.toJson(
 							cities.get(position).getSons());
 					intent.putExtra("regions", regions);
 					startActivityForResult(intent, 0);

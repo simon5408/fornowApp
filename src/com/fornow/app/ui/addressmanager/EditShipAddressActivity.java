@@ -42,7 +42,7 @@ import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.LoadingAnim;
 import com.fornow.app.ui.customdialog.LoginDialog;
 import com.fornow.app.utils.CheckUtils;
-import com.fornow.app.utils.GsonTool;
+import com.fornow.app.utils.JSONHelper;
 
 /**
  * @author Jiafa Lv
@@ -220,7 +220,7 @@ public class EditShipAddressActivity extends Activity implements
 		if (intent.getExtras() != null
 				&& intent.getExtras().get("addressData") != null) {
 			try {
-				address = GsonTool.getGsonTool().fromJson(
+				address = JSONHelper.fromJson(
 						intent.getExtras().get("addressData").toString(),
 						ShipAddressData.class);
 				if (address.getName() != null) {

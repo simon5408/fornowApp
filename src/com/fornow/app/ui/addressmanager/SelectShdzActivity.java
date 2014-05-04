@@ -35,7 +35,7 @@ import com.fornow.app.model.ShipAddressData;
 import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.LoadingAnim;
-import com.fornow.app.utils.GsonTool;
+import com.fornow.app.utils.JSONHelper;
 import com.google.gson.reflect.TypeToken;
 
 /**
@@ -127,9 +127,9 @@ public class SelectShdzActivity extends Activity {
 	public void loadList(String data) {
 		if (data != null) {
 			try {
-				addressData = GsonTool.getGsonTool().fromJson(data,
+				addressData = JSONHelper.fromJson(data,
 						new TypeToken<List<ShipAddressData>>() {
-						}.getType());
+						});
 				mAdapter = new ShdzListAdapter(addressData, mContext);
 				listView.setAdapter(mAdapter);
 				listView.setOnItemClickListener(new OnItemClickListener() {
@@ -138,7 +138,7 @@ public class SelectShdzActivity extends Activity {
 					public void onItemClick(AdapterView<?> arg0, View arg1,
 							int arg2, long arg3) {
 						try {
-//							String selectAddress = GsonTool.getGsonTool()
+//							String selectAddress = JSONHelper
 //									.toJson(addressData.get(arg2));
 //							Intent inB = new Intent(SelectShdzActivity.this,
 //									JieSuanActivity.class);

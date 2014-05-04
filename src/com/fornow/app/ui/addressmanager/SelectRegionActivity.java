@@ -20,14 +20,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
-import com.fornow.app.model.RegionData;
-import com.fornow.app.utils.GsonTool;
-import com.google.gson.reflect.TypeToken;
 import com.fornow.app.R;
+import com.fornow.app.model.RegionData;
+import com.fornow.app.utils.JSONHelper;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * @author Jiafa Lv
@@ -52,9 +52,9 @@ public class SelectRegionActivity extends Activity {
 		headerTitle.setText(getResources().getString(
 				R.string.select_region_header));
 		String data = getIntent().getExtras().getString("regions");
-		regions = GsonTool.getGsonTool().fromJson(data,
+		regions = JSONHelper.fromJson(data,
 				new TypeToken<List<RegionData>>() {
-				}.getType());
+				});
 
 	}
 
@@ -73,7 +73,7 @@ public class SelectRegionActivity extends Activity {
 				Intent intent = new Intent(SelectRegionActivity.this,
 						SelectAreaActivity.class);
 				if (regions.get(position).getSons().size() > 0) {
-					String data = GsonTool.getGsonTool().toJson(
+					String data = JSONHelper.toJson(
 							regions.get(position).getSons());
 					intent.putExtra("areas", data);
 					startActivityForResult(intent, 0);

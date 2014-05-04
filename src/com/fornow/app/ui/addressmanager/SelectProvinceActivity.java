@@ -35,7 +35,7 @@ import com.fornow.app.model.RegionData;
 import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.LoadingAnim;
-import com.fornow.app.utils.GsonTool;
+import com.fornow.app.utils.JSONHelper;
 import com.google.gson.reflect.TypeToken;
 
 /**
@@ -102,7 +102,7 @@ public class SelectProvinceActivity extends Activity {
 				Intent intent = new Intent(SelectProvinceActivity.this,
 						SelectCitiesActivity.class);
 				if (groups.get(position).getSons().size() > 0) {
-					String cities = GsonTool.getGsonTool().toJson(
+					String cities = JSONHelper.toJson(
 							groups.get(position).getSons());
 					intent.putExtra("cities", cities);
 					startActivityForResult(intent, 0);
@@ -116,9 +116,9 @@ public class SelectProvinceActivity extends Activity {
 	}
 
 	public void loadData(String data) {
-		groups = GsonTool.getGsonTool().fromJson(data,
+		groups = JSONHelper.fromJson(data,
 				new TypeToken<List<RegionData>>() {
-				}.getType());
+				});
 		adapter = new ProvinceListAdapter(mContext, groups);
 		listView.setAdapter(adapter);
 

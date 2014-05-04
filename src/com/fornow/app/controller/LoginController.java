@@ -22,7 +22,7 @@ import com.fornow.app.net.NetResponse;
 import com.fornow.app.net.ViewUpdateObj;
 import com.fornow.app.service.IControllerListener;
 import com.fornow.app.service.IViewListener;
-import com.fornow.app.utils.GsonTool;
+import com.fornow.app.utils.JSONHelper;
 import com.fornow.app.utils.StringUtils;
 
 /**
@@ -56,9 +56,9 @@ public class LoginController extends AbstractController<IViewListener, String> {
 				viewObj.setCode(response.code);
 				if (response.code == 200) {
 					try {
-						User user = GsonTool.getGsonTool().fromJson(
+						User user = JSONHelper.fromJson(
 								response.res, User.class);
-						String userInfo = GsonTool.getGsonTool().toJson(
+						String userInfo = JSONHelper.toJson(
 								user.getUserinfo());
 						ClientData.getInstance().setmUUID(user.getUuid());
 						ClientData.getInstance().setUser(userInfo);
@@ -86,9 +86,9 @@ public class LoginController extends AbstractController<IViewListener, String> {
 				viewObj.setCode(response.code);
 				if (response.code == 200) {
 					try {
-						User user = GsonTool.getGsonTool().fromJson(
+						User user = JSONHelper.fromJson(
 								response.res, User.class);
-						String userInfo = GsonTool.getGsonTool().toJson(
+						String userInfo = JSONHelper.toJson(
 								user.getUserinfo());
 						ClientData.getInstance().setmUUID(user.getUuid());
 						ClientData.getInstance().setUser(userInfo);
@@ -136,9 +136,9 @@ public class LoginController extends AbstractController<IViewListener, String> {
 					viewObj.setCode(response.code);
 					if (response.code == 200) {
 						try {
-							User user = GsonTool.getGsonTool().fromJson(
+							User user = JSONHelper.fromJson(
 									response.res, User.class);
-							String userInfo = GsonTool.getGsonTool().toJson(
+							String userInfo = JSONHelper.toJson(
 									user.getUserinfo());
 							ClientData.getInstance().setUser(userInfo);
 						} catch (Exception e) {
@@ -151,7 +151,7 @@ public class LoginController extends AbstractController<IViewListener, String> {
 				}
 			};
 			try {
-				String userInfo = GsonTool.getGsonTool().toJson(user);
+				String userInfo = JSONHelper.toJson(user);
 				DaoManager.getInstance().getUserDao()
 						.updateUser(uuid, userInfo, ctr);
 			} catch (Exception e) {

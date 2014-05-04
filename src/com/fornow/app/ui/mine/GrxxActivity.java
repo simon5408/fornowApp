@@ -48,7 +48,7 @@ import com.fornow.app.service.IViewListener;
 import com.fornow.app.ui.LoadingAnim;
 import com.fornow.app.ui.customdialog.LoginDialog;
 import com.fornow.app.utils.CheckUtils;
-import com.fornow.app.utils.GsonTool;
+import com.fornow.app.utils.JSONHelper;
 
 /**
  * @author Simon Lv 2013-11-5
@@ -316,7 +316,7 @@ public class GrxxActivity extends Activity implements OnFocusChangeListener {
 		String userInfo = ClientData.getInstance().getUser();
 		if (userInfo != null) {
 			try {
-				user = GsonTool.getGsonTool()
+				user = JSONHelper
 						.fromJson(userInfo, UserInfo.class);
 				if (user.getUser_account() != null) {
 					zhanghaoView.setText(user.getUser_account());
